@@ -1,7 +1,8 @@
-/* -*- mode: objc -*- */
 #import <Cocoa/Cocoa.h>
-
-@interface myView : NSView {
-
+@interface myview : NSView <NSTextInput, NSTextInputClient> {
+    NSMutableAttributedString *_text;
+    NSRange _selectedRange;
+    NSRange _markedRange;
 }
+
 @end

@@ -4,7 +4,7 @@
   
 int main(int argc, const char * argv[]) {  
     @autoreleasepool {
-    	myView *view = [[myView alloc] initWithFrame:NSMakeRect(0, 100, 200, 200)];
+    	myview *view = [[myview alloc] initWithFrame:NSMakeRect(0, 100, 200, 200)];
 		NSWindow *window = [[myWindow alloc] initWithContentRect:NSMakeRect(50, 100, 200, 300)
      		styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskResizable
       		backing:NSBackingStoreBuffered
