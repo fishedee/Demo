@@ -1,0 +1,22 @@
+{
+  "name": "babel-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build":"babel src/add.js --out-file lib/add.js && babel src/index.js --out-file  lib/index.js",
+    "build2":"babel src --out-dir lib",
+    "build3":"node transform.js",
+    "run":"node lib/index.js",
+    "run2":"babel-node src/index.js",
+    "run3":"node src/index_es6.js"
+  },
+  "author": "",
+  "license": "ISC",
+	"devDependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-core": "^6.26.3",
+		"babel-preset-env": "^1.7.0"
+	}
+}
