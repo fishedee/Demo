@@ -6,9 +6,14 @@ const delay = (timeout)=>{
 	})
 }
 
-async function go(){
-	await delay(1000);
-	let result = add(3,4);
-	console.log(result);
+class App{
+	async go(){
+		await delay(1000);
+		let result = add(3,4);
+		console.log(result);
+	}
 }
-go();
+
+
+const app = new App();
+app.go();
