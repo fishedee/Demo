@@ -1,0 +1,6 @@
+CREATE TABLE `t_contact_version` (
+  `contactVersionId` int(11) NOT NULL AUTO_INCREMENT,
+  `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modifyTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`contactVersionId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

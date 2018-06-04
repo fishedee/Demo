@@ -1,0 +1,6 @@
+schema=ryo
+
+[production]
+socket=/tmp/mysql.sock
+user=root
+host=localhost

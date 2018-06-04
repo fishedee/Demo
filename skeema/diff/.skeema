@@ -1,0 +1,6 @@
+schema=ryo
+
+[production]
+host=localhost
+user=root
+password=1

@@ -1,0 +1,20 @@
+CREATE TABLE `t_point_duiba_exchange` (
+  `duibaExchangeId` int(11) NOT NULL AUTO_INCREMENT,
+  `pointClientId` int(11) NOT NULL,
+  `orderNum` varchar(128) NOT NULL,
+  `uid` varchar(128) NOT NULL,
+  `credits` int(11) NOT NULL,
+  `timestamp` varchar(256) NOT NULL,
+  `description` varchar(256) NOT NULL,
+  `type` varchar(256) NOT NULL,
+  `facePrice` int(11) NOT NULL,
+  `actualPrice` int(11) NOT NULL,
+  `ip` varchar(256) NOT NULL,
+  `waitAudit` varchar(256) NOT NULL,
+  `params` varchar(256) NOT NULL,
+  `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modifyTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`duibaExchangeId`),
+  KEY `orderNumIndex` (`orderNum`),
+  KEY `pointClientIdIndex` (`pointClientId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

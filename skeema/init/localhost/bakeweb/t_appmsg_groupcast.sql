@@ -1,0 +1,20 @@
+CREATE TABLE `t_appmsg_groupcast` (
+  `appmsgGroupcastId` int(11) NOT NULL AUTO_INCREMENT,
+  `message` varchar(256) NOT NULL,
+  `groupType` int(11) NOT NULL,
+  `groupOption` varchar(256) NOT NULL,
+  `afterOpenType` int(11) NOT NULL,
+  `afterOpenData` varchar(256) NOT NULL,
+  `taskId` varchar(256) NOT NULL,
+  `deviceType` int(11) NOT NULL,
+  `state` int(11) NOT NULL,
+  `totalCount` int(11) NOT NULL,
+  `acceptCount` int(11) NOT NULL,
+  `sentCount` int(11) NOT NULL,
+  `openCount` int(11) NOT NULL,
+  `dismissCount` int(11) NOT NULL,
+  `stateMessage` varchar(256) NOT NULL,
+  `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modifyTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`appmsgGroupcastId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

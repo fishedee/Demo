@@ -1,0 +1,8 @@
+CREATE TABLE `t_group` (
+  `groupId` int(11) NOT NULL AUTO_INCREMENT,
+  `name` char(32) NOT NULL,
+  `remark` varchar(128) NOT NULL,
+  `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modifyTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`groupId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
