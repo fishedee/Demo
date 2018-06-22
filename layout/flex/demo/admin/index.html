@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>flex测试</title>
+		<style>
+			*{
+				margin:0px;
+				padding:0px;
+			}
+			.flex{
+				display: flex;
+				flex-direction: column;
+				align-items: stretch;
+				width:100%;
+				height: 100vh;
+			}
+			.flex .header{
+				height:70px;
+				background: blue;
+			}
+			.flex .flex2{
+				flex:1;
+				display: flex;
+			}
+			.flex .sidebar{
+				width:70px;
+				background: red;
+			}
+			.flex .content{
+				flex:1;
+				background: pink;
+			}
+			.flex .footer{
+				height: 70px;
+				background: yellow;
+			}
+			.absolute{
+				position: absolute;
+				width: 100%;
+				height:100vh;
+			}
+			.absolute .header{
+				position: absolute;
+				top:0px;
+				left:0px;
+				right:0px;
+				height:70px;
+				background: blue;
+			}
+			.absolute .sidebar{
+				position: absolute;
+				top:70px;
+				left:0px;
+				bottom:70px;
+				width:70px;
+				background: red;
+			}
+			.absolute .content{
+				position: absolute;
+				top:70px;
+				right: 0px;
+				bottom: 70px;
+				left:70px;
+				background: pink;
+			}
+			.absolute .footer{
+				position: absolute;
+				left:0px;
+				right:0px;
+				bottom: 0px;
+				height: 70px;
+				background: yellow;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<div>
+				<h1>flex admin</h1>
+				<div class="flex">
+					<div class="header">
+						header
+					</div>
+					<div class="flex2">
+						<div class="sidebar">
+							sidebar
+						</div>
+						<div class="content">
+							content
+						</div>
+					</div>
+					<div class="footer">
+						footer
+					</div>
+				</div>
+			<div>
+				<div>
+				<h1>absolute admin</h1>
+				<div class="absolute">
+					<div class="header">
+						header
+					</div>
+					<div class="sidebar">
+						sidebar
+					</div>
+					<div class="content">
+						content
+					</div>
+					<div class="footer">
+						footer
+					</div>
+				</div>
+			<div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>flex测试</title>
+		<style>
+			*{
+				margin:0px;
+				padding:0px;
+			}
+			.flex{
+				display: flex;
+			}
+			.flex div{
+				flex-basis:25%;
+				text-align: center;
+				border:1px solid black;
+			}
+			.static{
+			}
+			.static div{
+				display: inline-block;
+				width:25%;
+				text-align: center;
+				box-sizing: border-box;
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<div>
+				<h1>flex 25%precent</h1>
+				<div class="flex">
+					<div>a</div>
+					<div>b</div>
+					<div>c</div>
+					<div>d</div>
+				</div>
+			<div>
+				<div>
+				<h1>inline-block 25%precent</h1>
+				<div class="static">
+					<div>a</div><div>b</div><div>c</div><div>d</div>
+				</div>
+			<div>
+		</div>
+	</body>
+</html>

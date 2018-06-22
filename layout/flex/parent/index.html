@@ -1,0 +1,367 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>flex测试</title>
+		<style>
+			*{
+				margin:0px;
+				padding:0px;
+			}
+			.flexBox{
+				margin-top:30px;
+				border-bottom:1px solid black;
+			}
+			.rent{
+				margin:15px;
+				border:1px solid black;
+				color:red;
+				background: blue;
+				width:30px;
+				height:30px;
+				text-align:center;
+				line-height: 30px;
+				vertical-align: center;
+			}
+			.rent2{
+				margin:15px;
+				border:1px solid black;
+				color:red;
+				background: blue;
+				width:10px;
+				height:10px;
+				text-align:center;
+				line-height: 10px;
+				vertical-align: center;
+			}
+			.rent3{
+				margin:15px;
+				border:1px solid black;
+				color:red;
+				background: blue;
+				width:50px;
+				height:50px;
+				text-align:center;
+				line-height: 50px;
+				vertical-align: center;
+			}
+			.rent4{
+				margin:15px;
+				border:1px solid black;
+				color:red;
+				background: blue;
+				width:70px;
+				height:70px;
+				text-align:center;
+				line-height: 70px;
+				vertical-align: center;
+			}
+			.bigRent{
+				margin:15px;
+				border:1px solid black;
+				color:red;
+				background: blue;
+				width:100px;
+				height:100px;
+				text-align:center;
+				line-height: 100px;
+				vertical-align: center;
+			}
+			.flex1{
+				display: flex;
+				flex-direction: row;
+			}
+			.flex2{
+				display: flex;
+				flex-direction: column;
+			}
+			.flex3{
+				display: flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+			}
+			.flex4{
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+			}
+			.flex5{
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-start;
+			}
+			.flex6{
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-end;
+			}
+			.flex7{
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+			}
+			.flex8{
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+			}
+			.flex9{
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+			}
+			.flex10{
+				display: flex;
+				flex-direction: row;
+				align-items: flex-start;
+			}
+			.flex11{
+				display: flex;
+				flex-direction: row;
+				align-items: flex-end;
+			}
+			.flex12{
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+			}
+			.flex13{
+				display: flex;
+				flex-direction: row;
+				align-items: baseline;
+			}
+			.flex14{
+				display: flex;
+				flex-direction: row;
+				align-items: stretch;
+			}
+			.flex15{
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				align-content: flex-start;
+				height:500px;
+			}
+			.flex16{
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				align-content: flex-end;
+				height:500px;
+			}
+			.flex17{
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				align-content: center;
+				height:500px;
+			}
+			.flex18{
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				align-content: stretch;
+				height:500px;
+			}
+			.flex19{
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				align-content: space-between;
+				height:500px;
+			}
+			.flex20{
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				align-content: space-around;
+				height:500px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="flexBox">
+			<h1>flex-direction:row direction</h1>
+			<div class="flex1">
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent">c</div>
+			</div>
+			<h1>flex-direction:column direction</h1>
+			<div class="flex2">
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent">c</div>
+			</div>
+		</div>
+		<div class="flexBox">
+			<h1>flex-wrap:no wrap</h1>
+			<div class="flex3">
+				<div class="bigRent">a</div>
+				<div class="bigRent">b</div>
+				<div class="bigRent">c</div>
+				<div class="bigRent">d</div>
+				<div class="bigRent">e</div>
+				<div class="bigRent">f</div>
+				<div class="bigRent">g</div>
+				<div class="bigRent">h</div>
+				<div class="bigRent">i</div>
+			</div>
+			<h1>flex-wrap:wrap</h1>
+			<div class="flex4">
+				<div class="bigRent">a</div>
+				<div class="bigRent">b</div>
+				<div class="bigRent">c</div>
+				<div class="bigRent">d</div>
+				<div class="bigRent">e</div>
+				<div class="bigRent">f</div>
+				<div class="bigRent">g</div>
+				<div class="bigRent">h</div>
+				<div class="bigRent">i</div>
+			</div>
+		</div>
+		<div class="flexBox">
+			<h1>justify-content:flex-start</h1>
+			<div class="flex5">
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent">c</div>
+			</div>
+			<h1>justify-content:flex-end</h1>
+			<div class="flex6">
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent">c</div>
+			</div>
+			<h1>justify-content:center</h1>
+			<div class="flex7">
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent">c</div>
+			</div>
+			<h1>justify-content:space-between</h1>
+			<div class="flex8">
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent">c</div>
+			</div>
+			<h1>justify-content:space-around</h1>
+			<div class="flex9">
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent">c</div>
+			</div>
+		</div>
+		<div class="flexBox">
+			<h1>align-items:flex-start</h1>
+			<div class="flex10">
+				<div class="rent">a</div>
+				<div class="rent2">b</div>
+				<div class="rent3">c</div>
+				<div class="rent4">d</div>
+			</div>
+			<h1>align-items:flex-end</h1>
+			<div class="flex11">
+				<div class="rent">a</div>
+				<div class="rent2">b</div>
+				<div class="rent3">c</div>
+				<div class="rent4">d</div>
+			</div>
+			<h1>align-items:center</h1>
+			<div class="flex12">
+				<div class="rent">a</div>
+				<div class="rent2">b</div>
+				<div class="rent3">c</div>
+				<div class="rent4">d</div>
+			</div>
+			<h1>align-items:baseline</h1>
+			<div class="flex13">
+				<div class="rent">a</div>
+				<div class="rent2">b</div>
+				<div class="rent3">c</div>
+				<div class="rent4">d</div>
+			</div>
+			<h1>align-items:stretch</h1>
+			<div class="flex14">
+				<div class="rent">a</div>
+				<div class="rent2">b</div>
+				<div class="rent3">c</div>
+				<div class="rent4">d</div>
+			</div>
+		</div>
+		<div class="flexBox">
+			<h1>align-content:flex-start</h1>
+			<div class="flex15">
+				<div class="bigRent">a</div>
+				<div class="bigRent">b</div>
+				<div class="bigRent">c</div>
+				<div class="bigRent">d</div>
+				<div class="bigRent">e</div>
+				<div class="bigRent">f</div>
+				<div class="bigRent">g</div>
+				<div class="bigRent">h</div>
+				<div class="bigRent">i</div>
+			</div>
+			<h1>align-content:flex-end</h1>
+			<div class="flex16">
+				<div class="bigRent">a</div>
+				<div class="bigRent">b</div>
+				<div class="bigRent">c</div>
+				<div class="bigRent">d</div>
+				<div class="bigRent">e</div>
+				<div class="bigRent">f</div>
+				<div class="bigRent">g</div>
+				<div class="bigRent">h</div>
+				<div class="bigRent">i</div>
+			</div>
+			<h1>align-content:center</h1>
+			<div class="flex17">
+				<div class="bigRent">a</div>
+				<div class="bigRent">b</div>
+				<div class="bigRent">c</div>
+				<div class="bigRent">d</div>
+				<div class="bigRent">e</div>
+				<div class="bigRent">f</div>
+				<div class="bigRent">g</div>
+				<div class="bigRent">h</div>
+				<div class="bigRent">i</div>
+			</div>
+			<h1>align-content:stretch</h1>
+			<div class="flex18">
+				<div class="bigRent">a</div>
+				<div class="bigRent">b</div>
+				<div class="bigRent">c</div>
+				<div class="bigRent">d</div>
+				<div class="bigRent">e</div>
+				<div class="bigRent">f</div>
+				<div class="bigRent">g</div>
+				<div class="bigRent">h</div>
+				<div class="bigRent">i</div>
+			</div>
+			<h1>align-content:space-between</h1>
+			<div class="flex19">
+				<div class="bigRent">a</div>
+				<div class="bigRent">b</div>
+				<div class="bigRent">c</div>
+				<div class="bigRent">d</div>
+				<div class="bigRent">e</div>
+				<div class="bigRent">f</div>
+				<div class="bigRent">g</div>
+				<div class="bigRent">h</div>
+				<div class="bigRent">i</div>
+			</div>
+			<h1>align-content:space-around</h1>
+			<div class="flex20">
+				<div class="bigRent">a</div>
+				<div class="bigRent">b</div>
+				<div class="bigRent">c</div>
+				<div class="bigRent">d</div>
+				<div class="bigRent">e</div>
+				<div class="bigRent">f</div>
+				<div class="bigRent">g</div>
+				<div class="bigRent">h</div>
+				<div class="bigRent">i</div>
+			</div>
+		</div>
+	</body>
+</html>

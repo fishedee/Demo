@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>float</title>
+		<style>
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			.box{
+				margin-top:50px;
+				padding-bottom: 50px;
+			}
+			.middle1{
+				height:300px;
+				line-height: 300px;
+				text-align: center;
+				border:1px solid black;
+			}
+			.middle2{
+				height: 300px;
+				line-height: 300px;
+				text-align: center;
+				border: 1px solid black;
+			}
+			.middle2 img{
+				width: 50px;
+				vertical-align: middle;
+			}
+			.middle2 p{
+				display: inline-block;
+				vertical-align: middle;
+			}
+			.middle3{
+				display: table;
+				height: 300px;
+				width: 100%;
+				box-sizing: border-box;
+				border: 1px solid black;
+			}
+			.middle3 .center{
+				display: table-cell;
+				vertical-align: middle;
+				text-align: center;
+			}
+			.middle3 img{
+				width: 50px;
+				vertical-align: middle;
+			}
+			.middle3 p{
+				display: inline-block;
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<h1>text middle</h1>
+			<div class="middle1">
+				<p>你好啊你好啊你好啊你好啊你好啊你</p>
+			</div>
+		</div>
+		<div class="box">
+			<h1>image middle</h1>
+			<div class="middle2">
+				<img src="./icon.jpg"/>
+				<p>你好啊你好啊你好啊你好啊你好啊你</p>
+			</div>
+		</div>
+		<div class="box">
+			<h1>table cell middle</h1>
+			<div class="middle3">
+				<div class="center">
+					<img src="./icon.jpg"/>
+					<p>你好啊你好啊你好啊你好啊你好啊你</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

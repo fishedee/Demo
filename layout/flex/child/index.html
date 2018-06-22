@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>flex测试</title>
+		<style>
+			*{
+				margin:0px;
+				padding:0px;
+			}
+			.flexBox{
+				margin-top:30px;
+				border-bottom:1px solid black;
+			}
+			.rent{
+				margin:15px;
+				border:1px solid black;
+				color:red;
+				background: blue;
+				width:30px;
+				height:30px;
+				text-align:center;
+				line-height: 30px;
+				vertical-align: middle;
+			}
+			.rentLong{
+				margin:15px;
+				border:1px solid black;
+				color:red;
+				background: blue;
+				width:500px;
+				height:30px;
+				text-align:center;
+				line-height: 30px;
+				vertical-align: middle;
+			}
+			.flex{
+				display: flex;
+				flex-direction: row;
+				width:100%;
+			}
+			.flex2{
+				display: flex;
+				flex-direction: row;
+				width:100%;
+				height: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="flexBox">
+			<h1>order</h1>
+			<div class="flex">
+				<div class="rent" style="order:2">a</div>
+				<div class="rent" style="order:1">b</div>
+				<div class="rent" style="order:3">c</div>
+			</div>
+		</div>
+		<div class="flexBox">
+			<h1>flex-grow</h1>
+			<div class="flex">
+				<div class="rent" style="flex-grow:0">a</div>
+				<div class="rent" style="flex-grow:1">b</div>
+				<div class="rent" style="flex-grow:2">c</div>
+			</div>
+		</div>
+		<div class="flexBox">
+			<h1>flex-shrink</h1>
+			<div class="flex">
+				<div class="rentLong" style="flex-shrink:1">a</div>
+				<div class="rentLong" style="flex-shrink:2">b</div>
+				<div class="rentLong" style="flex-shrink:4">c</div>
+			</div>
+		</div>
+		<div class="flexBox">
+			<h1>flex-basis</h1>
+			<div class="flex">
+				<div class="rent" style="flex-basis:100px">a</div>
+				<div class="rent" style="flex-basis:200px">b</div>
+				<div class="rent" style="flex-basis:400px">c</div>
+			</div>
+		</div>
+		<div class="flexBox">
+			<h1>align-self</h1>
+			<div class="flex2">
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent" style="align-self: flex-end;">c</div>
+			</div>
+		</div>
+	</body>
+</html>

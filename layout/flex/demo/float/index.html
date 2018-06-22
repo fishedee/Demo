@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>flex测试</title>
+		<style>
+			*{
+				margin:0px;
+				padding:0px;
+			}
+			.right1{
+				display: flex;
+				flex-direction: row;
+			}
+			.right1 .l{
+				flex:0;
+			}
+			.right1 .c{
+				flex:1;
+				text-align: center;
+			}
+			.right1 .r{
+				flex: 0;
+			}
+			.right2{
+
+			}
+			.right2 .l{
+				float:left;
+			}
+			.right2 .r{
+				float:right;
+			}
+			.right2 .c{
+				overflow:hidden;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<h1>flex right</h1>
+			<div class="right1">
+				<div class="l">left</div>
+				<div class="c">center</div>
+				<div class="r">right</div>
+			</div>
+		</div>
+		<div>
+			<h1>float right</h1>
+			<div class="right2">
+				<div class="l">left</div>
+				<div class="r">right</div>
+				<div class="c">center</div>
+			</div>
+		</div>
+	</body>
+</html>

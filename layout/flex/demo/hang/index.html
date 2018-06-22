@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>hang</title>
+		<style>
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			.flex{
+				border:1px solid blue;
+				padding: 30px;
+			}
+			.flex .item{
+				display: flex;
+				width: 300px;
+				border:1px solid black;
+				align-items: flex-start;
+			}
+			.flex .item img{
+				flex:0;
+				width: 30px;
+			}
+			.flex .item p{
+				flex:1;
+			}
+			.float{
+				border: 1px solid blue;
+				padding: 30px;
+			}
+			.float .item{
+				border:1px solid black;
+				width: 300px;
+				overflow: hidden;
+			}
+			.float .item img{
+				float:left;
+				width: 30px;
+			}
+			.float .item p{
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<h1>flex hang</h1>
+			<div class="flex">
+				<div class="item">
+					<img src="./icon.jpg"/>
+					<p>你好你好你好你好你好你好你好你好你好你好你好你好你好你好</p>
+				</div>
+				<div class="item">
+					<img src="./icon.jpg"/>
+					<p>你好你好你好你好你好你好你好你好你好你好你好你好你好你好</p>
+				</div>
+			</div>
+		</div>
+		<div>
+			<h1>float hang</h1>
+			<div class="float">
+				<div class="item">
+					<img src="./icon.jpg"/>
+					<p>你好你好你好你好你好你好你好你好你好你好你好你好你好你好</p>
+				</div>
+				<div class="item">
+					<img src="./icon.jpg"/>
+					<p>你好你好你好你好你好你好你好你好你好你好你好你好你好你好</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

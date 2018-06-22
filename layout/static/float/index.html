@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>float</title>
+		<style>
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			.box{
+				margin-top:30px;
+				padding-bottom: 30px;
+				border-bottom: 1px solid black;
+			}
+			.float1{
+				overflow: hidden;
+			}
+			.float1 .item{
+				width:50px;
+				height: 50px;
+				margin:0px 10px;
+				background: yellow;
+				float:left;
+			}
+			.inlineBox1{
+
+			}
+			.inlineBox1 .item{
+				width:50px;
+				height: 50px;
+				margin:0px 10px;
+				background: yellow;
+				display: inline-block;
+			}
+			.float2{
+				overflow: hidden;
+			}
+			.float2 .item1{
+				float:left;
+				width:50px;
+				height: 50px;
+				background: yellow;
+				margin:0px 10px;
+			}
+			.float2 .item2{
+				margin:0 auto;
+				height: 50px;
+				background: yellow;
+				overflow: hidden;
+			}
+			.float2 .item3{
+				float:right;
+				width:50px;
+				height: 50px;
+				background: yellow;
+				margin:0px 10px;
+			}
+			.float3{
+				overflow: hidden;
+				width: 220px;
+				border: 1px solid blue;
+			}
+			.float3 .item{
+				float:left;
+				width:50px;
+				height: 50px;
+				margin:0px 10px;
+				background: yellow;
+			}
+			.float3 .itemHigh{
+				float:left;
+				width:50px;
+				height: 80px;
+				margin:0px 10px;
+				background: yellow;
+			}
+			.inlineBox3{
+				width: 220px;
+				border: 1px solid blue;
+			}
+			.inlineBox3 .item{
+				display: inline-block;
+				width:50px;
+				height: 50px;
+				margin:0px 10px;
+				background: yellow;
+			}
+			.inlineBox3 .itemHigh{
+				display: inline-block;
+				width:50px;
+				height: 70px;
+				margin:0px 10px;
+				background: yellow;
+			}
+			.float4{
+				overflow: hidden;
+				border: 1px solid blue;
+			}
+			.float4 .item{
+				float:left;
+				width:50px;
+				height: 50px;
+				background: yellow;
+			}
+			.float4 p{
+				width: 400px;
+			}
+			.inlineBox4{
+				border: 1px solid blue;
+			}
+			.inlineBox4 .item{
+				display: inline-block;
+				width:50px;
+				height: 50px;
+				background: yellow;
+				vertical-align: top;
+			}
+			.inlineBox4 p{
+				display: inline-block;
+				width: 400px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<h1>float on one line</h1>
+			<div class="float1">
+				<div class="item">a</div>
+				<div class="item">b</div>
+				<div class="item">c</div>
+			</div>
+			<h1>inline-box on one line</h1>
+			<div class="inlineBox1">
+				<div class="item">a</div><div class="item">b</div><div class="item">c</div>
+			</div>
+		</div>
+		<div class="box">
+			<h1>float right</h1>
+			<div class="float2">
+				<div class="item1">a</div>
+				<div class="item3">c</div>
+				<div class="item2">b</div>
+			</div>
+		</div>
+		<div class="box">
+			<h1>float on more higher</h1>
+			<div class="float3">
+				<div class="item">a</div>
+				<div class="itemHigh">b</div>
+				<div class="item">c</div>
+				<div class="item">d</div>
+			</div>
+			<h1>inline-box on more higher</h1>
+			<div class="inlineBox3">
+				<div class="item">a</div><div class="itemHigh">b</div><div class="item">c</div><div class="item">d</div>
+			</div>
+		</div>
+		<div class="box">
+			<h1>float on wrap</h1>
+			<div class="float4">
+				<div class="item">a</div>
+				<p>你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊</p>
+			</div>
+			<h1>inline-box on wrap</h1>
+			<div class="inlineBox4">
+				<div class="item">a</div>
+				<p>你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊你好啊</p>
+			</div>
+		</div>
+	</body>
+</html>
