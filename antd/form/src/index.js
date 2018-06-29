@@ -5,12 +5,68 @@ import './index.css';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 const FormItem = Form.Item;
 
-@Form.create({
-  onValuesChange(props,values,allValues){
-    props.onChange(allValues);
-  }
-})
-class NormalLoginForm extends React.Component {
+function MyForm(component){
+	let FormComponent = Form.create({
+	  onFieldsChange(props, changedFields) {
+	    props.onChange(changedFields);
+	  },
+	  mapPropsToFields(props) {
+	  	let obj = {};
+	  	for( let i in props.data ){
+	  		let singleProps = props.data[i];
+	  		obj[i] = Form.createFormField(singleProps);
+	  	}
+	  	return obj;
+	  },
+	})(component);
+	return class FormWrapper extends React.PureComponent{
+	  state = {
+	  	data:{}
+	  }
+	  static getDerivedStateFromProps(props, state) {
+	  	if( props.data != state.prevData ){
+	  		let newData = {};
+	  		for( let key in props.data ){
+	  			let singleData = props.data[key];
+	  			let oldData = state.data[key];
+	  			if( oldData ){
+	  				newData[key] = {
+	  					...oldData,
+	  					value:singleData
+	  				}
+	  			}else{
+	  				newData[key] = {
+	  					value:singleData
+	  				}
+	  			}
+	  		}
+	  		return {
+	  			prevData:props.data,
+	  			data:newData,
+	  		};
+	  	}
+	  	return null;
+	  }
+	  onChange = (changedFields)=>{
+	  	this.state.data = {
+	  		...this.state.data,
+	  		...changedFields,
+	  	};
+	  	let newData = {};
+	  	for( let i in this.state.data ){
+	  		newData[i] = this.state.data[i].value;
+	  	}
+	  	this.props.onChange(newData);
+	  }
+	  render = ()=>{
+	  	const {data,onChange,...resetProps} = this.props;
+	    return (<FormComponent data={this.state.data} onChange={this.onChange} {...resetProps}/>);
+	  }
+	}
+}
+
+@MyForm
+class NormalLoginForm extends React.PureComponent {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -18,9 +74,6 @@ class NormalLoginForm extends React.Component {
         this.props.onSubmit(values);
       }
     });
-  }
-  componentDidMount = (e)=>{
-    this.props.form.setFieldsValue(this.props.field);
   }
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -58,16 +111,22 @@ class NormalLoginForm extends React.Component {
   }
 }
 
-class App extends React.Component{
-  onChange = (values)=>{
-    console.log("onChange ",values);
-  }
-  onSubmit = (values)=>{
-    console.log("onSubmit ",values);
-  }
-  render = ()=>{
-    return (<NormalLoginForm onChange={this.onChange} onSubmit={this.onSubmit} field={{userName:'fish'}}/>);
-  }
+class App extends React.PureComponent{
+	state = {
+		data:{
+			userName:"123",
+			password:"456"
+		}
+	}
+	onChange = (values)=>{
+		this.setState({data:values});
+	}
+	onSubmit = (values)=>{
+		console.log(values);
+	}
+	render(){
+		return (<NormalLoginForm data={this.state.data} onChange={this.onChange} onSubmit={this.onSubmit}/>);
+	}
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
