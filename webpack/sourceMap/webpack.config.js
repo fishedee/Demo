@@ -1,4 +1,6 @@
 const path = require('path');
+const args = require('minimist')(process.argv.slice(2));
+const isDevelopment = (args.mode == 'development');
 
 module.exports = {
 	entry:'./src/index.js',
@@ -7,7 +9,7 @@ module.exports = {
 		filename:'index.js',
 		path:path.resolve(__dirname,'dist')
 	},
-	devtool: 'inline-source-map',
+	devtool: isDevelopment?'inline-source-map':'',
 	module:{
 		rules:[
 			{
