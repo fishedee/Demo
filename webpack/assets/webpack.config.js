@@ -2,7 +2,7 @@ const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	entry:['./src/index.js','./static/favicon.ico'],
+	entry:['./src/index.js','./static/favicon.ico','./static/icon.jpg'],
 
 	output:{
 		filename:'index.js',

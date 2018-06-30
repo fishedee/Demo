@@ -1,0 +1,74 @@
+Html Webpack Plugin:
+<pre>
+  Error: Child compilation failed:
+  Conflict: Multiple assets emit to the same filename index.html:
+  Error: Conflict: Multiple assets emit to the same filename index.html
+  
+  - compiler.js:79 childCompiler.runAsChild
+    [static]/[_html-webpack-plugin@3.2.0@html-webpack-plugin]/lib/compiler.js:79:1    6
+  
+  - Compiler.js:243 compile
+    [static]/[_webpack@4.14.0@webpack]/lib/Compiler.js:243:11
+  
+  - Compiler.js:500 hooks.afterCompile.callAsync.err
+    [static]/[_webpack@4.14.0@webpack]/lib/Compiler.js:500:14
+  
+  
+  - Hook.js:35 AsyncSeriesHook.lazyCompileHook [as _callAsync]
+    [static]/[_tapable@1.0.0@tapable]/lib/Hook.js:35:21
+  
+  - Compiler.js:497 compilation.seal.err
+    [static]/[_webpack@4.14.0@webpack]/lib/Compiler.js:497:30
+  
+  
+  - Hook.js:35 AsyncSeriesHook.lazyCompileHook [as _callAsync]
+    [static]/[_tapable@1.0.0@tapable]/lib/Hook.js:35:21
+  
+  - Compilation.js:995 hooks.optimizeAssets.callAsync.err
+    [static]/[_webpack@4.14.0@webpack]/lib/Compilation.js:995:35
+  
+  
+  - Hook.js:35 AsyncSeriesHook.lazyCompileHook [as _callAsync]
+    [static]/[_tapable@1.0.0@tapable]/lib/Hook.js:35:21
+  
+  - Compilation.js:986 hooks.optimizeChunkAssets.callAsync.err
+    [static]/[_webpack@4.14.0@webpack]/lib/Compilation.js:986:32
+  
+  
+  - Hook.js:35 AsyncSeriesHook.lazyCompileHook [as _callAsync]
+    [static]/[_tapable@1.0.0@tapable]/lib/Hook.js:35:21
+  
+  - Compilation.js:981 hooks.additionalAssets.callAsync.err
+    [static]/[_webpack@4.14.0@webpack]/lib/Compilation.js:981:36
+  
+  
+  - Hook.js:35 AsyncSeriesHook.lazyCompileHook [as _callAsync]
+    [static]/[_tapable@1.0.0@tapable]/lib/Hook.js:35:21
+  
+  - Compilation.js:977 hooks.optimizeTree.callAsync.err
+    [static]/[_webpack@4.14.0@webpack]/lib/Compilation.js:977:32
+  
+  
+  - Hook.js:35 AsyncSeriesHook.lazyCompileHook [as _callAsync]
+    [static]/[_tapable@1.0.0@tapable]/lib/Hook.js:35:21
+  
+  - Compilation.js:914 Compilation.seal
+    [static]/[_webpack@4.14.0@webpack]/lib/Compilation.js:914:27
+  
+  - Compiler.js:494 hooks.make.callAsync.err
+    [static]/[_webpack@4.14.0@webpack]/lib/Compiler.js:494:17
+  
+  
+  - Compilation.js:783 _addModuleChain
+    [static]/[_webpack@4.14.0@webpack]/lib/Compilation.js:783:12
+  
+  - Compilation.js:722 processModuleDependencies.err
+    [static]/[_webpack@4.14.0@webpack]/lib/Compilation.js:722:9
+  
+  - next_tick.js:131 _combinedTickCallback
+    internal/process/next_tick.js:131:7
+  
+  - next_tick.js:180 process._tickCallback
+    internal/process/next_tick.js:180:9
+  
+</pre>

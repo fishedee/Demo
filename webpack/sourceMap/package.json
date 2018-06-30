@@ -1,12 +1,11 @@
 {
-  "name": "test3",
+  "name": "test2",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prod": "webpack --mode production",
-    "dev": "webpack-dev-server --mode development --hot --poen",
-    "watch": "webpack --mode development --watch",
+    "build": "webpack --mode production",
+    "watch":"webpack --mode development --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,21 +13,16 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "babel-loader": "^7.1.4",
     "css-loader": "^0.28.11",
-    "file-loader": "^1.1.11",
-    "html-webpack-plugin": "^3.2.0",
     "style-loader": "^0.21.0",
     "webpack": "^4.10.2",
-    "webpack-cli": "^2.1.4",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-cli": "^2.1.4"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
-    "isomorphic-fetch": "^2.2.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0"
   }
