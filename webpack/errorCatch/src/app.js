@@ -6,7 +6,11 @@ export default class App extends React.PureComponent{
 		throw new Error("123");
 	}
 	do2 = async ()=>{
-		throw new Error("456");
+		try{
+			throw new Error("456");
+		}catch(e){
+			throw new Error(e);
+		}
 	}
 	render(){
 		return (

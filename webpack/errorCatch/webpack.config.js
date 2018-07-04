@@ -8,6 +8,7 @@ module.exports = {
 		filename:'index.js',
 		path:path.resolve(__dirname,'dist')
 	},
+	//devTool必须设置为非eval才能捕获到error
 	devtool:'',
 	module:{
 		rules:[
