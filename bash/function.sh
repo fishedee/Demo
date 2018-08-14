@@ -30,3 +30,14 @@ printinfo(){
 
 printinfo 10
 printinfo 70 60 50 
+
+#局部变量
+mc='mc'
+doSomething(){
+	local mc
+	mc='nc'
+	echo "local:$mc"
+}
+echo "global:$mc"
+doSomething
+echo "global:$mc"
