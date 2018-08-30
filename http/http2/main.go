@@ -27,10 +27,10 @@ func main(){
     }
     defer resp.Body.Close()
 
-    data,err := ioutil.ReadAll(resp.Body)
+    _,err = ioutil.ReadAll(resp.Body)
     if err != nil{
         fmt.Println("read body error",err)
         return
     }
-    fmt.Println(string(data))
+    fmt.Println("finish!")
 }
