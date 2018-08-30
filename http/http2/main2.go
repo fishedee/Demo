@@ -1,14 +1,15 @@
 package main
 
 import (
+	"bytes"
+	"compress/gzip"
 	"crypto/tls"
+	"encoding/binary"
 	"fmt"
 	"golang.org/x/net/http2/hpack"
-	"net"
-	//"io/ioutil"
-	"bytes"
-	"encoding/binary"
 	"io"
+	"io/ioutil"
+	"net"
 )
 
 const (
@@ -126,6 +127,55 @@ func encodeUint32(v uint32) []byte {
 	return append([]byte{}, byte(v>>24), byte(v>>16), byte(v>>8), byte(v))
 }
 
+func decodeHeader(frame Frame) [][2]string {
+	flag := frame.Flags
+	data := frame.Data
+	padLength := 0
+	if (flag & FlagHeadersPadded) != 0 {
+		padLength = int(data[0])
+		data = data[1:]
+	}
+	if (flag & FlagHeadersPriority) != 0 {
+		panic("dosn't implement FlagHeadersPriority")
+	}
+	data = data[:len(data)-padLength]
+	result := [][2]string{}
+	var onNewHeaderField = func(f hpack.HeaderField) {
+		result = append(result, [2]string{f.Name, f.Value})
+	}
+	decoder := hpack.NewDecoder(4096, onNewHeaderField)
+	_, err := decoder.Write(data)
+	if err != nil {
+		panic(err)
+	}
+	return result
+}
+
+func decodeBody(frame Frame) []byte {
+	flag := frame.Flags
+	data := frame.Data
+	padLength := 0
+	if (flag & FlagHeadersPadded) != 0 {
+		padLength = int(data[0])
+		data = data[1:]
+	}
+	data = data[:len(data)-padLength]
+	return data
+}
+
+func decompress(data []byte) []byte {
+	dataReader := bytes.NewReader(data)
+	gzipReader, err := gzip.NewReader(dataReader)
+	if err != nil {
+		panic(err)
+	}
+	result, err := ioutil.ReadAll(gzipReader)
+	if err != nil {
+		panic(err)
+	}
+	return result
+}
+
 func dial() net.Conn {
 	cfg := &tls.Config{
 		ServerName: "www.turnitin.com",
@@ -172,6 +222,7 @@ func send(conn net.Conn) {
 		{":method", "GET"},
 		{":path", "/"},
 		{":scheme", "https"},
+		{"accept-encoding", "gzip"},
 	}
 	writeFrame(conn, Frame{
 		Type:     FrameHeaders,
@@ -183,7 +234,26 @@ func send(conn net.Conn) {
 
 func receive(conn net.Conn) {
 	frame := readFrame(conn)
-	fmt.Println(frame.Type, len(frame.Data))
+	if frame.Type == FrameHeaders {
+		header := decodeHeader(frame)
+		fmt.Println("receive header: ", header)
+	} else if frame.Type == FrameData {
+		body := []byte{}
+		for true {
+			bodyFrame := decodeBody(frame)
+			body = append(body, bodyFrame...)
+			if (frame.Flags & FlagDataEndStream) != 0 {
+				break
+			} else {
+				frame = readFrame(conn)
+			}
+		}
+		result := decompress(body)
+		fmt.Println("receive body: ", string(result))
+	} else {
+		fmt.Println("receive other frame ", frame.Type)
+	}
+
 }
 
 func main() {
