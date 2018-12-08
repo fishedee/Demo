@@ -13,37 +13,49 @@ create table t_order(
 	primary key( orderId )
 )engine=innodb default charset=utf8mb4 auto_increment = 10001;
 
-insert into t_order(userId,total) values
-(10001,1),
-(10001,22),
-(10001,33),
-(10001,22),
-(10002,1),
-(10002,22),
-(10002,5),
-(10003,1),
-(10003,22),
-(10003,33),
-(10003,1),
-(10003,22),
-(10003,5);
+insert into t_order(userId,total,createTime) values
+(10001,1,date_sub(now(),interval 1 hour)),
+(10001,22,date_sub(now(),interval 1 hour)),
+(10001,33,date_sub(now(),interval 3 hour)),
+(10001,22,date_sub(now(),interval 4 hour)),
+(10002,1,date_sub(now(),interval 5 hour)),
+(10002,22,date_sub(now(),interval 5 hour)),
+(10002,5,date_sub(now(),interval 7 hour)),
+(10003,1,date_sub(now(),interval 8 hour)),
+(10003,22,date_sub(now(),interval 9 hour)),
+(10003,33,date_sub(now(),interval 10 hour)),
+(10003,1,date_sub(now(),interval 11 hour)),
+(10003,22,date_sub(now(),interval 12 hour)),
+(10003,5,date_sub(now(),interval 13 hour));
 
-#求和
-select userId,total,sum(total) over(partition by userId order by createTime asc) as sumTotal
-from t_order;
+#不分组聚合排名，不行
+#select userId,total,rank() from t_order;
 
-select a.userId as userId,a.total as total,b.sumTotal as sumTotal
-from t_order as a join 
-(
-	select userId,sum(total) as sumTotal
-	from t_order
-	group by userId
-)as b on a.userId = b.userId;
+#不分组聚合求和，只剩下一条数据
+select any_value(userId),sum(total) from t_order;
 
-#排名
-select userId,total,rank() over(partition by userId order by total desc) as totalRank
-from t_order;
+#不分组窗口排名，每条数据都会被保留，rank变成了各行的排名
+select userId,total,rank() over(order by total desc) as totalRank from t_order;
 
+#不分组窗口求和，每条数据都会被保留，sum变成了累加的操作
+select userId,total,createTime,sum(total) over(order by createTime asc) from t_order;
+
+#分组窗口排名，每条数据都会被保留，rank变成了分组内各行的排名
+select userId,total,rank() over(partition by userId order by total desc) as totalRank from t_order;
+
+#分组窗口求和，每条数据都会被保留，sum变成了分组内累加的操作
+select userId,total,createTime,sum(total) over(partition by userId order by createTime asc) from t_order;
+
+#不分组窗口求和，每条数据都会被保留，sum变成了累加的操作，默认操作，当前行是指包含与当前数值相同的所有行
+select userId,total,createTime,sum(total) over(order by createTime asc RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as sumTotal from t_order;
+
+#不分组窗口求和，每条数据都会被保留，sum变成了累加的操作，当前行是指实际按行排名位置的所在行
+select userId,total,createTime,sum(total) over(order by createTime asc ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as sumTotal from t_order;
+
+#不分组窗口求和，每条数据都会被保留，sum变成了累加的操作，当前行是指实际按行排名位置的所在行，指的是前后三行的累加
+select userId,total,createTime,sum(total) over(order by createTime asc ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING) as sumTotal from t_order;
+
+#分组窗口排名的朴素实现
 select
 IF(@y=t_order.userId, @x:=@x+1, @x:=1) as totalRank ,
 IF(@y=t_order.userId, @y, @y:=t_order.userId) as userId,
