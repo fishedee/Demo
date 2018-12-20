@@ -1,0 +1,14 @@
+*{
+	margin:0px;
+	padding:0px;
+}
+.container{
+	margin:10px;
+	border:1px solid black;
+	height:300px;
+}
+.item{
+	line-height:20px;
+	border:0px;
+	outline: none;
+}

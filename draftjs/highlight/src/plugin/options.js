@@ -40,7 +40,7 @@ function defaultRender(props) {
 
 var PrismOptions = Immutable.Record({
     // Default language to use
-    defaultSyntax:      'javascript',
+    defaultSyntax:      'markdown',
 
     // Filter block before highlighting
     filter:             defaultFilter,
