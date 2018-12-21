@@ -1,0 +1,9 @@
+*{
+	margin:0px;
+	padding:0px;
+}
+.editor{
+	border:1px solid black;
+	min-height:200px;
+	padding:10px;
+}
