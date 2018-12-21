@@ -12,9 +12,9 @@ class MyEditor extends React.Component {
     var list = [];
     var isInAt = false;
     for( var i = 0 ;i != str.length ;i ++ ){
-      if( isInAt == false && str.charAt(i) == '@'){
+      if( isInAt == false && str.charAt(i) == '$'){
         isInAt = true;
-      }else if( isInAt == true && str.charAt(i) == ' '){
+      }else if( isInAt == true && str.charAt(i) == '$'){
         isInAt = false;
       }
       if( isInAt == false ){
@@ -28,26 +28,53 @@ class MyEditor extends React.Component {
   onChange = (editorState)=>{
     var content = editorState.getCurrentContent();
     var blocks = content.getBlockMap();
-    var newBlocks = blocks.map((block)=>{
+    var time1 = performance.now();
+    var changeBlockKey = [];
+    for( var [key,block] of blocks.entries() ){
       var chars = block.getCharacterList();
       var text = block.getText();
       var hightLightResult = this.highlight(text);
-      var newChars = chars.map(function(record,i){
+      var i = 0
+      var shouldChange = false;
+      for( var record of chars ){
         var single = hightLightResult[i];
-        var result = null;
-        if( single == 1 ){
-          result = record.updateIn(['style'],function(e){
-            return e.add('UNDERLINE')
-          })
-        }else{
-          result = record.updateIn(['style'],function(e){
-            return e.clear()
-          })
+        i++;
+        if( record.get('style').has('BOLD') && single == 0 ){
+          shouldChange = true;
         }
-        return result;
+        if( !record.get('style').has('BOLD') && single == 1 ){
+          shouldChange = true;
+        }
+      }
+      if( shouldChange ){
+        changeBlockKey.push(key);
+      }
+    }
+    var newBlocks = blocks;
+    for( var i in changeBlockKey){
+      var singleKey = changeBlockKey[i];
+      newBlocks = newBlocks.update(singleKey,(block)=>{
+        var chars = block.getCharacterList();
+        var text = block.getText();
+        var hightLightResult = this.highlight(text);
+        var newChars = chars.map(function(record,i){
+          var single = hightLightResult[i];
+          var result = null;
+          if( single == 1 ){
+            result = record.updateIn(['style'],function(e){
+              return e.add('BOLD')
+            })
+          }else{
+            result = record.updateIn(['style'],function(e){
+              return e.clear()
+            })
+          }
+          return result;
+        })
+        return block.set('characterList',newChars);
       })
-      return block.set('characterList',newChars);
-    })
+    }
+    var time2 = performance.now();
     const selection = editorState.getSelection();
     var newContent = content.merge({
       blockMap:newBlocks,
@@ -59,6 +86,8 @@ class MyEditor extends React.Component {
         newContent,
         'change-inline-style',
     );
+    var time3 = performance.now();
+    console.log(time2-time1,time3-time2);
     this.setState({
       editorState:newEditorState
     });
