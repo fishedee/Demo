@@ -42,4 +42,4 @@ insert into t_recipe2(clientId,title,summary) values
 
 select *,match(title,summary) against('雷峰') from t_recipe2 where match(title,summary) against('雷峰')\G;
 select *,match(title,summary) against('雷峰'  in boolean mode) from t_recipe2 where match(title,summary) against('雷峰' in boolean mode)\G;
-select *,match(title,summary) against('雷峰'  in boolean mode) from t_recipe2 where match(title,summary) against('*雷峰*' in boolean mode)\G;
+select *,match(title,summary) against('*雷峰*'  in boolean mode) from t_recipe2 where match(title,summary) against('*雷峰*' in boolean mode)\G;
