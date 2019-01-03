@@ -1,0 +1,2 @@
+go:
+	cargo run
