@@ -36,6 +36,20 @@ func init() {
 			data[j] = temp
 		},
 	})
+
+	addReflectType2([]MM{}, func(data interface{}) reflectOperator2 {
+		a := data.([]MM)
+		return reflectOperator2{
+			GetLen: func() int {
+				return len(a)
+			},
+			Swap: func(i int, j int) {
+				temp := a[i]
+				a[i] = a[j]
+				a[j] = temp
+			},
+		}
+	})
 }
 
 func getInitData() []MM {
@@ -53,13 +67,19 @@ func TestReverse(t *testing.T) {
 	data1 := getInitData()
 	data2 := getInitData()
 	data3 := getInitData()
+	data4 := getInitData()
+	data5 := getInitData()
 
 	ArrayRevseMM(data1)
 	ArrayReverse(data2)
 	ArrayReverseFastReflect(data3)
+	ArrayReverse2(data4)
+	ArrayReverseFastReflect2(data5)
 
 	AssertEqual(t, data1, data2)
 	AssertEqual(t, data1, data3)
+	AssertEqual(t, data1, data4)
+	AssertEqual(t, data1, data5)
 }
 
 func BenchmarkReverseOrigin(b *testing.B) {
@@ -78,10 +98,26 @@ func BenchmarkReverseReflect(b *testing.B) {
 	}
 }
 
+func BenchmarkReverseReflect2(b *testing.B) {
+	data := getInitData()
+	b.ResetTimer()
+	for i := 0; i != b.N; i++ {
+		ArrayReverse2(data)
+	}
+}
+
 func BenchmarkReverseFastReflect(b *testing.B) {
 	data := getInitData()
 	b.ResetTimer()
 	for i := 0; i != b.N; i++ {
 		ArrayReverseFastReflect(data)
+	}
+}
+
+func BenchmarkReverseFastReflect2(b *testing.B) {
+	data := getInitData()
+	b.ResetTimer()
+	for i := 0; i != b.N; i++ {
+		ArrayReverseFastReflect2(data)
 	}
 }
