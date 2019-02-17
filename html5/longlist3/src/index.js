@@ -1,47 +1,6 @@
 import './index.css'
 import React from 'react';
 import ReactDom from 'react-dom';
-/*
-// 列表元素高度
-const ITEM_HEIGHT = 31
-// 列表元素个数
-const ITEM_COUNT = 500
-
-window.onload = function () {
-    const container = document.querySelector('#container')
-    const containerHeight = container.clientHeight
-    const list = document.querySelector('#list')
-    // 一屏可以渲染下的元素个数
-    const visibleCount = Math.ceil(containerHeight / ITEM_HEIGHT)
-    const placeholder = document.querySelector('#content-placeholder')
-    // 首次渲染
-    const refreshList = function(from ,to){
-    	list.innerHTML = '';
-    	list.appendChild(renderNodes(from, to))
-    	let centerCount = to-from;
-    	let paddingTop = from*ITEM_HEIGHT;
-    	let paddingBottom = (ITEM_COUNT - to )*ITEM_HEIGHT;
-    	list.style.paddingTop = paddingTop + 'px';
-    	list.style.paddingBottom = paddingBottom+'px';
-    }
-    
-    refreshList(0,visibleCount);
-    container.addEventListener('scroll', function() {
-        const firstIndex = Math.floor(container.scrollTop / ITEM_HEIGHT)
-        refreshList(firstIndex, firstIndex + visibleCount);
-    })
-}
-
-function renderNodes(from, to) {
-    const fragment = document.createDocumentFragment()
-    for (let i = from; i < to; i++) {
-        const el = document.createElement('li')
-        el.innerHTML = i + 1
-        fragment.appendChild(el)
-    }
-    return fragment
-}
-*/
 
 class List extends React.Component{
 	constructor(props){
@@ -63,26 +22,29 @@ class List extends React.Component{
 		let height = this.props.height;
 		let itemHeight = this.props.itemHeight;
 		let divs = [];
-		const visibleCount = Math.ceil(height / itemHeight);
+		const visibleCount = Math.ceil(height / itemHeight)+1;
 		const firstIndex = Math.floor(this.state.scrollTop / itemHeight);
-		const endIndex = firstIndex + visibleCount+1;
+		const endIndex = firstIndex + visibleCount;
 		const visibleData = data.slice(firstIndex,endIndex);
 		for( let i in visibleData ){
 			let single = visibleData[i];
-			divs.push(<li key={single.key}>{this.props.renderItem(single)}</li>);
+			let style = {};
+			if( i == 0 ){
+				style = {marginTop:firstIndex*itemHeight+'px'}
+			}else if( i == visibleData.length - 1 ){
+				style = {marginBottom:(data.length - endIndex)*itemHeight+'px'}
+			}else{
+				style = {}
+			}
+			divs.push(<li key={single.key} style={style}>{this.props.renderItem(single)}</li>);
 		}
 		
-		let style1 = {
+		let style = {
 			height:height+"px",
-			overflow:"scroll",
+			"overflowY":"auto",
+			"overflowX":"hidden"
 		}
-		let style2 = {
-			paddingTop:firstIndex*itemHeight+'px',
-			paddingBottom:(data.length - endIndex)*itemHeight+'px',
-		};
-		return (<div style={style1} ref={(node)=>(this.containerNode=node)}>
-			<ul style={style2}>{divs}</ul>
-		</div>);
+		return (<ul style={style} ref={(node)=>(this.containerNode=node)}>{divs}</ul>);
 	}
 }
 
@@ -94,7 +56,7 @@ class App extends React.Component{
 		}
 	}
 	componentDidMount = ()=>{
-		for( var i = 0 ;i != 1000; i++){
+		for( var i = 0 ;i != 100000; i++){
 			this.state.list.push({
 				key:i,
 				name:"fish_"+i,
