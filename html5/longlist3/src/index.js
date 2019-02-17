@@ -65,30 +65,24 @@ class List extends React.Component{
 		let divs = [];
 		const visibleCount = Math.ceil(height / itemHeight);
 		const firstIndex = Math.floor(this.state.scrollTop / itemHeight);
-		const endIndex = firstIndex + visibleCount;
+		const endIndex = firstIndex + visibleCount+1;
 		const visibleData = data.slice(firstIndex,endIndex);
 		for( let i in visibleData ){
 			let single = visibleData[i];
-			let className = ""
-			let padding = 0;
-			if( i == 0 ){
-				className = "firstChild"
-				padding = firstIndex*itemHeight
-			}else if( i == visibleData.length - 1 ){
-				className = "lastChild"
-				padding = (data.length - endIndex)*itemHeight;
-			}else{
-				className = ""
-				padding = 0
-			}
-			divs.push(<li className={className} data-padding={padding} key={single.key}>{this.props.renderItem(single)}</li>);
+			divs.push(<li key={single.key}>{this.props.renderItem(single)}</li>);
 		}
-	
-		let style2 = {
+		
+		let style1 = {
 			height:height+"px",
 			overflow:"scroll",
+		}
+		let style2 = {
+			paddingTop:firstIndex*itemHeight+'px',
+			paddingBottom:(data.length - endIndex)*itemHeight+'px',
 		};
-		return (<ul ref={(node)=>(this.containerNode=node)} style={style2}>{divs}</ul>);
+		return (<div style={style1} ref={(node)=>(this.containerNode=node)}>
+			<ul style={style2}>{divs}</ul>
+		</div>);
 	}
 }
 

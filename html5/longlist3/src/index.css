@@ -3,16 +3,13 @@
 	padding: 0px;
 }
 
-div{
-	color:blue;
+#root{
+	
 }
 
-.firstChild:before{
-	content:"";
-	padding-top:attr(padding);
-}
-
-.lastChild:after{
-	content:"";
-	padding-bottom:attr(padding);
+li{
+	background:blue;
+	color:white;
+	margin-top:1px;
+	line-height: 30px;
 }
