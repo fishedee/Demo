@@ -1,0 +1,18 @@
+*{
+	margin:0px;
+	padding: 0px;
+}
+
+div{
+	color:blue;
+}
+
+.firstChild:before{
+	content:"";
+	padding-top:attr(padding);
+}
+
+.lastChild:after{
+	content:"";
+	padding-bottom:attr(padding);
+}
