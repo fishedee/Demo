@@ -1,0 +1,24 @@
+*{
+	margin:0px;
+	padding: 0px;
+}
+
+#container{
+	height:300px;
+	position: relative;
+	overflow:scroll;
+}
+
+#list{
+	position: absolute;
+}
+
+li{
+	display:inline-block;
+	width:500px;
+	background: blue;
+	margin-top:1px;
+	height:30px;
+	text-align: center;
+	color:white;
+}

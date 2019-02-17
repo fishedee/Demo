@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    	<title><%= htmlWebpackPlugin.options.title %></title>
+	</head>
+	<body>
+		<div id="container">
+		    <!-- #list 是 position: absolute 的，用来放置实际显示的列表元素 -->
+		    <ul id="list"></ul>
+		    <!-- #content-placeholder 用来将整个列表区域撑开到渲染所有元素时应有的高度 -->
+		    <div id="content-placeholder"></div>
+		</div>
+	</body>
+</html>
