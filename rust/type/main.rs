@@ -28,10 +28,23 @@ fn string(){
 fn array(){
 	let x = [1,2,3];
 	let x2:[i32;4] = [4,5,6,7];
-	let x3:Vec<i32> = vec![8,9,10,11,12];
+	let mut x3:Vec<i32> = vec![8,9,10,11,12];
 	//println!("x={},x2={}",x,x2)
 	//println!("x3={}",x3)
-	println!("x len={},x2 len={},x3 len={}",x.len(),x2.len(),x3.len())
+	println!("x len={},x2 len={},x3 len={}",x.len(),x2.len(),x3.len());
+
+	//添加
+	x3.push(13);
+
+	//iterator遍历
+	for x in &x3{
+		println!("x3 {}",x)
+	}
+
+	//index遍历
+	for x in 0..x3.len(){
+		println!("x3 {}",x3[x])
+	}
 }
 
 fn tunple(){
