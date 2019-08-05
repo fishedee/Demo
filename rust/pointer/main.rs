@@ -164,7 +164,82 @@ fn rc1(){
 }
 
 fn rc2(){
+	let a:Rc<File>;
+	let b:Rc<File>;
 
+	{	
+		//用带有所有权的变量来初始化Rc指针，那么该Rc指针就拥有了该变量的所有权
+		let c = Rc::new(File{filename:"fish.txt"});
+
+		//其他变量通过clone来复制一份所有权，也就是可以实现多个所有权的变量。
+		//要注意的是，这种同时拥有多个所有权的代价，是变量是只读的
+		a = Rc::clone(&c);
+		println!("strong count {}",Rc::strong_count(&a));
+	}
+
+	println!("strong count {}",Rc::strong_count(&a));
+
+	b = Rc::clone(&a);
+	println!("strong count {}",Rc::strong_count(&b));
+
+	//当引用计数为0时，就清空所有权，触发File的drop trait。
+
+	//注意,Rc不能解决所有的内存释放问题，环形引用下需要配合Weak<T>使用
+}
+
+use std::cell::RefCell;
+
+fn ref_cell(){
+	let a = RefCell::new(File{filename:"a.txt"});
+
+	{
+		//a是不可变变量，但是我们依然可以修改它指向的内容
+		//这是因为用RefCell包装的变量，对外都是immutable的，但是内部都是mutable的，
+		//但是，它们依然需要满足rust的引用原则。
+		{
+			let mut mut_a = a.borrow_mut();
+			mut_a.filename = "g.txt";
+		}
+		println!("a {:?}",a.borrow());
+	}
+
+	{
+		//错误,RefCell不是指针类型，它没有deref操作，要想获取数据，就必须借用borrow或borrow_mut
+		//println!("a {:?}",&a)
+
+		let mut mut_a = a.borrow_mut();
+		//错误，refcell会在运行时检查到有多个mut引用，其会panic
+		//let mut mut_b = a.borrow_mut();
+
+		//错误，refcell检查到在已经有一个mut引用的情况，不能再执行
+		//let c = a.borrow();
+	}
+
+	//RefCell的一个用处时，建立RefCell成员，在不可变的Mk引用中，依然能修改这个成员
+	/*
+	struct Mk{
+		data:RefCell<File>,
+	}
+
+	impl Mk{
+		fn doing(&self){
+			self.data.borrow_mut().filename = "g.txt";
+		}
+	}
+	*/
+}
+
+fn ref_cell_and_rc(){
+	let a = Rc::new(RefCell::new(File{filename:"a.txt"}));
+	let b = Rc::clone(&a);
+
+	//由于Rc的多所有权设定，它的默认规则就是只支持不可变引用
+	//但是，如果我们Rc下面包一个RefCell，就能既支持多所有权，又能支持mut引用的情况
+	//代价是，所有权原则变成了动态时检查了
+	{
+		a.borrow_mut().filename = "g.txt";
+		println!("b is {:?}",b.borrow());
+	}
 }
 
 fn main(){
@@ -174,4 +249,6 @@ fn main(){
 	drop1();
 	rc1();
 	rc2();
+	ref_cell();
+	ref_cell_and_rc();
 }

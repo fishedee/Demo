@@ -1,5 +1,5 @@
 go:
 	rustc main.rs
-	./main
+	RUST_BACKTRACE=1 ./main
 install:
 	curl https://sh.rustup.rs -sSf | sh
