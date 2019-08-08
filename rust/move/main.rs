@@ -35,9 +35,37 @@ fn move3(){
 	println!("a = {}",a)
 }
 
+#[derive(Debug)]
+struct Foo{
+	data:i32
+}
+
+impl Drop for Foo{
+	fn drop(&mut self){
+		println!("drop :{:p}",self)
+	}
+
+}
+
+fn move4(){
+	//创建一个Foo类型
+	let mut f = Foo{data:123};
+	println!("f address:{:p},{:?}",&f,f);
+
+	//执行move操作，move操作就是直接对数据进行浅拷贝，并且在编译器里标注原来的变量已经失效了，原来的变量不再执行drop操作
+	//注意，move操作并不是指针指向修改操作，因为进行move操作以后，数据的地址改变了
+	let mut f2 = f;
+	f2.data = 456;
+	println!("f2 address:{:p},{:?}",&f2,f2);
+	println!("end");
+
+	//执行drop操作，这个时候的打印的drop地址与f2的地址一致
+}
+
 
 fn main(){
 	move1();
 	move2();
 	move3();
+	move4();
 }

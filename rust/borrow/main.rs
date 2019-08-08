@@ -1,6 +1,3 @@
-
-//FIXME 困惑，在rust中，对象a是不可变的，那么变量a的自身是不可变的，变量a所指向的内容也是不可变的。
-
 fn ref1_test( a : &String){
 	println!("a = {}",a)
 }
@@ -14,9 +11,35 @@ fn ref1(){
 	//成功，a依然拥有所有权
 	println!("a = {}",a);
 
-	let c = & a;
-	//失败，a是非mut的，所以c也不能改变它自身
-	//*c = String::from("Hello move4");
+	{	
+		let _mu = String::from("Hello mg");
+		let c:&String = & a;
+		//失败，c是非mut引用的，所以c也不能执行*c操作来改变a
+		//*c = String::from("Hello move4");
+
+		//失败，c是非mut的，它不能改变它自身
+		//c = &_mu;
+
+	}
+
+	{
+		let _mu = String::from("Hello move7");
+		let mut c:&String = &a;
+
+		//失败，c是非mut引用的，所以c也不能执行*c操作来改变a
+		//*c = String::from("Hello move4");
+
+		//成功，c是mut的，它能改变它自身
+		c = &_mu;
+	}
+
+	{
+		let mut _mu = String::from("Hello move7");
+		let c:& mut String = &mut _mu;
+
+		//成功，c是mut引用，所以它能执行*c操作来改变_mu
+		*c = String::from("Hello cs");
+	}
 	
 	print!("a = {}",a);
 }
@@ -76,6 +99,7 @@ fn ref4(){
 }
 
 //规则3，在任何给定时刻，您都能可变地借用（或引用）一个资源一次。
+//结合规则2和规则3，这意味着，一旦某个变量被不可变借用了，那么这个变量就真的无法被修改了，（不可能被所有权修改，也不可能被可变借用修改，这大大提高了可靠性，也促进编译器做可靠的优化）
 fn ref5(){
 	let mut x = 4;
     let x_ref_1 = &mut x;
