@@ -84,10 +84,31 @@ fn ref5(){
     println!("x_ref = {}",x_ref_1);
 }
 
+fn ref6(){
+	let mut a1:String = "adf".to_string();
+	let mut a2:String = "cde".to_string();
+
+	{
+		//创建一级指针，指针指向的内容是可变的，而指针自身也是可变的
+		let mut b:& mut String = & mut a1;
+		{
+			//创建二级指针，指针指向的内容是可变的，而指针自身是不可变的。注意，二级指针的指向内容是一级指针。
+			let c:&mut &mut String = &mut b;
+
+			*c = &mut a2;
+			(*c).push_str("_mj");
+		}
+		b.push_str("_fu");
+	}
+
+	println!("a1:{},a2:{}",a1,a2)
+}
+
 fn main(){
 	ref1();
 	ref2();
 	ref3();
 	ref4();
 	ref5();
+	ref6();
 }
