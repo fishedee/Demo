@@ -1,32 +1,42 @@
-#[derive(Debug)]
-struct Class{
-	class_id:i32,
-	name:String,
-}
+use std::sync::{Mutex, Arc,RwLock};
+use std::thread;
+use std::cell::RefCell;
+use std::time;
 
-#[derive(Debug)]
-struct User<'a>{
-	user_id:i32,
-	age:i32,
-	class1:&'a Class,
-	class2:&'a Class,
-}
+fn main(){
+	let data:String = "hello".to_string();
 
-fn main(){//作用域'a
-    
-    let class_one = Class{class_id:789,name:"md".to_string()};
-    
-    {	
-    	let mut user = User{user_id:234,age:789,class1:&class_one,class2:&class_one};
-    	let class_two = Class{class_id:789,name:"md".to_string()};
-    	user.class1 = &class_two;
+	let data2:String = "hello2".to_string();
 
-        println!("{:?}",user);
+	let rc1 = Arc::new(Mutex::new(data));
+	let rc2 = Arc::clone(&rc1);
 
-        user.class1 = &class_one;
+	let mc1 = Arc::new(Mutex::new(data2));
+	let mc2 = Arc::clone(&mc1);
 
-        
 
-    println!("{:?}",user);
-    }
+	let thread1 = thread::spawn(move||{
+		let mut data_ref = rc1.lock().unwrap();
+		//加入强制等待1秒
+		thread::sleep(time::Duration::new(1, 0));
+
+		let mut data_ref2 = mc1.lock().unwrap();
+		data_ref.push_str("_a");
+		data_ref2.push_str("_b");
+		println!("exit one! data:{},data2:{}",data_ref,data_ref2);
+	});
+
+	let thread2 = thread::spawn(move||{
+		let mut data_ref = rc2.lock().unwrap();
+		//加入强制等待1秒
+		thread::sleep(time::Duration::new(1, 0));
+
+		let mut data_ref2 = mc2.lock().unwrap();
+		data_ref.push_str("_a");
+		data_ref2.push_str("_b");
+		println!("exit two! data:{},data2:{}",data_ref,data_ref2);
+	});
+
+	thread1.join().unwrap();
+	thread2.join().unwrap();
 }
