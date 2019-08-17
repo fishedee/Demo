@@ -32,6 +32,7 @@ where
     fn poll(&mut self, wake: fn()) -> Poll<Self::Output> {
         if let Some(a) = &mut self.a {
             if let Poll::Ready(()) = a.poll(wake) {
+       			//将Option的Some拿出来，置换为None
                 self.a.take();
             }
         }
