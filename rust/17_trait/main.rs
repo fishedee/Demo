@@ -47,7 +47,7 @@ impl Animal for Fish{
 	}
 }	
 
-fn main(){
+fn run1(){
 	//在rust中存放动态分发的抽象，必须用Box容器，类型为dyn XXX
 	let mut a:Vec<Box<dyn Animal>> = Vec::new();
 
@@ -63,4 +63,54 @@ fn main(){
 	let b = Dog{};
 
 	b.Call_With_log();
+}
+
+use std::fmt::Display;
+
+trait MyPrint{
+	//trait的type，后面代表，这个type必须满足的trait
+	type Printer:Display;
+
+	fn go(&self,a:&Self::Printer);
+}
+
+
+struct ConsoleInt{
+
+}
+
+impl MyPrint for ConsoleInt{
+	type Printer = i32;
+
+	fn go(&self,a:&Self::Printer){
+		println!("ConsoleInt Print {}",a)
+	}
+}
+
+/*
+//失败，因为Printer是Fish类型，而Fish类型不满足Display的trait
+struct ConsoleFish{
+
+}
+
+impl MyPrint for ConsoleFish{
+	type Printer = Fish;
+
+	fn go(&self,a:&Self::Printer){
+		println!("ConsoleFish Print {}",a)
+	}
+}
+*/
+
+
+fn run2(){
+	let data:i32 = 68;
+	let console = ConsoleInt{};
+	console.go(&data);
+}
+
+fn main(){
+	run1();
+
+	run2();
 }
