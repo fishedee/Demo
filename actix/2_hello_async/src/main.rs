@@ -39,10 +39,10 @@ fn main() -> std::io::Result<()> {
 
     //FIXME，actix暂时不支持官方的future，它现在所用future是自带的future，所以现在这个无法编译
     Arbiter::spawn(async move{
-        let res1 = res.await;
+        let res1 = res.compat().await;
         let res2 = res.unwrap();
         println!("RESULT: {}",res2);
-    }.compat());
+    }.boxed().compat());
 
     system.run()
 }
