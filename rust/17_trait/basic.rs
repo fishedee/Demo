@@ -6,7 +6,7 @@ pub trait UI{
 }
 
 pub struct Circle{
-	radius:f32
+	pub radius:f32
 }
 
 //实现一个trait的两种办法
@@ -52,7 +52,7 @@ impl<T> PdfUI for T
 }
 
 //trait里面可以指定一个范型类型，同时，不同Printer Type下的trait依然属于同一个My Print的trait，注意和MyPrint<T>的不同
-trait MyPrint{
+pub trait MyPrint{
 	//trait的type，后面代表，这个type必须满足的trait
 	type Printer:Display;
 
@@ -88,7 +88,7 @@ impl MyPrint for ConsoleFish{
 */
 
 
-pub trait Mul<T:Clone>{
+pub trait Mul<T>{
 	type ResultType:Clone;
 
 	fn mul(self,right:T)->Self::ResultType;
