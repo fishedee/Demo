@@ -96,22 +96,30 @@ fn vec(){
 
 	println!("x3 {:?}",x3);
 
-	//iterator遍历
+	//iterator遍历，不可变引用获取x3
 	for x in &x3{
 		println!("x3 {}",x)
 	}
 
-	//iterator可变遍历
+	//iterator可变遍历，可变引用获取x3
 	{
-		for x in & mut x3{
+		for x in &mut x3{
 			*x += 100;
 		}
 	}
 
 	//index遍历
 	for x in 0..x3.len(){
-		println!("x3 {}",x3[x])
+		println!("x3 {}",x3[x]);
 	}
+
+	//move遍历，以move方式遍历x3
+	for y in x3{
+		println!("x4 {}",y);
+	}
+
+	//错误，无法获取x3，因为被move掉了
+	//println!("{:?}",x3)
 }
 
 fn map(){
@@ -123,6 +131,9 @@ fn map(){
 
 	println!("scores {:?}",scores);
 
+	//检查
+	println!("has [Yellow] Key? {}",scores.contains_key(&String::from("Yellow")));
+	
 	//查找
 	let score1 = scores.get(&String::from("Yellow"));
 	let score2 = scores.get(&String::from("Blue"));
