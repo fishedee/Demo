@@ -36,6 +36,8 @@ fn thread1(){
 //使用消息传递在多线程间通信
 fn thread2(){
 	let mut message_list = vec!["a","b"];
+	//mpsc::channel是异步消息，发送者发送时不阻塞，发送者发完就返回，直至内存耗尽才会报错
+	//mpsc::sync_channel是同步消息，发送者受到队列的大小所控制，队列满了就会自动阻塞
 	let (tx,rx) = mpsc::channel();
 	let mut tx_list = vec![tx];
 	//克隆发送者
