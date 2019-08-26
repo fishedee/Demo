@@ -31,9 +31,9 @@ fn main() {
 		counter:Mutex::new(0),
 	});
 
+	//new里面的闭包会对在每个worker里面调用一次，也就是每个线程自动调用一次
+	//要注意闭包必须满足Clone的trait，因为每次worker都clone闭包一次。
     HttpServer::new(move||{
-    		panic!("zx");
-    		println!("start app {:p}",&appState2);
     		return App::new()
     			.register_data(appState2.clone())
 		    	.service(
@@ -45,7 +45,6 @@ fn main() {
 		        .service(
 		            web::scope("/app2")
 		            	//register_data传入可变数据，传入后actix直接使用
-		            	
 		                .route("/", web::to(index2))
 		        );
 		        

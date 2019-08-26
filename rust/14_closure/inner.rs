@@ -56,6 +56,25 @@ fn run1(){
 	let mut fn_closure = ||{
 		println!("data3 {}",data3);
 	};
+	println!("data3 outer is {}",data3);
+
+	//正确，fn可以赋值给Fn
+	go_fn(&fn_closure);
+
+	//正确，fn可以赋值给FnMut
+	go_fn_mut(& mut fn_closure);
+
+	//正确，fn可以赋值给FnOnce
+	go_fn_once(fn_closure);
+
+	let data4:String = "0ab".to_string();
+	//move的关键字并没有改变函数的中如何使用这个外部变量，它改变的是闭包如何保存这个外部变量。
+	//也就是没有改变函数的trait，但会改变外部变量的捕获方式，即使是以不可变引用来使用这个变量，也以所有权转移的方式获取这个变量。
+	let mut fn_closure = move||{
+		println!("data4 {}",data4);
+	};
+	//错误，data4的所有权已经被转移了
+	//println!("data4 outer is {}",data4);
 
 	//正确，fn可以赋值给Fn
 	go_fn(&fn_closure);
@@ -99,6 +118,16 @@ impl<'a> FnState<'a>{
 	}
 }
 
+struct FnMoveState{
+	data:String
+}
+
+impl FnMoveState{
+	fn call(&self){
+		println!("data4 {}",self.data);
+	}
+}
+
 fn run2(){
 	//FnOnce的实现
 	let data:String = "123".to_string();
@@ -119,12 +148,23 @@ fn run2(){
 	let fn_state = FnState{
 		data:& data3,
 	};
+	println!("data3 outer is {}",data3);
 	fn_state.call();
+
+	//Fn+Move的实现
+	let data4:String = "0ab".to_string();
+	let fn_move_state = FnMoveState{
+		data:data4,
+	};
+	//错误，data4已经被转移了
+	//println!("data4 outer is {}",data4);
+	fn_move_state.call();
+
 
 	//从以上的实现可以看出，closure其实就是个struct，struct的字段就是要捕获的外部变量。
 	//捕获的方式要么是所有权捕获FnOnce，要么是可变捕获FnMut，要么是不可变捕获Fn
 	//rust隐式的捕获方式是尽可能往Fn,FnMut，最后才到FnOnce的顺序。
-	//但是，我们可以显示地指定move，来改变捕获的方式。例如，原来的捕获方式可以用Fn的，我们强制地使用了FnOnce的方式。
+	//另外，我们可以显示地指定move，来改变捕获的方式
 }
 
 fn run3(){
