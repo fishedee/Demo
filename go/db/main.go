@@ -24,6 +24,7 @@ func main() {
 		&PureDb{},
 		&XormDb{},
 		&SqlxDb{},
+		&Sqlx2Db{},
 	}
 
 	for i, single := range dbDrivers {

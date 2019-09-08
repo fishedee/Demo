@@ -15,7 +15,7 @@ func (this *XormDb) Init() {
 		Host:     "localhost",
 		Port:     3306,
 		User:     "root",
-		Password: "Yinghao23367847",
+		Passowrd: "Yinghao23367847",
 		Database: "Yinghao",
 	})
 	if err != nil {
