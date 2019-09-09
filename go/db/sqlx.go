@@ -11,7 +11,7 @@ type SqlxDb struct {
 
 func (this *SqlxDb) Init() {
 	var err error
-	dsn := fmt.Sprintf("%s:%s@%s(%s:%d)/%s", USERNAME, PASSWORD, NETWORK, SERVER, PORT, DATABASE)
+	dsn := fmt.Sprintf("%s:%s@%s(%s:%d)/%s?parseTime=true", USERNAME, PASSWORD, NETWORK, SERVER, PORT, DATABASE)
 	this.db, err = sqlx.Connect("mysql", dsn)
 	if err != nil {
 		panic(err)
@@ -32,7 +32,9 @@ func (this *SqlxDb) GetProduct(productIds []int) []Product {
 	if err != nil {
 		panic(err)
 	}
-	this.db.Select(&products, "select productId,nameId,name,namePrint,itemCategoryId,salesUnitId,salesSubUnitId,purchaseUnitId,purchaseSubUnitId,stockUnitId,itemPropertyId,unitConvertId,isAutoPutOnShelf,sumId,remark,suggestPrice,subSuggestPrice from t_product where "+query, args...)
-
+	err = this.db.Select(&products, "select * from t_product where "+query, args...)
+	if err != nil {
+		panic(err)
+	}
 	return products
 }
