@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	. "github.com/fishedee/language"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -29,13 +28,11 @@ func (this *SqlxDb) GetAllMaterial() []Material {
 func (this *SqlxDb) GetProduct(productIds []int) []Product {
 	products := []Product{}
 
-	sqlArgv := []string{}
-	argv := []interface{}{}
-	for i := 0; i != len(productIds); i++ {
-		sqlArgv = append(sqlArgv, "?")
-		argv = append(argv, productIds[i])
+	query, args, err := sqlx.In("productId in (?)", productIds)
+	if err != nil {
+		panic(err)
 	}
-	this.db.Select(&products, "select productId,nameId,name,namePrint,itemCategoryId,salesUnitId,salesSubUnitId,purchaseUnitId,purchaseSubUnitId,stockUnitId,itemPropertyId,unitConvertId,isAutoPutOnShelf,sumId,remark,suggestPrice,subSuggestPrice from t_product where productId in ("+Implode(sqlArgv, ",")+")", argv...)
+	this.db.Select(&products, "select productId,nameId,name,namePrint,itemCategoryId,salesUnitId,salesSubUnitId,purchaseUnitId,purchaseSubUnitId,stockUnitId,itemPropertyId,unitConvertId,isAutoPutOnShelf,sumId,remark,suggestPrice,subSuggestPrice from t_product where "+query, args...)
 
 	return products
 }
