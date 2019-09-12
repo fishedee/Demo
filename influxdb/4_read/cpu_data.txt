@@ -1,0 +1,5 @@
+cpu_load_short,host=server02 value=0.67
+cpu_load_short,host=server02,region=us-west value=0.55 
+cpu_load_short,direction=in,host=server01,region=us-west value=2.0 1422568543702900257
+
+#写入的时候最后一列是时间，时间是主key，key相同时不会重复添加
