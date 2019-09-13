@@ -16,3 +16,19 @@ insert cpu,host=serverB,region=uk_west xvalue=0.64
 select * from cpu
 select * from cpu where value > 0.6
 select * from cpu where host = 'serverA'
+
+/*
+field_value默认是浮点数
+weather,location=us-midwest temperature=82 1465839830100400200
+
+field_value需要是整数时，后面加一个i
+weather,location=us-midwest temperature=82i 1465839830100400200
+
+field_value需要是字符串时，前后用双引号
+weather,location=us-midwest temperature="too warm" 1465839830100400200
+
+field_value需要是布尔值时，用true或者false
+weather,location=us-midwest too_hot=true 1465839830100400200
+
+tag_value只能是字符串类型，可以用，也可以不用，双引号的包含
+*/
