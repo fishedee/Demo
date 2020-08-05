@@ -4,15 +4,30 @@ import (
 	"fmt"
 	. "github.com/fishedee/app/database"
 	. "github.com/fishedee/language"
-	"strconv"
+	"math/rand"
+	"time"
 )
 
 type User struct {
-	UserId int `xorm:"autoincr"`
-	Name   string
+	UserId     int `xorm:"autoincr"`
+	Name       string
+	Age        int
+	Sign       string
+	CreateTime time.Time
+	ModifyTime time.Time
 }
 
+func getRandString(minLength int, maxLength int) string {
+	length := rand.Intn(maxLength-minLength) + minLength
+	result := make([]byte, length, length)
+	for i, _ := range result {
+		result[i] = byte(rand.Intn(27)) + '0'
+	}
+	return string(result)
+}
 func main() {
+	rand.Seed(time.Now().Unix())
+
 	defer CatchCrash(func(e Exception) {
 		fmt.Printf("fail %v\n", e.Error())
 	})
@@ -32,11 +47,13 @@ func main() {
 	users := []User{}
 	for i := 0; i != 10000; i++ {
 		users = append(users, User{
-			Name: strconv.Itoa(i),
+			Name: getRandString(5, 8),
+			Age:  rand.Intn(10),
+			Sign: getRandString(20, 120),
 		})
 	}
 
-	for j := 0; j != 1000; j++ {
+	for j := 0; j != 400; j++ {
 		db.MustInsert(users)
 	}
 
