@@ -12,6 +12,10 @@ public class FolderClassLoader extends ClassLoader {
     public FolderClassLoader(String folder){
         this.folder = folder;
     }
+    public FolderClassLoader(String folder,ClassLoader parent){
+        super(parent);
+        this.folder = folder;
+    }
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
