@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="serviceA" class="spring_test.ServiceA">
+        <property name="serviceB" ref="serviceB"></property>
+    </bean>
+    <bean id="serviceB" class="spring_test.ServiceB">
+        <property name="serviceC" ref="serviceC">
+        </property>
+    </bean>
+    <bean id="serviceC" class="spring_test.ServiceC">
+        <property name="serviceA">
+            <ref bean="serviceA"></ref>
+        </property>
+    </bean>
+</beans>
