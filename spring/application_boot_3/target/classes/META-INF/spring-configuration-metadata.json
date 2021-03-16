@@ -1,0 +1,33 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "spring_test.ServiceB",
+      "name": "myapp.mail",
+      "type": "spring_test.ServiceB"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "spring_test.ServiceB",
+      "name": "myapp.mail.host",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "spring_test.ServiceB",
+      "name": "myapp.mail.password",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "spring_test.ServiceB",
+      "defaultValue": 0,
+      "name": "myapp.mail.port",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "spring_test.ServiceB",
+      "name": "myapp.mail.user",
+      "type": "java.lang.String"
+    }
+  ]
+}
