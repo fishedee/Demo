@@ -24,6 +24,7 @@ import spring_test3.ServiceG;
 @Import(ConfigureTest3.class)
 public class App implements ApplicationRunner
 {
+    @AutoC
     public static void main( String[] args )
     {
         SpringApplication.run(App.class,args);
