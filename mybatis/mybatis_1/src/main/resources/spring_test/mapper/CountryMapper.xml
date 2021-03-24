@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0 //EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="spring_test.mapper.CountryMapper">
+    <select id="selectAll" resultType="Country">
+        select id,countryName,countryCode from t_country
+    </select>
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        insert into t_country(countryName,countryCode) values(#{countryName},#{countryCode})
+    </insert>
+    <delete id="del">
+        delete from t_country where id = #{id}
+    </delete>
+    <update id="mod">
+        update t_country set countryName=#{countryName},countryCode=#{countryCode} where id = #{id}
+    </update>
+</mapper>
