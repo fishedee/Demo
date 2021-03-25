@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>spring_test</groupId>
-  <artifactId>transaction_1</artifactId>
+  <artifactId>mybatis_3</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>transaction_1</name>
+  <name>mybatis_3</name>
   <url>http://maven.apache.org</url>
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -17,7 +17,7 @@
   </parent>
 
   <properties>
-    <start-class>spring_test.App</start-class>
+    <start-class>mybatis_test.App</start-class>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -37,7 +37,12 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <scope>runtime</scope>
+      <scope>8.0.18</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+      <version>1.2.0</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

@@ -3,9 +3,16 @@ create database Test;
 
 use Test;
 
-create table t_user(
-	userId integer not null auto_increment,
-	name varchar(255) not null,
-	age integer not null,
-	primary key(userId)
-)engine=innodb default charset=utf8mb4;
+create table t_country(
+	id integer not null auto_increment,
+	countryName varchar(255) not null,
+	countryCode varchar(255) not null,
+	primary key(id)
+)engine=innodb;
+
+insert into t_country(countryName,countryCode) values
+("中国","CN"),
+("美国","US"),
+("俄罗斯","RU"),
+("英国","GB"),
+("法国","FR");

@@ -87,9 +87,45 @@ public class App
         }
     }
 
+    private void showCountryListNow(){
+        SqlSession sqlSession2 = this.sqlSessionFactory.openSession();
+        CountryMapper countryMapper = sqlSession2.getMapper(CountryMapper.class);
+        showCountryList(countryMapper);
+        sqlSession2.close();
+    }
+
+    private void test2(){
+
+        System.out.println("---- test2 ----");
+
+        SqlSession sqlSession = this.sqlSessionFactory.openSession();
+
+        CountryMapper countryMapper = sqlSession.getMapper(CountryMapper.class);
+
+        try {
+            showCountryList(countryMapper);
+
+            addCountry(countryMapper);
+
+            //CountryMapp是与sqlSession绑定的,sqlSession未提交就,CountryMapper所做的修改也不会提交
+            System.out.println("提交前");
+            showCountryListNow();
+
+            sqlSession.commit();
+            sqlSession.close();
+
+            //sqlSession提交以后,CountryMapper的修改才会提交
+            System.out.println("提交后");
+            showCountryListNow();
+        }finally {
+        }
+    }
+
     public void run(){
         init();
 
         test1();
+
+        test2();
     }
 }
