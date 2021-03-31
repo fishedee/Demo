@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0 //EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis_test.mapper.ContinentMapper">
+    <resultMap id="continentMap" type="Continent">
+        <constructor>
+            <idArg  javaType="Long" column="continentId"/>
+            <arg javaType="String" column="name"/>
+            <arg javaType="Date" column="createTime"/>
+            <arg javaType="Date" column="modifyTime"/>
+        </constructor>
+    </resultMap>
+    <select id="selectAll" resultMap="continentMap">
+        select continentId,name,createTime,modifyTime from t_continent
+    </select>
+    <select id="selectByContinentId" resultMap="continentMap">
+         select continentId,name,createTime,modifyTime from t_continent where continentId = #{id}
+    </select>
+</mapper>

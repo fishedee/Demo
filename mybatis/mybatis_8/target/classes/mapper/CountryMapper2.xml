@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0 //EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis_test.mapper.CountryMapper2">
+    <cache
+        eviction="FIFO"
+        flushInterval="5000"
+        size="512"
+        readOnly="false"
+    />
+    <select id="selectAll" resultType="Country">
+        select id,countryName,countryCode,createTime,modifyTime from t_country;
+    </select>
+</mapper>

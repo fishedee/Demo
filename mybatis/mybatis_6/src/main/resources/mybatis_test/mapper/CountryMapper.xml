@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0 //EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis_test.mapper.CountryMapper">
+    <resultMap id="countryMap" type="Country">
+        <id property="countryId" column="countryId"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="continentId" column="continentId"/>
+        <result property="createTime" column="createTime"/>
+        <result property="modifyTime" column="modifyTime"/>
+    </resultMap>
+    <select id="selectAll" resultMap="countryMap">
+        select countryId,name,code,continentId,createTime,modifyTime from t_country;
+    </select>
+</mapper>

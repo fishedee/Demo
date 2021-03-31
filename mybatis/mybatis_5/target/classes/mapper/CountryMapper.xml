@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0 //EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis_test.mapper.CountryMapper">
+    <select id="selectAll" resultType="Country">
+        select id,countryName,countryCode,createTime,modifyTime from t_country;
+    </select>
+    <insert id="insertCheckName" useGeneratedKeys="true" keyProperty="id">
+        insert into t_country(countryName,countryCode)values(
+        <if test="countryName != null and countryName.length() != 0">
+          #{countryName},
+        </if>
+        <if test="countryName == null or countryName.length() == 0">
+            "UNKNOWN",
+        </if>
+        #{countryCode}
+        )
+    </insert>
+    <select id="selectByWhere" resultType="Country">
+        select id,countryName,countryCode,createTime,modifyTime from t_country
+        <where>
+            <if test="id != 0">
+                and id = #{id}
+            </if>
+            <if test="countryName != null and countryName.length() != 0">
+                and countryName = #{countryName}
+            </if>
+            <if test="countryCode != null and countryCode.length() != 0">
+                and countryCode = #{countryCode}
+            </if>
+        </where>
+    </select>
+    <update id="updateByIdSelective">
+        update t_country
+        <set>
+            <if test="countryName != null and countryName.length() != 0">
+                countryName = #{countryName},
+            </if>
+            <if test="countryCode != null and countryCode.length() != 0">
+                countryCode = #{countryCode},
+            </if>
+            id = #{id},
+        </set>
+        where id = #{id}
+    </update>
+    <insert id="insertList" useGeneratedKeys="true" keyProperty="id">
+        insert into t_country(countryName,countryCode) VALUES
+        <foreach collection="list" item="country" separator=",">
+            (#{country.countryName},#{country.countryCode})
+        </foreach>
+    </insert>
+    <insert id="insertListWithPrint" useGeneratedKeys="true" keyProperty="id">
+        insert into t_country(countryName,countryCode) VALUES
+        <foreach collection="list" item="country" separator=",">
+            (#{country.countryName},#{country.countryCode})
+            <bind name="print" value="@mybatis_test.StringUtil@print(country)"/>
+        </foreach>
+    </insert>
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0 //EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis_test.mapper.CountryAndContinentMapper">
+    <resultMap id="countryAndContinentMap" extends="mybatis_test.mapper.CountryMapper.countryMap" type="CountryAndContinent">
+        <association property="continent" columnPrefix="conti_" resultMap="mybatis_test.mapper.ContinentMapper.continentMap"/>
+    </resultMap>
+    <select id="selectAll" resultMap="countryAndContinentMap">
+        select
+        t_country.countryId ,
+        t_country.name ,
+        t_country.code ,
+        t_country.createTime ,
+        t_country.modifyTime ,
+        t_continent.continentId  as conti_continentId,
+        t_continent.name as conti_name,
+        t_continent.createTime as conti_createTime,
+        t_continent.modifyTime as conti_modifyTime
+        from t_country
+        inner join t_continent on t_country.continentId = t_continent.continentId;
+    </select>
+    <resultMap id="countryAndContinentMap2" extends="mybatis_test.mapper.CountryMapper.countryMap" type="CountryAndContinent">
+        <association property="continent" column="{id=continentId}" select="mybatis_test.mapper.ContinentMapper.selectByContinentId"/>
+    </resultMap>
+    <select id="selectAllWithNest" resultMap="countryAndContinentMap2">
+        select countryId,name,code,createTime,modifyTime,continentId from t_country;
+    </select>
+</mapper>

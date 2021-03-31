@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0 //EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis_test.mapper.CountryAndPeopleMapper">
+    <resultMap id="peopleMap" type="People">
+        <id property="peopleId" column="people_id"/>
+        <result property="name" column="name"/>
+        <result property="homeAddress" column="home_address"/>
+        <result property="primaryEmail" column="primary_email"/>
+        <result property="countryId" column="countryId"/>
+        <result property="createTime" column="createTime"/>
+        <result property="modifyTime" column="modifyTime"/>
+    </resultMap>
+    <resultMap id="countryAndPeopleMap" extends="mybatis_test.mapper.CountryMapper.countryMap" type="CountryAndPeople">
+        <association property="peopleList" columnPrefix="people_" resultMap="peopleMap"/>
+    </resultMap>
+    <select id="selectAll" resultMap="countryAndPeopleMap">
+        select
+        t_country.countryId ,
+        t_country.name ,
+        t_country.code ,
+        t_country.createTime ,
+        t_country.modifyTime ,
+        t_people.people_id  as people_people_id,
+        t_people.name as people_name,
+        t_people.home_address as people_home_address,
+        t_people.primary_email as people_primary_email,
+        t_people.countryId as people_countryId,
+        t_people.createTime as people_createTime,
+        t_people.modifyTime as people_modifyTime
+        from t_country
+        left join t_people on t_people.countryId = t_country.countryId;
+    </select>
+    <resultMap id="countryAndContinentMap2" extends="mybatis_test.mapper.CountryMapper.countryMap" type="CountryAndPeople">
+        <association property="peopleList" column="{countryId=countryId}" select="mybatis_test.mapper.PeopleMapper.selectByCountryId"/>
+    </resultMap>
+    <select id="selectAllWithNest" resultMap="countryAndContinentMap2">
+        select countryId,name,code,createTime,modifyTime,continentId from t_country;
+    </select>
+</mapper>
