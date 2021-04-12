@@ -14,5 +14,6 @@ import java.util.Map;
 public interface CountryMapper {
     List<Country> selectAll();
     Country selectById(@Param("id")Long countryId);
+    Country selectById2(@Param("id")Long countryId);
     int insertList(List<Country> countryList);
 }

@@ -66,6 +66,12 @@ public class App implements ApplicationRunner
         logger.info("country pointer : {}, country2 pointer: {}",System.identityHashCode(country),System.identityHashCode(country2));
         logger.info("country name: {}, country2 name: {}",country.countryName,country2.countryName);
 
+        //这一步有查询数据库,因为selectById和selectById2是不同的方法
+        Country country2_2 = countryMapper.selectById2(1L);
+
+        logger.info("country pointer : {}, country2_2 pointer: {}",System.identityHashCode(country),System.identityHashCode(country2_2));
+        logger.info("country name: {}, country2_2 name: {}",country.countryName,country2_2.countryName);
+
         //但是,在同一个事务里面,用其他方法就不会返回这个对象.
         //所以,一级缓存总是以方法和参数作为缓存的key
         showCountryList();

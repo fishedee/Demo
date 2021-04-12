@@ -8,6 +8,9 @@
     <select id="selectById" resultType="Country">
         select id,countryName,countryCode,createTime,modifyTime from t_country where id = #{id};
     </select>
+    <select id="selectById2" resultType="Country">
+        select id,countryName,countryCode,createTime,modifyTime from t_country where id = #{id};
+    </select>
     <insert id="insertList" useGeneratedKeys="true" keyProperty="id">
         insert into t_country(countryName,countryCode) VALUES
         <foreach collection="list" item="country" separator=",">
