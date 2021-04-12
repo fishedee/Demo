@@ -5,6 +5,11 @@
       "sourceType": "spring_test.ServiceB",
       "name": "myapp.mail",
       "type": "spring_test.ServiceB"
+    },
+    {
+      "sourceType": "spring_test.ServiceC",
+      "name": "myapp.mail2",
+      "type": "spring_test.ServiceC"
     }
   ],
   "properties": [
@@ -27,6 +32,11 @@
     {
       "sourceType": "spring_test.ServiceB",
       "name": "myapp.mail.user",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "spring_test.ServiceC",
+      "name": "myapp.mail2.name",
       "type": "java.lang.String"
     }
   ]

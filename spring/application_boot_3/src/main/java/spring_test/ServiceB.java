@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 /**
  * Created by fish on 2021/3/15.
  */
+//缺少Component注解的时候,无法注册BeanFactory,更无法注入属性到该类实例中
 @Component
 @ConfigurationProperties(prefix="myapp.mail")
 public class ServiceB {
