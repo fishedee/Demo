@@ -1,0 +1,17 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "spring_test.ServiceC",
+      "name": "myapp.mail2",
+      "type": "spring_test.ServiceC"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "spring_test.ServiceC",
+      "name": "myapp.mail2.name",
+      "type": "java.lang.String"
+    }
+  ]
+}
