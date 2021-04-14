@@ -12,7 +12,6 @@ import spring_test.ServiceB;
 public class MyConfiguration {
 
     @Bean
-    @Primary
     public ServiceB getServiceB(){
         return new ServiceBImpl2();
     }
