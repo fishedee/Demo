@@ -9,6 +9,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@ import java.util.Optional;
  *
  */
 @SpringBootApplication
+@EnableJpaRepositories
 @EnableTransactionManagement(proxyTargetClass = true)
 @EnableAspectJAutoProxy(exposeProxy = true)
 public class App implements ApplicationRunner

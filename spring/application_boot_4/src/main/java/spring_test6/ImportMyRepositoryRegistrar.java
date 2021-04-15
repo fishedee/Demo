@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
@@ -51,6 +52,8 @@ public class ImportMyRepositoryRegistrar implements
         if( basePackageList.size() == 0){
             //当没有输入包名的时候,就用注解所在类的包
             try {
+                //以下这句用的是入口类的所在的包
+                //basePackageList = AutoConfigurationPackages.get(this.beanFactory);
                 String annotationClass = importingClassMetadata.getClassName();
                 String importPackage = Class.forName(annotationClass).getPackage().getName();
                 basePackageList.add(importPackage);

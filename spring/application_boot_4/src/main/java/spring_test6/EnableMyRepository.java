@@ -1,9 +1,9 @@
 package spring_test6;
 
-import org.springframework.context.annotation.Import;
-import org.springframework.core.annotation.AliasFor;
+        import org.springframework.context.annotation.Import;
+        import org.springframework.core.annotation.AliasFor;
 
-import java.lang.annotation.*;
+        import java.lang.annotation.*;
 
 /**
  * Created by fish on 2021/4/14.
