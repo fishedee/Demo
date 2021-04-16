@@ -14,7 +14,7 @@ public class CountryPeopleRepository  {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<CountryPeople> getAll(){
-        return entityManager.createQuery("select c from CountryPeople c",CountryPeople.class).getResultList();
+    public List<CountryPeopleDTO> getAll(){
+        return entityManager.createQuery("select c from CountryPeopleDTO c where c.id in(1,2)",CountryPeopleDTO.class).getResultList();
     }
 }

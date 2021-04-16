@@ -44,15 +44,12 @@ public class App implements ApplicationRunner
     @Autowired
     private CountryPeopleRepository countryPeopleRepository;
 
+    @Autowired
+    private ContactRepository contactRepository;
+
     @Transactional
     public void addCountry(Country country){
         this.countryRepository.add(country);
-    }
-
-    @Transactional
-    public void delCountry(Long id){
-        Country country = this.countryRepository.find(id);
-        this.countryRepository.del(country);
     }
 
     @Transactional
@@ -60,13 +57,23 @@ public class App implements ApplicationRunner
         this.peopleRepository.add(people);
     }
 
+    @Transactional
+    public void addContact(Contact contact){
+        this.contactRepository.add(contact);
+    }
+
     public void showAllCountry(){
         List<Country> countries = this.countryRepository.getAll();
         log.info("all countryList {}",countries);
     }
 
+    public void showAllContact(){
+        List<Contact> contacts = this.contactRepository.getAll();
+        log.info("all contacts {}",contacts);
+    }
+
     public void showAll(){
-        List<CountryPeople> countryPeopleList = this.countryPeopleRepository.getAll();
+        List<CountryPeopleDTO> countryPeopleList = this.countryPeopleRepository.getAll();
         log.info("all countryPeopleList {}",countryPeopleList);
     }
 
@@ -77,10 +84,16 @@ public class App implements ApplicationRunner
 
         app.addCountry(new Country("中国","CN"));
         app.addCountry(new Country("美国","US"));
-        app.addPeople(new People(1L,"李宁"));
-        app.addPeople(new People(1L,"大伟"));
-        app.addPeople(new People(2L,"Kate"));
-        app.addPeople(new People(2L,"David"));
+        app.addContact(new Contact("15023456"));
+        app.addContact(new Contact("15012345"));
+        app.addContact(new Contact("15012348"));
+        app.addContact(new Contact("15012349"));
+
+        app.showAllContact();
+        app.addPeople(new People(1L,0L,"李宁"));
+        app.addPeople(new People(1L,0L,"大伟"));
+        app.addPeople(new People(2L,0L,"Kate"));
+        app.addPeople(new People(2L,0L,"David"));
 
         app.showAll();
         app.showAllCountry();

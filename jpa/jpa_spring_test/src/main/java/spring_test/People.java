@@ -17,14 +17,17 @@ public class People {
 
     private Long countryId;
 
+    private Long contactId;
+
     private String name;
 
     protected People(){
 
     }
 
-    public People(Long countryId,String name){
+    public People(Long countryId,Long contactId,String name){
         this.countryId = countryId;
+        this.contactId = contactId;
         this.name = name;
     }
 }
