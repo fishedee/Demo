@@ -1,18 +1,13 @@
-package spring_test;
+package spring_test.query;
 
 import jdk.nashorn.internal.ir.annotations.Immutable;
 import lombok.ToString;
 import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.ManyToAny;
-import org.springframework.lang.Nullable;
+import spring_test.business.Contact;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by fish on 2021/4/16.
@@ -21,7 +16,7 @@ import java.util.Optional;
 @Table(name="t_people")
 @Immutable
 @ToString
-public class PeopleDTO {
+public class PeopleVO {
 
     @Id
     private Long id;
@@ -29,7 +24,7 @@ public class PeopleDTO {
     private String name;
 
     /*
-    //contact可为空的情况
+    //contactId可为0的情况,但是不可为null
     @ManyToMany(fetch = FetchType.EAGER)
     @BatchSize(size=10000)
     @JoinTable(
@@ -41,8 +36,13 @@ public class PeopleDTO {
     */
 
 
-    //contact不可为空的情况
+    //contactId不可为0的情况,但是可为null
     @OneToOne(fetch = FetchType.EAGER,optional = true)
     @JoinColumn(name="contactId")
-    private Contact contact;
+    private ContactVO contact;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @BatchSize(size=1000)
+    @JoinColumn(name="peopleId")
+    private List<CarVO> cars = new LinkedList<CarVO>();
 }

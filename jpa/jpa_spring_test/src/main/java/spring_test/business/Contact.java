@@ -1,4 +1,4 @@
-package spring_test;
+package spring_test.business;
 
 import lombok.ToString;
 
