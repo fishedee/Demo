@@ -1,5 +1,7 @@
 package spring_test;
 
+import lombok.ToString;
+
 import javax.persistence.*;
 
 /**
@@ -7,6 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="t_people")
+@ToString
 public class People {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,10 +26,5 @@ public class People {
     public People(Long countryId,String name){
         this.countryId = countryId;
         this.name = name;
-    }
-
-    @Override
-    public String toString(){
-        return String.format("People{id:%d,name:%s}",id,name);
     }
 }

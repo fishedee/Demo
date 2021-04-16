@@ -1,5 +1,6 @@
 package spring_test;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.AopContext;
@@ -25,9 +26,9 @@ import java.util.Optional;
 @SpringBootApplication
 @EnableTransactionManagement(proxyTargetClass = true)
 @EnableAspectJAutoProxy(exposeProxy = true)
+@Slf4j
 public class App implements ApplicationRunner
 {
-    private Logger logger = LoggerFactory.getLogger(getClass());
 
     public static void main( String[] args )
     {
@@ -61,12 +62,12 @@ public class App implements ApplicationRunner
 
     public void showAllCountry(){
         List<Country> countries = this.countryRepository.getAll();
-        logger.info("all countryList {}",countries);
+        log.info("all countryList {}",countries);
     }
 
     public void showAll(){
         List<CountryPeople> countryPeopleList = this.countryPeopleRepository.getAll();
-        logger.info("all countryPeopleList {}",countryPeopleList);
+        log.info("all countryPeopleList {}",countryPeopleList);
     }
 
     public void go1(){

@@ -1,6 +1,8 @@
 package spring_test;
 
 import jdk.nashorn.internal.ir.annotations.Immutable;
+import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -11,6 +13,7 @@ import java.util.Set;
 /**
  * Created by fish on 2021/4/16.
  */
+@ToString
 @Entity
 @Immutable
 @Table(name="t_country")

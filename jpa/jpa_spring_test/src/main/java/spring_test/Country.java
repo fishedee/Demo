@@ -1,10 +1,13 @@
 package spring_test;
 
+import lombok.ToString;
+
 import javax.persistence.*;
 
 /**
  * Created by fish on 2021/4/12.
  */
+@ToString
 @Entity
 @Table(name="t_country")
 public class Country {
@@ -35,9 +38,4 @@ public class Country {
         this.countryName = countryName;
     }
 
-    @Override
-    public String toString(){
-
-        return String.format("Country{id:%d,name:%s,code:%s}",id,countryName,countryCode);
-    }
 }
