@@ -3,6 +3,8 @@ package spring_test;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by fish on 2021/4/16.
@@ -17,10 +19,9 @@ public class Contact {
 
     private String phone;
 
-    protected Contact(){
+    protected  Contact(){
 
     }
-
     public Contact(String phone){
         this.phone = phone;
     }

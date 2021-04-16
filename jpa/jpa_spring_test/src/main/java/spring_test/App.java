@@ -84,16 +84,16 @@ public class App implements ApplicationRunner
 
         app.addCountry(new Country("中国","CN"));
         app.addCountry(new Country("美国","US"));
-        app.addContact(new Contact("15023456"));
-        app.addContact(new Contact("15012345"));
-        app.addContact(new Contact("15012348"));
-        app.addContact(new Contact("15012349"));
+        app.addContact(new Contact("1"));
+        app.addContact(new Contact("2"));
+        app.addContact(new Contact("3"));
+        app.addContact(new Contact("4"));
 
         app.showAllContact();
-        app.addPeople(new People(1L,0L,"李宁"));
-        app.addPeople(new People(1L,0L,"大伟"));
-        app.addPeople(new People(2L,0L,"Kate"));
-        app.addPeople(new People(2L,0L,"David"));
+        app.addPeople(new People(1L,3L,"李宁"));
+        app.addPeople(new People(1L,4L,"大伟"));
+        app.addPeople(new People(2L,null,"Kate"));
+        app.addPeople(new People(2L,5L,"David"));
 
         app.showAll();
         app.showAllCountry();
