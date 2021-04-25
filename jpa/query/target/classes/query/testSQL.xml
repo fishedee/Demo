@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
+                 version="1.0">
+    <!--没有result-class的话无法运行,报ArrayIndexOutOfBoundsException错误-->
+    <named-native-query name="countByName" result-class="spring_test.query.CountryCount">
+        <query>
+            select count(*) as count,state from country where name like :name group by state
+        </query>
+    </named-native-query>
+    <named-query name="findByIds">
+        <query><![CDATA[
+            select i from Country i where i.id in (:ids)
+        ]]>
+        </query>
+    </named-query>
+</entity-mappings>
