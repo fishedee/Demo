@@ -1,0 +1,38 @@
+20:31:59.360 [main] INFO  spring_test.App - Starting App on fishdeiMac.local with PID 1050 (/Users/fish/Project/Demo/springboot/slf4j/target/classes started by fish in /Users/fish/Project/Demo/springboot/slf4j)
+20:31:59.364 [main] INFO  spring_test.App - No active profile set, falling back to default profiles: default
+20:31:59.436 [main] INFO  o.s.c.a.AnnotationConfigApplicationContext - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@769e7ee8: startup date [Wed Mar 24 20:31:59 CST 2021]; root of context hierarchy
+20:31:59.896 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+20:31:59.906 [main] INFO  spring_test.App - Started App in 0.808 seconds (JVM running for 1.253)
+20:31:59.907 [main] INFO  spring_test.ServiceA - hello fish,I am 123
+20:31:59.907 [main] ERROR spring_test.ServiceA - I am error!
+20:31:59.908 [Thread-2] INFO  o.s.c.a.AnnotationConfigApplicationContext - Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@769e7ee8: startup date [Wed Mar 24 20:31:59 CST 2021]; root of context hierarchy
+20:31:59.909 [Thread-2] INFO  o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+20:33:54.071 [main] INFO  spring_test.App - Starting App on fishdeiMac.local with PID 1055 (/Users/fish/Project/Demo/springboot/slf4j/target/classes started by fish in /Users/fish/Project/Demo/springboot/slf4j)
+20:33:54.074 [main] INFO  spring_test.App - No active profile set, falling back to default profiles: default
+20:33:54.115 [main] INFO  o.s.c.a.AnnotationConfigApplicationContext - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@78e117e3: startup date [Wed Mar 24 20:33:54 CST 2021]; root of context hierarchy
+20:33:54.591 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+20:33:54.600 [main] INFO  spring_test.App - Started App in 0.745 seconds (JVM running for 1.162)
+20:33:54.601 [main] INFO  spring_test.ServiceA - hello fish,I am 123
+20:33:54.601 [main] ERROR spring_test.ServiceA - I am error!
+20:33:54.602 [Thread-2] INFO  o.s.c.a.AnnotationConfigApplicationContext - Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@78e117e3: startup date [Wed Mar 24 20:33:54 CST 2021]; root of context hierarchy
+20:33:54.603 [Thread-2] INFO  o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+20:34:13.193 [main] INFO  spring_test.App - Starting App on fishdeiMac.local with PID 1057 (/Users/fish/Project/Demo/springboot/slf4j/target/classes started by fish in /Users/fish/Project/Demo/springboot/slf4j)
+20:34:13.198 [main] INFO  spring_test.App - No active profile set, falling back to default profiles: default
+20:34:13.267 [main] INFO  o.s.c.a.AnnotationConfigApplicationContext - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@460d0a57: startup date [Wed Mar 24 20:34:13 CST 2021]; root of context hierarchy
+20:34:13.732 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+20:34:13.743 [main] INFO  spring_test.App - Started App in 0.766 seconds (JVM running for 1.129)
+20:34:13.744 [main] INFO  spring_test.ServiceA - hello fish,I am 123
+20:34:13.744 [main] ERROR spring_test.ServiceA - I am error!
+20:34:13.744 [main] ERROR spring_test.ServiceB - serviceB error go
+20:34:13.745 [Thread-2] INFO  o.s.c.a.AnnotationConfigApplicationContext - Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@460d0a57: startup date [Wed Mar 24 20:34:13 CST 2021]; root of context hierarchy
+20:34:13.746 [Thread-2] INFO  o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+20:35:44.386 [main] INFO  spring_test.App - Starting App on fishdeiMac.local with PID 1061 (/Users/fish/Project/Demo/springboot/slf4j/target/classes started by fish in /Users/fish/Project/Demo/springboot/slf4j)
+20:35:44.389 [main] INFO  spring_test.App - No active profile set, falling back to default profiles: default
+20:35:44.458 [main] INFO  o.s.c.a.AnnotationConfigApplicationContext - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@1184ab05: startup date [Wed Mar 24 20:35:44 CST 2021]; root of context hierarchy
+20:35:44.894 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+20:35:44.904 [main] INFO  spring_test.App - Started App in 0.849 seconds (JVM running for 1.135)
+20:35:44.905 [main] INFO  spring_test.ServiceA - hello fish,I am 123
+20:35:44.905 [main] ERROR spring_test.ServiceA - I am error!
+20:35:44.905 [main] ERROR spring_test.ServiceB - serviceB error go
+20:35:44.908 [Thread-2] INFO  o.s.c.a.AnnotationConfigApplicationContext - Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@1184ab05: startup date [Wed Mar 24 20:35:44 CST 2021]; root of context hierarchy
+20:35:44.909 [Thread-2] INFO  o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown

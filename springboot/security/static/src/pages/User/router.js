@@ -1,0 +1,21 @@
+export default [
+{
+    name:"账号管理",
+    path:"/user",
+    component:'User/List',
+},
+{
+    name:"账号详情",
+    path:"/user/detail",
+    component:'User/Detail',
+},
+{
+    name:"修改密码",
+    path:"/user/password",
+    component:'User/Password',
+},
+{
+    name:"修改我的密码",
+    path:"/password",
+    component:'User/MyPassword',
+}];
