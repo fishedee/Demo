@@ -42,6 +42,6 @@ public class App implements ApplicationRunner
     private PeopleExceptionTest peopleExceptionTest;
 
     public   void run(ApplicationArguments arguments) throws Exception {
-        peopleExceptionTest.go();
+        carCacheTest.go();
     }
 }

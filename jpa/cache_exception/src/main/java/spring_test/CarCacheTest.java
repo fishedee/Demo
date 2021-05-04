@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import spring_test.business.Car;
 import spring_test.infrastructure.CarRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +24,9 @@ public class CarCacheTest {
     @Autowired
     private CarRepository carRepository;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Transactional
     public void add(Car car){
         this.carRepository.add(car);
@@ -35,6 +40,8 @@ public class CarCacheTest {
         car2.setName(new Date().toString());
 
         //再执行一次getBatch,依然会向数据库发出select请求,只是返回的结果会取本地的数据
+        //注意,由于car2有修改,所以也会产生一次update的操作以后,才进行select操作
+        //这个叫FlushMode.AUTO模式
         List<Car> cars = this.carRepository.findBatch(Arrays.asList(10001L,10002L));
         log.info("debug {} {}",car2,cars.get(1));
     }
@@ -63,6 +70,23 @@ public class CarCacheTest {
         Car car1 = this.carRepository.find(newCar.getId());
     }
 
+    @Transactional
+    public void get4(){
+        //两次单独的get以后
+        Car car1 = this.carRepository.find(10001L);
+        Car car2 = this.carRepository.find(10002L);
+
+        //JPA会发现car有修改的地方,而select又需要重新查数据库,就会先将脏数据落地
+        car2.setName("ez");
+        //car2.setName("cc");
+
+        //这句sql不仅会产生一次select操作,还会将car2的修改执行update操作
+        List<Car> cars = entityManager.createQuery("select c from Car c where c.name= :name")
+                .setParameter("name","cc")
+                .getResultList();
+        log.info("all data {}",cars);
+    }
+
     public void go(){
         CarCacheTest app = (CarCacheTest) AopContext.currentProxy();
 
@@ -80,5 +104,8 @@ public class CarCacheTest {
 
         log.info("get3 begin ...");
         app.get3();
+
+        log.info("get4 begin ...");
+        app.get4();
     }
 }
