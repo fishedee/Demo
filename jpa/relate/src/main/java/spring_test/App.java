@@ -39,6 +39,9 @@ public class App implements ApplicationRunner
     private OneWayNoPersistTest oneWayNoPersistTest;
 
     @Autowired
+    private OneWayWithCascadeTest oneWayWithCascadeTest;
+
+    @Autowired
     private TwoWayNoPersistTest twoWayNoPersistTest;
 
     @Autowired
@@ -48,6 +51,6 @@ public class App implements ApplicationRunner
     private AnyTest anyTest;
 
     public   void run(ApplicationArguments arguments) throws Exception {
-        anyTest.go();
+        oneWayWithCascadeTest.go();
     }
 }

@@ -84,5 +84,15 @@ public class Controller4 {
     public void go5(){
         throw new MyException(1,"你好",null);
     }
+
+    @PostMapping(value="/go6")
+    public void go6(@Valid @RequestBody Order2DO order2DO){
+        System.out.println(order2DO);
+    }
+
+    @GetMapping(value="/go7")
+    public String go7(){
+       return "123";
+    }
 }
 

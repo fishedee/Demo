@@ -20,7 +20,7 @@ public class Country {
 
     //OneToMany额外的@JoinColumn字段指定了peopleList是在关系的写入端
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "country_id")
+    @JoinColumn(name = "country_id",nullable = false)
     private List<People> peopleList = new ArrayList<>();
 
     protected Country(){

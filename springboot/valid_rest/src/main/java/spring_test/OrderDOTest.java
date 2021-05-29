@@ -3,10 +3,15 @@ package spring_test;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,6 +22,9 @@ import java.util.Set;
 public class OrderDOTest {
     @Autowired
     private Validator validator;
+
+    @Autowired
+    private ValidatorFactory validatorFactoryBean;
 
     //手动验证
     public void check(OrderDO orderDO){
@@ -32,11 +40,27 @@ public class OrderDOTest {
         check(data);
     }
 
+
+
+    //手动验证2,有更好的错误输出
+    public void check2(OrderDO orderDO){
+        Set<ConstraintViolation<Object>> validateSet = validatorFactoryBean.getValidator().validate(orderDO);
+        if (!CollectionUtils.isEmpty(validateSet)) {
+            Iterator<ConstraintViolation<Object>> iterator = validateSet.iterator();
+            List<String> msgList = new ArrayList<>();
+            while (iterator.hasNext()) {
+                ConstraintViolation<?> cvl = iterator.next();
+                msgList.add(cvl.getPropertyPath()+":"+cvl.getMessage());
+            }
+            log.error("fail {}",msgList.toString());
+        }
+    }
+
     public void go2(){
         log.info("OrderDOTest go2 ....");
         OrderDO data = new OrderDO();
         data.setId(10001L);
-        check(data);
+        check2(data);
     }
 
     public void go3(){

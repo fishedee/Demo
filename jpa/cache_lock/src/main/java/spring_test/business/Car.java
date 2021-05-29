@@ -1,12 +1,12 @@
 package spring_test.business;
 
-import lombok.Getter;
-import lombok.ToString;
+        import lombok.Getter;
+        import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+        import javax.persistence.Entity;
+        import javax.persistence.GeneratedValue;
+        import javax.persistence.GenerationType;
+        import javax.persistence.Id;
 
 /**
  * Created by fish on 2021/4/24.

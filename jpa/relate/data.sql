@@ -20,6 +20,24 @@ create table people(
 	primary key(id)
 )engine=innodb default charset=utf8mb4 auto_increment = 10001;
 
+
+create table country4(
+	id integer not null,
+	name varchar(255) not null,
+	create_time timestamp not null default CURRENT_TIMESTAMP,
+	modify_time timestamp not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+	primary key(id)
+)engine=innodb default charset=utf8mb4 auto_increment = 10001;
+
+create table people4(
+	id integer not null,
+	name varchar(255) not null,
+	country_id integer not null,
+	create_time timestamp not null default CURRENT_TIMESTAMP,
+	modify_time timestamp not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+	primary key(id)
+)engine=innodb default charset=utf8mb4 auto_increment = 10001;
+
 create table country2(
 	id integer not null,
 	name varchar(255) not null,

@@ -6,6 +6,7 @@ import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.stereotype.Component;
 import spring_test.business.SalesOrder;
 import spring_test.business.SalesOrderWhere;
+import spring_test.query.CountryCount;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -121,7 +122,7 @@ public class SalesOrderRepository extends CurdRepository<SalesOrder,Long> {
 
     //分页
     public List<SalesOrder> getAll(int pageIndex, int pageSize ){
-        Query query = entityManager.createQuery("select c from SalesOrder c");
+        Query query = entityManager.createQuery("select c from SalesOrder c", CountryCount.class);
         query.setFirstResult(pageIndex);
         query.setMaxResults(pageSize);
 
