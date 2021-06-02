@@ -33,7 +33,6 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
 
     @Override
     public void onAuthenticationSuccess(javax.servlet.http.HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
-        addSameDomain(response);
         response.setStatus(HttpServletResponse.SC_OK);
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
@@ -46,18 +45,5 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
         PrintWriter writer = response.getWriter();
         writer.write(result);
         writer.flush();
-    }
-
-    private void addSameDomain(HttpServletResponse response) {
-        Collection<String> headers = response.getHeaders(HttpHeaders.SET_COOKIE);
-        boolean firstHeader = true;
-        for (String header : headers) { // there can be multiple Set-Cookie attributes
-            if (firstHeader) {
-                response.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s", header, "domain=test.com"));
-                firstHeader = false;
-                continue;
-            }
-            response.addHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s", header, "domain=test.com"));
-        }
     }
 }

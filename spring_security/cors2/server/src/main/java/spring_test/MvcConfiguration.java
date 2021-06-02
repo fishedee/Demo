@@ -13,14 +13,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class MvcConfiguration implements WebMvcConfigurer {
-    /*
     @Bean
     public TomcatContextCustomizer sameSiteCookiesConfig() {
         return context -> {
-            final LegacyCookieProcessor cookieProcessor = new LegacyCookieProcessor();
-            cookieProcessor.setSameSiteCookies(SameSiteCookies.NONE.getValue());
+            final MyCookieProcessor cookieProcessor = new MyCookieProcessor();
             context.setCookieProcessor(cookieProcessor);
         };
     }
-    */
 }

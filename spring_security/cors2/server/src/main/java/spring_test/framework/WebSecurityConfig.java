@@ -86,13 +86,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.
                 //开启csrf
                 csrf()
-                .disable()
                 //默认的headerName为"X-XSRF-TOKEN";
                 //默认的cookieName为"XSRF-TOKEN";
                 //默认的parameterName的"_csrf";
                 //可以看一下CookieCsrfTokenRepository的源代码
-                //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                //.and()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .and()
                 //设置认证异常与授权异常的处理
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint)
