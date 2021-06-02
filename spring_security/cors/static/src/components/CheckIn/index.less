@@ -1,0 +1,59 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  .center{
+    background:white;
+    border-radius:5px;
+    padding:50px 30px;
+    .header {
+      height: 44px;
+      line-height: 44px;
+
+      a {
+        text-decoration: none;
+      }
+
+      span{
+        font-size: 33px;
+        color: rgba(0, 0, 0, 0.85);
+        font-family: 'Myriad Pro', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        position: relative;
+        top: 2px;
+      }
+    }
+
+    .tabs {
+      padding: 0 2px;
+      margin: 30px -2px 0px -2px;
+      :global {
+        .ant-tabs-tab {
+          font-size: 16px;
+          line-height: 24px;
+        }
+        .ant-input-affix-wrapper .ant-input:not(:first-child) {
+          padding-left: 34px;
+        }
+      }
+    }
+    :global {
+      .ant-tabs .ant-tabs-bar {
+        border-bottom: 0;
+        margin-bottom: 24px;
+        text-align: center;
+      }
+
+      .ant-form-item {
+        margin-bottom: 24px;
+      }
+    }
+
+    .login{
+      width:100%;
+    }
+  }
+  
+}
+

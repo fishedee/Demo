@@ -24,6 +24,9 @@ import javax.sql.DataSource;
  */
 @Configuration
 //这里可以打开debug模式
+//可以看到请求过来的Request Cookie与Body
+//在POSTMAN中,GET请求仅需要设置Cookie字段就可以访问了
+//POST请求需要额外添加X-XSRF-TOKEN的header
 @EnableWebSecurity(debug=true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -81,6 +84,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.
                 //开启csrf
                 csrf()
+                //默认的headerName为"X-XSRF-TOKEN";
+                //默认的cookieName为"XSRF-TOKEN";
+                //默认的parameterName的"_csrf";
+                //可以看一下CookieCsrfTokenRepository的源代码
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
                 //设置认证异常与授权异常的处理
