@@ -46,10 +46,6 @@ public class MyResponseBodyAdvice implements ResponseBodyAdvice {
 
             RequestAttributes requestAttributes =  RequestContextHolder.currentRequestAttributes();
             HttpServletRequest request = ((ServletRequestAttributes)requestAttributes).getRequest();
-            Enumeration<String> days = request.getAttributeNames();
-            while( days.hasMoreElements()){
-                log.info("attributes {}",days.nextElement());
-            }
 
             CsrfToken token = (CsrfToken)request.getAttribute("org.springframework.security.web.csrf.CsrfToken");
             if( token != null ){
@@ -60,7 +56,6 @@ public class MyResponseBodyAdvice implements ResponseBodyAdvice {
         public ResponseResult(int code,String message,Object data){
 
             init(HttpStatus.OK,code,message,data);
-            //throw new RuntimeException("123");
         }
 
         public ResponseResult(HttpStatus httpStatus,int code,String message,Object data){
