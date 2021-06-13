@@ -3,6 +3,9 @@ package spring_test;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
+import lombok.Data;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -59,5 +62,12 @@ public class Test2 {
     public void go2() {
         List<User> users = userRepository.getAll();
         assertEquals(users.size(), 1);
+    }
+
+    @DatabaseSetup( value = {"classpath:/test4.xml"},type = DatabaseOperation.CLEAN_INSERT)
+    @ExpectedDatabase(value="classpath:/test4_validate.xml",assertionMode= DatabaseAssertionMode.DEFAULT)
+    @Test
+    public void go3(){
+        this.service.mod(1L,"KK");
     }
 }

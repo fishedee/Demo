@@ -20,4 +20,10 @@ public class Service {
         System.out.println(c);
     }
 
+    @Transactional
+    public void mod(Long id, String name){
+        User user = this.userRepository.find(id);
+        user.setName(name);
+    }
+
 }
