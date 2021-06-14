@@ -19,9 +19,9 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 //
 @SpringBootTest
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 @Slf4j
-//每个方法之后都会重置ApplicationContext，速度会变慢，但是环境每次都是全新的
+//每个方法之后都会重置ApplicationContext，速度会变慢，但是环境每次都是全新的,每个用例都会自动执行一次DDL语句，删除数据库然后重建表
 @DirtiesContext(classMode= DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class Test1 {
     @Autowired

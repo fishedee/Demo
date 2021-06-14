@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
@@ -20,6 +21,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+//@ActiveProfiles("test")
 @TestExecutionListeners({
         DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
@@ -64,6 +66,11 @@ public class Test2 {
         assertEquals(users.size(), 1);
     }
 
+    /*
+    DEFAULT。数量一致，顺序一致，字段全部一致
+    NON_STRICT。数量一致，顺序一致，字段只验证数据集的部分
+    NON_STRICT_UNORDERED。数量一致，顺序可以不一致，字段只验证数据集的部分
+     */
     @DatabaseSetup( value = {"classpath:/test4.xml"},type = DatabaseOperation.CLEAN_INSERT)
     @ExpectedDatabase(value="classpath:/test4_validate.xml",assertionMode= DatabaseAssertionMode.DEFAULT)
     @Test
