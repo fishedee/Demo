@@ -6,14 +6,27 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EnclosingReflect {
 
     @Test
+    public void isMemberClass(){
+        User2 user = new User2();
+        user.getData();
+
+        assertEquals(false,User2.class.isMemberClass());
+        assertEquals(false,user.a.getClass().isMemberClass());//在块里面定义的类
+        assertEquals(false,user.b.getClass().isMemberClass());//在块里面定义的类
+        assertEquals(true,user.c.getClass().isMemberClass());//在类定义的
+    }
+
+    @Test
     public void isLocalClass(){
         User2 user = new User2();
         user.getData();
 
+        assertEquals(false,User2.class.isLocalClass());
         assertEquals(true,user.a.getClass().isLocalClass());//在块里面定义的类
         assertEquals(true,user.b.getClass().isLocalClass());//在块里面定义的类
         assertEquals(false,user.c.getClass().isLocalClass());//在类定义的
     }
+
     @Test
     public void testEnclosingClass(){
         User2 user = new User2();
