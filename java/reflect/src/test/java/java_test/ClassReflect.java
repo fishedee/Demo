@@ -50,7 +50,7 @@ public class ClassReflect {
         //是否为内部类
         assertTrue(clazz.isMemberClass());
 
-        //非本地类，不需要外层类的this指针
+        //非本地类，定义类级别，不需要外层类的this指针
         assertFalse(clazz.isLocalClass());
 
         //获取外部层的类
@@ -68,7 +68,7 @@ public class ClassReflect {
         //是否为内部类
         assertTrue(clazz.isMemberClass());
 
-        //本地类，需要外部类的this指针
+        //非本地类，定义类级别，需要外部类的this指针
         assertFalse(clazz.isLocalClass());
 
         //获取外部层的类
