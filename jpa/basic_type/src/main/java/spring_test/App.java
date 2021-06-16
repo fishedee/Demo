@@ -45,7 +45,10 @@ public class App implements ApplicationRunner
     @Autowired
     private CarTest carTest;
 
+    @Autowired
+    private Car2Test car2Test;
+
     public   void run(ApplicationArguments arguments) throws Exception {
-        carTest.go();
+        car2Test.go();
     }
 }

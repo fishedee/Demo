@@ -37,3 +37,11 @@ create table car(
 	modify_time timestamp not null,
 	primary key(id)
 )engine=innodb default charset=utf8mb4 auto_increment = 10001;
+
+create table car2(
+	id integer not null auto_increment,
+	name varchar(255) not null,
+	create_time timestamp not null,
+	modify_time timestamp not null,
+	primary key(id)
+)engine=innodb default charset=utf8mb4 auto_increment = 10001;
