@@ -41,7 +41,7 @@ create table car(
 create table car2(
 	id integer not null auto_increment,
 	name varchar(255) not null,
-	create_time timestamp not null,
-	modify_time timestamp not null,
+	create_time timestamp not null default CURRENT_TIMESTAMP,
+	modify_time timestamp not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
 	primary key(id)
 )engine=innodb default charset=utf8mb4 auto_increment = 10001;

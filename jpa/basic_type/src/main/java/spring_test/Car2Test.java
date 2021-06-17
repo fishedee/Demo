@@ -31,8 +31,15 @@ public class Car2Test {
         log.info("id ",car.getId());
 
         //时间戳是由JPA自动生成的，不需要依赖数据库的机制
+        //当遇上Generated注解的时候就会去读取数据库
         this.car2Repository.add(car);
         log.info("add Country id:{} createTime:{} modifyTime:{}",car.getId(),car.getCreateTime(),car.getModifyTime());
+
+
+        //数据仍然在内存中，所以这个时候读取出来的createTime依然为null
+        //注意这里无论如何都不会触发读数据库，因为insert的数据就在本地内存上，不需要再查询，只有find才有这个能力
+        Long id = car.getId();
+        log.info("createTime {}",this.car2Repository.find(id).getCreateTime());
 
         //这段代码只有一个insert操作，不需要select时间戳
         return car.getId();
