@@ -28,13 +28,15 @@ public class MixedTest {
     public void addBatch(){
         carRepository.add(new Car("A1"));
         peopleRepository.add(new People("B1"));
-        carRepository.add(new Car("A2"));
+        Car car2 = new Car("B2");
+        carRepository.add(car2);
         peopleRepository.add(new People("B2"));
         Car car3 = new Car("A3");
         carRepository.add(car3);
         People people3 = (new People("B3"));
         peopleRepository.add(people3);
         peopleRepository.add(new People("B4"));
+        car2.setName("A6");
         people3.setName("B5");
         car3.setName("A5");
 
