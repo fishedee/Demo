@@ -1,12 +1,12 @@
 package spring_test.business;
 
+import lombok.Generated;
 import lombok.Getter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -15,16 +15,15 @@ import java.util.Date;
 @Entity
 @ToString
 @Getter
-public class Car2 {
-    private static Long globalId = 20001L;
+public class People {
 
     //改用自己的id生成算法
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
 
-    /*
     //可以设置为由Hibernate来生成时间戳
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
@@ -33,25 +32,16 @@ public class Car2 {
 
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
-    private Date modifyTime;*/
+    private Date modifyTime;
 
-    private Long generateId(){
-        Long id = Car2.globalId++;
-        return id;
-    }
-    protected Car2(){
-
-        //这个不要设置id，这个protected是由JPA读取数据后自动填充用的
-        //即使设置了generateId，JPA也不会将id使用update语句写入到数据库，因为JPA默认id是不可改变的。但是，这样做会让id增长不是连续的。
-        //this.id = generateId();
+    protected People(){
     }
 
-    public Car2(String name){
-        this.id = generateId();
+    public People(String name){
         this.name = name;
     }
 
-    public void mod(String name){
+    public void setName(String name){
         this.name = name;
     }
 }

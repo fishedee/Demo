@@ -6,14 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import spring_test.business.Car;
-import spring_test.business.Car2;
-import spring_test.business.CarBrand;
-import spring_test.business.Country;
-import spring_test.infrastructure.Car2Repository;
 import spring_test.infrastructure.CarRepository;
-import spring_test.infrastructure.CountryRepository;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -21,20 +15,20 @@ import java.util.List;
  */
 @Slf4j
 @Component
-public class Car2Test {
+public class CarTest {
     @Autowired
-    private Car2Repository car2Repository;
+    private CarRepository car2Repository;
 
     @Transactional
     public void clear(){
-        List<Car2> cars = this.car2Repository.getAll();
+        List<Car> cars = this.car2Repository.getAll();
         for( int i = 0 ;i != cars.size();i++){
             this.car2Repository.del(cars.get(i));
         }
     }
 
     @Transactional
-    public Long addCar(Car2 car){
+    public Long addCar(Car car){
         //id在new的时候已经创建好了，不需要查表
         log.info("id ",car.getId());
 
@@ -54,7 +48,7 @@ public class Car2Test {
     }
 
     @Transactional
-    public void addCarBatch(Car2[] cars){
+    public void addCarBatch(Car[] cars){
         for( int i = 0 ;i != cars.length;i++){
             this.car2Repository.add(cars[i]);
         }
@@ -62,30 +56,30 @@ public class Car2Test {
 
     @Transactional
     public void modCar(Long id, String name){
-        Car2 car = this.car2Repository.find(id);
+        Car car = this.car2Repository.find(id);
         if(car == null){
             throw new RuntimeException("找不到"+id+"的车");
         }
-        car.mod(name);
+        car.setName(name);
         //只有在事务结束的时候,才进行真正的更新操作,所以这里读到的modifyTime依然是旧的.
         log.info("mod Car {}",car);
     }
 
     public void showAllCar(){
-        List<Car2> cars = this.car2Repository.getAll();
+        List<Car> cars = this.car2Repository.getAll();
         log.info("all Car {}",cars);
     }
 
     //https://github.com/ttddyy/datasource-proxy
     public void go(){
-        Car2Test app = (Car2Test) AopContext.currentProxy();
+        CarTest app = (CarTest) AopContext.currentProxy();
 
         app.clear();
-        Long id = app.addCar(new Car2("它的"));
+        Long id = app.addCar(new Car("它的"));
         app.showAllCar();
         app.modCar(id,"我的");
         app.showAllCar();
-        app.addCarBatch(new Car2[]{new Car2("A"),new Car2("B")});
+        app.addCarBatch(new Car[]{new Car("A"),new Car("B")});
     }
 
     //https://blog.51cto.com/u_15082395/2590334

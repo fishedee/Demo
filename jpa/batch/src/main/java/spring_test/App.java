@@ -1,15 +1,20 @@
 package spring_test;
 
 import lombok.extern.slf4j.Slf4j;
+import net.ttddyy.dsproxy.support.ProxyDataSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
 import java.util.Scanner;
 import java.util.TimeZone;
 
@@ -36,23 +41,18 @@ public class App implements ApplicationRunner
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
     }
 
-
     @Autowired
-    public CountryTest countryTest;
+    private CarTest carTest;
 
     @Autowired
     private PeopleTest peopleTest;
 
     @Autowired
-    private CarTest carTest;
+    private MixedTest mixedTest;
 
-    @Autowired
-    private Car2Test car2Test;
-
+    //https://www.baeldung.com/jpa-hibernate-batch-insert-update
+    //https://github.com/AnghelLeonard/Hibernate-SpringBoot
     public   void run(ApplicationArguments arguments) throws Exception {
-        car2Test.go();
-
-        Scanner input = new Scanner(System.in);
-        input.next();
+        mixedTest.go();
     }
 }
