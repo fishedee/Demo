@@ -117,7 +117,7 @@ public class GlobalExceptionHandler {
         List<FieldError> bindingResult = ex.getBindingResult().getFieldErrors();
         List<String> msgList = new ArrayList<String>();
         for (FieldError fieldError : bindingResult) {
-            msgList.add(fieldError.getDefaultMessage());
+            msgList.add(fieldError.getField()+":"+fieldError.getDefaultMessage());
         }
         return new MyResponseBodyAdvice.ResponseResult(HttpStatus.BAD_REQUEST,10004,msgList.toString(),null);
     }

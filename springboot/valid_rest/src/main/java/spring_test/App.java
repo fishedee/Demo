@@ -27,6 +27,6 @@ public class App implements ApplicationRunner
 
 
     public   void run(ApplicationArguments arguments) throws Exception{
-        //orderDOTest.go();
+        orderDOTest.go();
     }
 }
