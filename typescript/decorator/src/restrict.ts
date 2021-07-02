@@ -46,6 +46,11 @@ export default function go(){
         .setURL("baidu.com")
         .send();
 
+    builder.setData({a:3})
+        .setMethod('get')
+        .setURL("baidu.com")
+        .send();
+
     //缺少任意一个set，ts都会报错
     /*
     builder.setData({a:3})
