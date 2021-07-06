@@ -5,7 +5,7 @@ module.exports = {
     },
     extends: [
         'plugin:react/recommended',
-        'airbnb',
+        'standard',
         'prettier',
         'plugin:import/typescript',
         'plugin:import/recommended',
@@ -26,6 +26,7 @@ module.exports = {
         'no-unused-vars': 0,
         'prefer-const ': 0,
         'max-classes-per-file': 0,
+        'no-extend-native': 0,
         'import/extensions': [
             'error',
             'ignorePackages',

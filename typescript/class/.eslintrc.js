@@ -5,7 +5,7 @@ module.exports = {
     },
     extends: [
         'plugin:react/recommended',
-        'airbnb',
+        'standard',
         'prettier',
         'plugin:import/typescript',
         'plugin:import/recommended',
