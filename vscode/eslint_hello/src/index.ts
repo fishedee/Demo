@@ -1,4 +1,4 @@
-import check from './go2'
+import check from './go'
 
 const a = '3';
 
