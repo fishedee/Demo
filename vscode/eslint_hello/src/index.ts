@@ -1,3 +1,5 @@
+import check from './go2'
+
 const a = '3';
 
 function b() {
@@ -5,3 +7,4 @@ function b() {
 }
 
 b();
+check()
