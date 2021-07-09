@@ -27,6 +27,15 @@ function testTypeCheck2() {
     type R2 = ElemType<number[]>
     type R3 = ElemType<string[]>
 }
+
+// extends操作符是用分配率来执行的，以保持输入时的并集
+// WithOut<number | string,string> = WithOut<number,string> | WithOut<string ,string>
+type WithOut<T, U> = T extends U ? never : T
+
+function testTypeCheck3() {
+    type R1 = WithOut<number | string, string>
+    type R2 = WithOut<number | object | string, string>
+}
 function testTypeCheck() {
     testTypeCheck1()
     testTypeCheck2()
