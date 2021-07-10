@@ -1,0 +1,7 @@
+/*
+非CSS Module的引用方式，类名都不会改写
+*/
+
+h1{
+    border:1px solid black;
+}

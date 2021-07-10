@@ -1,0 +1,11 @@
+/*
+CSS Module的引用方式，除了:global包围的，其他类名都被自动改写
+*/
+
+.my-div{
+    color:yellow;
+}
+
+:global(.title){
+    color:green;
+}

@@ -1,5 +1,5 @@
 
-let extraRoutes;
+let extraRoutes:any[];
 //在触发render以后，就会触发patchRoutes，以获取路由信息
 //整个页面仅触发一次
 export function patchRoutes({ routes }) {
