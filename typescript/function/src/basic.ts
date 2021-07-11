@@ -8,9 +8,13 @@ const go2 = (name: string, age: number) => {
     console.log(`name:${name},age:${age}`)
 }
 
+//创建一个function type
+type goType = (a:string,b:number)=>void
+
 function testFunction() {
     go1('a')
     go2('fish', 200)
+    let a:goType = go2
 }
 
 // 默认参数与可选参数
