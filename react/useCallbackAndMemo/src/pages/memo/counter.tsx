@@ -5,7 +5,6 @@ type Props = {
     onClick: () => void;
 };
 
-//即使用了memo，但是依然是每次两个Button都重绘
 let ChildButton = memo((props: Props) => {
     console.log('Child Button Render');
     return <button onClick={props.onClick}>{props.name}</button>;
