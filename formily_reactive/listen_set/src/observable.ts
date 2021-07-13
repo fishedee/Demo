@@ -160,7 +160,7 @@ export default function testObservable() {
 /*
 触发的规则：
 * number与string的基础类型，值比较发生变化了会触发
-* object与array的复合类型，引用发生变化了会触发，object的字段添减和变化，array的push和pop都不会引起触发
+* object与array的复合类型，引用发生变化了会触发，object的字段添减不会触发，array的push和pop也不会触发
 * array.length，它属于字段的基础类型变化，所以也会触发
 * object与array类型，对于自己引用整个变化的时候，它也会触发子字段的触发
 浅倾听shadow，只能处理表面一层的数据

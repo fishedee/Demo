@@ -8,7 +8,6 @@ type Props = {
     mode: CounterEnum;
 };
 
-// memo可以使得只有props发生变化的时候才重新render
 export default observer((props: Props) => {
     let [mode, setMode] = useState<{ value: CounterEnum }>(() => {
         return observable({
