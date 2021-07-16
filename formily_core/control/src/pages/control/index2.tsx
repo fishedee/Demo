@@ -9,7 +9,6 @@ import { sleep } from '@/utils';
 import { autorun, observable } from '@formily/reactive';
 import { Field } from '@formily/core/esm/models';
 
-//这个例子中，字段级同步也失败了，不知道为什么
 export default () => {
     const obs = useMemo(() => {
         let result = observable({
@@ -22,8 +21,9 @@ export default () => {
     }, []);
     const form = useMemo(() => {
         return createForm({
-            //将可观察数据，在createForm的时候，就注入value中，两者就能保持同步
-            //这称为，字段级的响应式表单受控
+            //将可观察数据，通过onFieldReact进行同步
+            //这称为，响应式字段级受控
+            //但是，这样只能做单向同步，从observable到form的字段，不能从form的字段同步到observable
             effects: () => {
                 onFieldReact('age', (field) => {
                     let field2 = field as Field;
@@ -41,14 +41,16 @@ export default () => {
 
                     obs.name = '123';
                     await sleep(100);
+                    //这里field value变为123
                     console.log('field value:', field.value);
 
                     field.value = '789';
                     await sleep(100);
+                    //这里的obs value依然为旧值，123
                     console.log('obs value:', obs.name);
                 }}
             >
-                createForm的字段同步
+                createForm的字段单向同步
             </button>
         </div>
     );
