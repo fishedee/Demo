@@ -44,6 +44,7 @@ export default () => {
             <MyField
                 title="名称"
                 name="name"
+                required
                 component={[Input, {}]}
                 decorator={[FormItem]}
             />
@@ -66,6 +67,7 @@ export default () => {
             <MyField
                 title="年龄"
                 name="age"
+                required
                 component={[InputDigit, {}]}
                 decorator={[FormItem, { style: { height: 30 } }]}
             />
@@ -86,6 +88,7 @@ export default () => {
             <MyField
                 title="密码"
                 name="password"
+                required
                 component={[Password]}
                 decorator={[FormItem, {}]}
             />
