@@ -25,7 +25,7 @@ export default () => {
                     );
                 });
 
-                //测试已创建field，但没初始化的字段，get操作，
+                //测试已创建field，并初始初始化的字段，get操作，
                 onFieldChange('name', (field, form) => {
                     //获取value的方法1，直接以本field为基点查找其他field
                     console.log(field.query('.age').value());
@@ -45,7 +45,7 @@ export default () => {
                 });
 
                 /*
-                对于未创建field，以及还没初始化的字段，要进行get操作的话
+                对于未创建field，并初始化的字段，要进行get操作的话
                 field.query('xxx').value()，相当方便的相对位置查找
                 field.query('xxx').take().value，相当方便的相对位置查找，可以获取多种属性
                 form.getValuesIn，获取value，只能从顶层开始查找

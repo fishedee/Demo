@@ -69,16 +69,17 @@ export default () => {
                         required: true,
                     });
 
-                    //模拟用户输入
+                    //直接修改数据
                     field.value = 'f';
                     await sleep(100);
                     //field.errors为空数组
                     //feedbacks是空数组
                     console.log(field.feedbacks, field.errors);
 
-                    //模拟用户输入
+                    //直接修改数据
                     field.value = '';
                     await sleep(100);
+                    //errors依然为空，因为validator是基于onInput，onFocus或者onBlur来触发的，直接修改value是不会触发校验的
                     console.log(field.feedbacks, field.errors);
                 }}
             >

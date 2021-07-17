@@ -3,6 +3,7 @@ import {
     onFormInit,
     onFormInputChange,
     onFormMount,
+    onFormSubmit,
     onFormUnmount,
     onFormValuesChange,
 } from '@formily/core';
@@ -28,7 +29,7 @@ export default () => {
                 onFormUnmount(() => {
                     console.log('表单 unmount');
                 });
-
+                
                 //onChange的时候自动触发，默认就是只有value变化的时候触发
                 //注意，首次不会触发
                 onFormValuesChange(() => {
@@ -38,6 +39,11 @@ export default () => {
                 //onInput的时候手动触发，这个注意与onFieldValueChange的不同
                 onFormInputChange(() => {
                     console.log('form value input change');
+                });
+
+                //submit的时候自动触发
+                onFormSubmit(() => {
+                    console.log('form submit');
                 });
             },
         });
@@ -70,6 +76,11 @@ export default () => {
                     await sleep(100);
                     console.log('set input');
                     field.onInput('cat');
+
+                    //触发onSubmit
+                    await sleep(100);
+                    console.log('set submit');
+                    form.submit();
 
                     //触发onUnmount
                     await sleep(100);

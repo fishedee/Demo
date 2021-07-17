@@ -71,7 +71,7 @@ export default () => {
                     //field.errors依然为空数组，因为triggerType为onBlur
                     console.log(field.feedbacks, field.errors);
 
-                    //模拟控件blur
+                    //模拟控件focus
                     field.onFocus();
                     await sleep(500);
                     //field.errors现在不是为空数组了，因为blur的时候触发了校验
