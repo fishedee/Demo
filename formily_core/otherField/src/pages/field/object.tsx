@@ -30,6 +30,7 @@ export default () => {
                     //push操作会触发onInuput
                     field.addProperty('name', 'fish');
                     field.addProperty('age', 123);
+                    field.addProperty('sex', 'male');
 
                     //通过path，我们可以获取到下一级的field
                     let fieldItem = form.createField({
@@ -49,6 +50,13 @@ export default () => {
                         name: 'person.qq',
                     });
                     console.log(fieldItem3.value);
+
+                    //bashPath的用法，实际取的字段是person.sex
+                    let fieldItem4 = form.createField({
+                        name: 'sex',
+                        basePath: 'person',
+                    });
+                    console.log(fieldItem4.value);
                 }}
             >
                 ObjectField

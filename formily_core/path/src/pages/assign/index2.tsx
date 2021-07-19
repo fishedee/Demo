@@ -31,18 +31,27 @@ export default () => {
         <div>
             <button
                 onClick={() => {
-                    //这样是不行的，不能在创建field的时候要解构表达式
-                    let combineField = form.createField({
+                    //解构赋值，将两个字段合并在一起操作
+                    let allField = form.createField({
                         name: '[name,age]',
                     });
 
-                    console.log('setValuesIn');
-                    //同时赋值多个字段
-                    form.setValuesIn('[name,age]', ['fish', 123]);
+                    console.log('value', allField.getState().value);
+
+                    allField.onInput(['fish', 123]);
+
                     console.log(form.getValuesIn('[name,age]'));
+                    console.log(form.getValuesIn('name'));
+                    console.log(form.getValuesIn('age'));
+
+                    allField.value = ['cat', 456];
+
+                    console.log(form.getValuesIn('[name,age]'));
+                    console.log(form.getValuesIn('name'));
+                    console.log(form.getValuesIn('age'));
                 }}
             >
-                解构赋值2
+                解构赋值
             </button>
         </div>
     );
