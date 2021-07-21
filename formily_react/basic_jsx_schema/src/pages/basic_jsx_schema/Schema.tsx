@@ -1,8 +1,9 @@
 import { MyField, MyObjectField, MyArrayField } from './Context';
-import { Fragment, ReactElement } from 'react';
+import { Fragment, FunctionComponent, ReactElement } from 'react';
 import { useContext, ReactNode } from 'react';
 import { createContext } from 'react';
 import { JsonSchema } from './JsonSchema';
+import { JsxSchemaContext } from './JsxSchema';
 
 //创建上下文，方便Schema获取到Component字符串的实际指向
 export type SchemaOptions = {
@@ -26,7 +27,6 @@ type RecursionFieldProps = {
 
 export const RecursionField: React.FC<RecursionFieldProps> = (props) => {
     const fieldSchema = props.schema;
-    //当fieldSchema的name为空的时候，使用props上面的name
     let name = fieldSchema.name ? fieldSchema.name : props.name;
     if (name === undefined) {
         name = '';
@@ -57,7 +57,7 @@ export const RecursionField: React.FC<RecursionFieldProps> = (props) => {
     const render = (): ReactNode => {
         if (fieldSchema.type == 'object') {
             if (props.onlyRenderProperties) {
-                return renderProperties(fieldSchema.properties);
+                return renderProperties(fieldSchema.properties!);
             }
             return (
                 <MyObjectField
@@ -74,13 +74,13 @@ export const RecursionField: React.FC<RecursionFieldProps> = (props) => {
                         fieldSchema['x-decorator-props'],
                     ]}
                 >
-                    {renderProperties(fieldSchema.properties)}
+                    {renderProperties(fieldSchema.properties!)}
                 </MyObjectField>
             );
         } else if (fieldSchema.type == 'array') {
             //array不渲染children，因为array的业务方案太多了
             if (props.onlyRenderProperties) {
-                return renderProperties(fieldSchema.properties);
+                return renderProperties(fieldSchema.properties!);
             }
             return (
                 <MyArrayField
@@ -130,17 +130,30 @@ export const RecursionField: React.FC<RecursionFieldProps> = (props) => {
 
 type SchemaProps = {
     options: SchemaOptions;
-    schema: JsonSchema;
+    schema?: JsonSchema;
 };
 
-export function Schema(props: SchemaProps) {
+export const Schema: FunctionComponent<SchemaProps> = (props) => {
+    let schema: JsonSchema = props.schema
+        ? props.schema
+        : {
+              type: 'object',
+              'x-component': '',
+              'x-component-props': {},
+              'x-decorator': '',
+              'x-decorator-props': {},
+              properties: {},
+          };
     return (
         <SchemaOptionsContext.Provider value={props.options}>
+            <JsxSchemaContext.Provider value={schema}>
+                {props.children}
+            </JsxSchemaContext.Provider>
             <RecursionField
                 onlyRenderProperties={true}
-                schema={props.schema}
+                schema={schema}
                 name=""
             />
         </SchemaOptionsContext.Provider>
     );
-}
+};

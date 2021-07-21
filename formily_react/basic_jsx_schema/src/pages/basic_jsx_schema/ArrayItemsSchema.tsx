@@ -9,7 +9,6 @@ export default observer(() => {
     const fieldSchema = useContext(FieldSchemaContext);
     const field = useContext(FieldContext) as ArrayField;
     console.log('render arrayitem ', field.value);
-    //在下面的RecursionField传入name，因为定义jsonSchema的时候，无法知道当前是在哪个index
     return (
         <div
             style={{

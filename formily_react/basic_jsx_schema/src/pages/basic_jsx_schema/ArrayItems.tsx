@@ -3,13 +3,14 @@ import { observer } from '@formily/reactive-react';
 import React, { ReactNode, useContext } from 'react';
 import { ReactElement } from 'react';
 import { FieldContext } from './Context';
-import { FieldSchemaContext, RecursionField } from './Schema';
 
-export default observer(() => {
-    const fieldSchema = useContext(FieldSchemaContext);
+// Input UI组件
+type PropsType = Field & {
+    children: (index: number) => ReactElement;
+};
+export default observer((props: PropsType) => {
     const field = useContext(FieldContext) as ArrayField;
     console.log('render arrayitem ', field.value);
-    //在下面的RecursionField传入name，因为定义jsonSchema的时候，无法知道当前是在哪个index
     return (
         <div
             style={{
@@ -18,15 +19,10 @@ export default observer(() => {
         >
             <div style={{ padding: '10px' }}>
                 {field.value.map((item, index) => {
+                    console.log('render array ' + index);
                     return (
                         <div key={index}>
-                            <div>
-                                <RecursionField
-                                    onlyRenderProperties={false}
-                                    schema={(fieldSchema as any).items}
-                                    name={index + ''}
-                                />
-                            </div>
+                            <div>{props.children(index)}</div>
                             <button
                                 onClick={() => {
                                     field.remove(index);

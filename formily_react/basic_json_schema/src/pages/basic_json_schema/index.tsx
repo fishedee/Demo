@@ -70,6 +70,8 @@ let schema: JsonSchema = {
             'x-decorator': 'FormItem',
             'x-decorator-props': {},
             items: {
+                //这里的name要保持为空，因为array下有多个行，每个行的index都是不同的，不能在定义schema的时候确定
+                //这里只能由ArrayItems自身来确定下一级的name
                 type: 'object',
                 title: '信息',
                 'x-component': 'Card',
