@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Select, FormItem, FormLayout } from '@formily/antd';
+import { Input, Select, FormItem, FormLayout, Form } from '@formily/antd';
 import { createForm } from '@formily/core';
 import { FormProvider, createSchemaField } from '@formily/react';
 
@@ -16,20 +16,16 @@ const form = createForm();
 
 export default () => {
     let description = `
-    FormLayout是用来控制所有FormItem的默认样式的
-    layout有vertical，horizontal，和inline
-    inline会紧紧地放在一起
-    layout是指label与wrapper的排版
+    Form其实是FormProvider，与FormLayout的组合
+    并且提供了onAutoSubmit的方法
     `;
     return (
-        <FormProvider form={form}>
+        <Form form={form} layout={'vertical'} onAutoSubmit={console.log}>
             <pre>{description}</pre>
             <SchemaField>
                 <SchemaField.Void
                     x-component="FormLayout"
-                    x-component-props={{
-                        layout: 'vertical',
-                    }}
+                    x-component-props={{}}
                 >
                     <SchemaField.String
                         name="input"
@@ -48,6 +44,6 @@ export default () => {
                     />
                 </SchemaField.Void>
             </SchemaField>
-        </FormProvider>
+        </Form>
     );
 };

@@ -7,6 +7,5 @@ export default defineConfig({
     history: {
         type: 'hash',
     },
-    mfsu: {},
     fastRefresh: {},
 });
