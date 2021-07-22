@@ -135,6 +135,12 @@
 				flex-direction: row;
 				align-items: stretch;
 			}
+			.flexAlignItems .rent,
+			.flexAlignItems .rent2,
+			.flexAlignItems .rent3,
+			.flexAlignItems .rent4{
+				height:auto;
+			}
 			.flex15{
 				display: flex;
 				flex-direction: row;
@@ -177,6 +183,28 @@
 				align-content: space-around;
 				height:500px;
 			}
+			.flex21{
+				display: flex;
+				gap:10px;
+				flex-wrap: wrap;
+			}
+			.flex22{
+				display: flex;
+				column-gap:20px;
+				flex-wrap: wrap;
+			}
+			.flex23{
+				display: flex;
+				row-gap:30px;
+				flex-wrap: wrap;
+			}
+			.flex21 .rent,
+			.flex22 .rent,
+			.flex23 .rent{
+				margin:0px;
+				width:80px;
+				height:80px;
+			}
 		</style>
 	</head>
 	<body>
@@ -189,6 +217,44 @@
 			</div>
 			<h1>flex-direction:column direction</h1>
 			<div class="flex2">
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent">c</div>
+			</div>
+		</div>
+		<div class="flexBox">
+			<h1>flex-direction:gap 10</h1>
+			<div class="flex21">
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent">c</div>
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent">c</div>
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent">c</div>
+			</div>
+			<h1>flex-direction:column gap 20</h1>
+			<div class="flex22">
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent">c</div>
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent">c</div>
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent">c</div>
+			</div>
+			<h1>flex-direction:row gap 30</h1>
+			<div class="flex23">
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent">c</div>
+				<div class="rent">a</div>
+				<div class="rent">b</div>
+				<div class="rent">c</div>
 				<div class="rent">a</div>
 				<div class="rent">b</div>
 				<div class="rent">c</div>
@@ -252,7 +318,7 @@
 				<div class="rent">c</div>
 			</div>
 		</div>
-		<div class="flexBox">
+		<div class="flexBox flexAlignItems">
 			<h1>align-items:flex-start</h1>
 			<div class="flex10">
 				<div class="rent">a</div>
