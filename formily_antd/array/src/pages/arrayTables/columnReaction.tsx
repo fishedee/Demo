@@ -7,7 +7,11 @@ import {
     FormButtonGroup,
     Submit,
 } from '@formily/antd';
-import { createForm } from '@formily/core';
+import {
+    createForm,
+    onFieldInputValueChange,
+    onFieldValueChange,
+} from '@formily/core';
 import { FormProvider, createSchemaField, FormConsumer } from '@formily/react';
 import { Button, Alert } from 'antd';
 
@@ -20,7 +24,18 @@ const SchemaField = createSchemaField({
     },
 });
 
-const form = createForm();
+const form = createForm({
+    effects: () => {
+        onFieldInputValueChange('array', (field) => {
+            form.setFieldState('array.firstColumn', (state) => {
+                let compontProps = state.componentProps;
+                if (compontProps) {
+                    compontProps.title = 'Sort:' + field.value.length + 'Item';
+                }
+            });
+        });
+    },
+});
 
 const range = (count: number) =>
     Array.from(new Array(count)).map((_, key) => ({
@@ -42,6 +57,7 @@ export default () => {
                 >
                     <SchemaField.Object>
                         <SchemaField.Void
+                            name="firstColumn"
                             //描述每一个行，这个跟ArrayCards的不同。
                             //ArrayCards下面直接就是字段
                             //ArrayTable下面先有列描述，再有字段
