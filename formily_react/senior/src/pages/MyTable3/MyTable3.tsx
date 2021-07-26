@@ -8,6 +8,7 @@ import {
 } from '@formily/react';
 import { observer } from '@formily/reactive-react';
 import React, { Fragment, ReactNode, useContext } from 'react';
+import { createContext } from 'react';
 import { ReactElement } from 'react';
 import TableStyle from './style.css';
 
@@ -17,6 +18,9 @@ type Column = {
     name: string;
     schema: Schema;
 };
+
+const ArrayContext = createContext({} as ArrayField);
+const ArrayIndexContext = createContext(0);
 
 function getColumn(schema: Schema): Column[] {
     //在当前实现中，Column层看成是Field
@@ -73,13 +77,14 @@ type PropsType = Field & {
 
 type MyTableType = React.FC<PropsType> & {
     Column?: React.FC<any>;
+    Index?: React.FC<any>;
+    Remove?: React.FC<any>;
 };
 
 const MyTable: MyTableType = observer((props: PropsType) => {
     const field = useField<ArrayField>();
     const fieldSchema = useFieldSchema();
     const tableColumns = getColumn(fieldSchema);
-    console.log('Render Column', tableColumns);
     const renderHeader = () => {
         let row = tableColumns.map((column) => {
             return (
@@ -110,10 +115,13 @@ const MyTable: MyTableType = observer((props: PropsType) => {
                 </td>
             );
         });
+        //在这里注入index
         return (
-            <tr className={TableStyle.tr} key={index}>
-                {row}
-            </tr>
+            <ArrayIndexContext.Provider value={index}>
+                <tr className={TableStyle.tr} key={index}>
+                    {row}
+                </tr>
+            </ArrayIndexContext.Provider>
         );
     };
     return (
@@ -122,14 +130,16 @@ const MyTable: MyTableType = observer((props: PropsType) => {
                 border: '2px solid rgb(186 203 255)',
             }}
         >
-            <table className={TableStyle.table}>
-                <thead>{renderHeader()}</thead>
-                <tbody>
-                    {field.value?.map((row, index) => {
-                        return renderRow(row, index);
-                    })}
-                </tbody>
-            </table>
+            <ArrayContext.Provider value={field}>
+                <table className={TableStyle.table}>
+                    <thead>{renderHeader()}</thead>
+                    <tbody>
+                        {field.value?.map((row, index) => {
+                            return renderRow(row, index);
+                        })}
+                    </tbody>
+                </table>
+            </ArrayContext.Provider>
             {tableColumns.map((column) => {
                 //这里实际渲染每个Column，以保证Column能接收到Reaction
                 //注意要使用onlyRenderSelf
@@ -155,6 +165,25 @@ const MyTable: MyTableType = observer((props: PropsType) => {
 
 MyTable.Column = () => {
     return <Fragment></Fragment>;
+};
+
+MyTable.Index = () => {
+    const indexContext = useContext(ArrayIndexContext);
+    return <span>{indexContext + 1}</span>;
+};
+
+MyTable.Remove = () => {
+    const arrayContext = useContext(ArrayContext);
+    const indexContext = useContext(ArrayIndexContext);
+    return (
+        <a
+            onClick={() => {
+                arrayContext.remove(indexContext);
+            }}
+        >
+            {'删除'}
+        </a>
+    );
 };
 
 export default MyTable;

@@ -32,7 +32,7 @@ const SchemaField = createSchemaField({
 });
 
 export default () => {
-    //MyTable实现了自增，但是Column组件并没有支持Reactions
+    //MyTable实现了自增，但是Column组件并没有支持effects
     return (
         <div>
             <Form form={form} feedbackLayout="terse">

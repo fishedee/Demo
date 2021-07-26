@@ -5,7 +5,7 @@ import {
     FormConsumer,
     ObjectField,
 } from '@formily/react';
-import MyTable from './MyTable2';
+import MyTable from './MyTable3';
 import { Form, FormItem, Input, Select } from '@formily/antd';
 
 const form = createForm({
@@ -40,6 +40,14 @@ export default () => {
                     <SchemaField.Array name="data" x-component="MyTable">
                         <SchemaField.Void>
                             <SchemaField.Void
+                                x-component="MyTable.Column"
+                                x-component-props={{
+                                    title: '序号',
+                                }}
+                            >
+                                <SchemaField.Void x-component="MyTable.Index" />
+                            </SchemaField.Void>
+                            <SchemaField.Void
                                 name="firstColumn"
                                 x-component="MyTable.Column"
                                 x-component-props={{
@@ -67,6 +75,14 @@ export default () => {
                                     x-component="Input"
                                     x-decorator="FormItem"
                                 />
+                            </SchemaField.Void>
+                            <SchemaField.Void
+                                x-component="MyTable.Column"
+                                x-component-props={{
+                                    title: '操作',
+                                }}
+                            >
+                                <SchemaField.Void x-component="MyTable.Remove" />
                             </SchemaField.Void>
                         </SchemaField.Void>
                     </SchemaField.Array>
