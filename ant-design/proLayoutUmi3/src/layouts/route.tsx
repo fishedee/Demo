@@ -19,46 +19,35 @@ export default {
             icon: <SmileOutlined />, //定义图标
         },
         {
-            path: '/admin',
-            name: '管理页',
+            path: '/item',
+            name: '商品管理',
             icon: <CrownOutlined />,
             routes: [
                 {
-                    path: '/admin/sub-page1',
-                    name: '一级页面',
+                    path: '/item/unit',
+                    name: '单位管理',
                     icon: <CrownOutlined />,
                 },
                 {
-                    path: '/admin/sub-page2',
-                    name: '二级页面',
-                    icon: <CrownOutlined />,
-                },
-                {
-                    path: '/admin/sub-page3',
-                    name: '三级页面',
+                    path: '/item/item',
+                    name: '商品管理',
                     icon: <CrownOutlined />,
                 },
             ],
         },
         {
             path: '/user',
-            name: '用户管理页',
+            name: '用户管理',
             icon: <SmileOutlined />,
-            //把底层的隐藏掉
-            //hideChildrenInMenu:true,
             routes: [
                 {
-                    //为什么该路由不在菜单也要添加到路由中
-                    //因为要满足面包屑的要求，只能在这里添加
-                    path: '/user/add',
-                    name: '添加用户',
-                    hideInMenu: true,
+                    path: '/user/admin',
+                    name: '用户管理',
                     icon: <CrownOutlined />,
                 },
                 {
-                    path: '/user/view/:userId',
-                    name: '编辑用户',
-                    hideInMenu: true,
+                    path: '/user/privilege',
+                    name: '权限管理',
                     icon: <CrownOutlined />,
                 },
             ],
