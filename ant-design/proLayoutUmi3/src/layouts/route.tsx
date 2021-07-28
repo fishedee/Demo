@@ -13,7 +13,6 @@ export default {
     routes: [
         {
             extact: true,
-            //不要定义为/umi路径，因为/umi/admin既匹配/umi/，也匹配/umi/admin，就会造成两个菜单项都点亮了
             path: '/welcome', //定义path
             name: '欢迎', //定义标题
             icon: <SmileOutlined />, //定义图标
