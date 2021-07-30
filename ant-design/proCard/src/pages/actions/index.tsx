@@ -12,6 +12,12 @@ export default () => {
             <ProCard
                 title="Actions 操作项"
                 style={{ maxWidth: 300 }}
+                cover={
+                    <img
+                        alt="example"
+                        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                    />
+                }
                 //actions是设置项的描述，会自带垂直的分割线
                 actions={[
                     <SettingOutlined key="setting" />,

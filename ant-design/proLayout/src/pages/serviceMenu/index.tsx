@@ -13,6 +13,7 @@ const waitTime = (time: number = 100) => {
 
 export default () => {
     const actionRef = useRef<{
+        //触发重新加载菜单
         reload: () => void;
     }>();
     return (

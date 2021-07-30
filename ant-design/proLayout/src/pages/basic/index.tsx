@@ -32,7 +32,7 @@ export default () => {
         contentWidth: 'Fluid', //流式内容布局，宽度总是会自动调整
         splitMenus: true, //分割菜单，一级菜单在顶部，其他菜单在左侧
         fixedHeader: false,
-        menuHeaderRender: false, //不显示左侧的菜单栏logo
+        menuHeaderRender: false,
     };
     const [settings, setSetting] = useState<Partial<ProSettings> | undefined>({
         fixSiderbar: true,

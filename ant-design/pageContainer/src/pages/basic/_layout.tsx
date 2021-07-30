@@ -8,7 +8,9 @@ const Layout: React.FC<any> = (props) => {
     //footer是底部数据，以fixed的形式存在
     return (
         <PageContainer
+            title="我是标题"
             content="欢迎使用 ProLayout 组件"
+            extraContent="我是额外内容"
             tabList={[
                 {
                     tab: '基本信息',
