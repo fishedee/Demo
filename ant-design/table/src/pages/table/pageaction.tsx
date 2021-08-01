@@ -41,7 +41,7 @@ export default () => {
             direction="vertical"
             size={20}
         >
-            <ProCard title="分页" bordered headerBordered>
+            <ProCard title="无分页" bordered headerBordered>
                 <Table
                     columns={columns}
                     dataSource={data}

@@ -27,8 +27,12 @@ export default () => {
                     //字符串的话，精度就不起作用了
                     size={20}
                 >
-                    <Statistic title="实际完成度" value={82.3} />
-                    <Statistic title="实际完成度" value={'82.3%'} />
+                    <Statistic
+                        title="实际完成度"
+                        value={82.3}
+                        prefix={<LikeOutlined />}
+                    />
+                    <Statistic title="实际完成度" value={'82'} suffix="/ 100" />
 
                     <Statistic title="当前目标" value={6000} precision={2} />
                     <Statistic title="当前目标" value={'¥6000'} precision={2} />
@@ -112,7 +116,7 @@ export default () => {
                     />
                 </Space>
             </ProCard>
-            <ProCard title="描述与footer" bordered headerBordered>
+            <ProCard title="描述" bordered headerBordered>
                 <Space size={20}>
                     <Statistic
                         layout="vertical"

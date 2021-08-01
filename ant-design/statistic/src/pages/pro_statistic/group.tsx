@@ -1,4 +1,4 @@
-import { Button, Dropdown, Menu, Space, Divider } from 'antd';
+import { Button, Dropdown, Menu, Space } from 'antd';
 import ProCard from '@ant-design/pro-card';
 import {
     SearchOutlined,
@@ -8,7 +8,7 @@ import {
 import { StatisticCard } from '@ant-design/pro-card';
 
 //注意这个是来自于pro-card的，不是antd的
-const { Statistic, Operation } = StatisticCard;
+const { Statistic, Operation, Divider } = StatisticCard;
 const imgStyle = {
     display: 'block',
     width: 42,
@@ -35,10 +35,7 @@ export default () => {
                         value: 601986875,
                     }}
                 />
-                <Divider
-                    //FIXME，Divider无法显示出来
-                    type={'vertical'}
-                />
+                <Divider type={'vertical'} />
                 <StatisticCard
                     statistic={{
                         title: '付费流量',
@@ -102,6 +99,7 @@ export default () => {
                         suffix: '/ 100',
                     }}
                 />
+                <Divider type={'vertical'} />
                 <StatisticCard
                     statistic={{
                         title: '冻结金额',
