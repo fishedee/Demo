@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { EllipsisOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Menu } from 'antd';
+import { Button, Dropdown, Menu, Tag } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProCard from '@ant-design/pro-card';
 import { genBreadcrumbProps } from '@ant-design/pro-layout/lib/utils/getBreadcrumbProps';
@@ -18,6 +18,8 @@ const Layout: React.FC<any> = (props) => {
                 //放在header位置
                 header={{
                     title: '页面标题',
+                    subTitle: '子标题',
+                    tags: <Tag color="blue">Running</Tag>,
                     //ghost是让背景设置为透明
                     ghost: true,
                     //面包屑，重要的展示内容
