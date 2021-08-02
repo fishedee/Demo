@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+      "esModuleInterop": true,
+      "moduleResolution": "node",
+      "jsx": "react-jsx",
+      "module": "commonjs",
+      "target": "es5",
+      "allowJs": false,
+      "noUnusedLocals": false,
+      "removeComments": true,
+      "preserveConstEnums": true,
+      "sourceMap": true,
+      "declaration": true,
+      "experimentalDecorators": true,
+      "downlevelIteration": true,
+      "baseUrl": ".",
+      "paths": {
+        "@my_package": ["packages/my_package/src"]
+      }
+    }
+  }
+  
