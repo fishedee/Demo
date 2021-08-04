@@ -1,0 +1,23 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "lib",
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "jsx": "react-jsx",
+        "module": "commonjs",
+        "target": "es5",
+        "lib":["es2015","DOM"],
+        "allowJs": false,
+        "noUnusedLocals": false,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "declaration": true,
+        "experimentalDecorators": true,
+        "downlevelIteration": true,
+        "baseUrl": "."
+    },
+    "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+    "exclude": ["./src/__tests__/*", "./esm/*", "./lib/*"]
+}
