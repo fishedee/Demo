@@ -2,7 +2,7 @@
 title: 自定义页面名称kk
 order: 1
 nav:
-  title: 自定义导航名称
+  title: 源代码
   order: 2
 ---
 

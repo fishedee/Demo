@@ -1,4 +1,4 @@
-## Foo
+## API
 
 <code src="../../src/Goo/index.tsx"></code>
 

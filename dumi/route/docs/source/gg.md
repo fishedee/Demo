@@ -2,7 +2,7 @@
 title: 自定义页面名称gg
 order: 2
 nav:
-  title: 自定义导航名称2
+  title: 源代码
   order: 2
 ---
 

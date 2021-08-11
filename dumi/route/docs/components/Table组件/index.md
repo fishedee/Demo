@@ -1,14 +1,10 @@
 ---
-title: 组件
+title: 名字是我
 nav:
-  path: /components
-  title: 组件
-  order: 0
+  title: 所有组件
+group:
+  title: 彪悍的人生
 ---
-
-/*
-标题决定了左侧分组的名称
-*/
 
 ## Goo
 
