@@ -17,6 +17,5 @@ export default defineConfig({
         //dark: true,
         compact: true,
     },
-    mfsu: {},
     fastRefresh: {},
 });
