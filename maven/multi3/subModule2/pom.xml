@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+     <groupId>com.mycompany.app</groupId>
+     <artifactId>parent</artifactId>
+     <version>1.0</version>
+     <relativePath>../parent/pom.xml</relativePath>
+  </parent>
+
+  <groupId>com.mycompany.app2</groupId>
+  <artifactId>subModule2</artifactId>
+  <version>${subModuleVersion2}</version>
+  <packaging>jar</packaging>
+  
+  <name>subModule2</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+     <dependency>
+      <groupId>com.mycompany.app</groupId>
+      <artifactId>subModule</artifactId>
+      <version>${subModuleVersion}</version>
+    </dependency>
+  </dependencies>
+</project>

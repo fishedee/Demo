@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.mycompany.app</groupId>
+  <artifactId>profile</artifactId>
+  <packaging>jar</packaging>
+
+  <name>profile</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <profiles>
+    <profile>
+      <id>profile_a</id>
+      <activation>
+      <!--默认触发-->
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <my_version>1.0</my_version>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>profile_b</id>
+      <!--命令行触发，mvn package -P profile_b -->
+      <properties>
+        <my_version>1.1</my_version>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>profile_c</id>
+      <!--指定属性触发，mvn package -Ddebug=123 -->
+      <activation>
+        <property>
+          <name>debug</name>
+          <value>123</value>
+        </property>
+      </activation>
+      <properties>
+        <my_version>1.2</my_version>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>profile_d</id>
+      <!--jdk版本触发，mvn package //jdk版本为1.8-->
+      <activation>
+        <jdk>1.7</jdk>
+      </activation>
+      <properties>
+        <my_version>1.3</my_version>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>profile_e</id>
+      <!--os与cpu架构触发，mvn package //x86的cpu-->
+      <activation>
+         <os>
+          <arch>x86</arch>
+        </os>
+      </activation>
+      <properties>
+        <my_version>1.4</my_version>
+      </properties>
+    </profile>
+  </profiles>
+
+  <version>${my_version}</version>
+</project>
