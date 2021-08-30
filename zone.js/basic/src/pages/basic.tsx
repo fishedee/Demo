@@ -1,23 +1,50 @@
 
 import 'zone.js';
 
-
+//rootZone
 console.log(Zone.current);
 
-let errorZone = Zone.current.fork({
-  name:'errorZone',
-
-  onHandleError:(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, error: any) => {
-    console.log('catch error ',error);
-    return false;
-  }
+//在rootZone作为parent的情况下，创建normalZone
+let normalZone = Zone.current.fork({
+    name:'normalZone',
+    properties:{
+        fish:'123'
+    }
 });
 
-//runGuarded才能捕捉错误
-//可以捕捉直接的错误
-errorZone.runGuarded(()=>{
-  throw new Error("123");
-});
+const go = ()=>{
+    //默认Zone就是root，值为undefined
+    console.log('go outer',Zone.current.get('fish'));
+
+    //通过normalZone.run来切换zone
+    normalZone.run(()=>{
+        //当前闭包就是在normalZone中，值为123
+        console.log('go inner',Zone.current.get('fish'));
+
+    });
+}
+
+go();
+
+const go2 = ()=>{
+    //默认Zone就是root，值为undefined
+    console.log('go2 outer',Zone.current.get('fish'));
+
+    //通过normalZone.run来切换zone
+    normalZone.run(async ()=>{
+        //当前闭包就是在normalZone中
+        setTimeout(()=>{
+            //即使跨过了setTimeout，在另外一个调用栈中
+            //当前依然还是在normalZone，这就是Zone.js的关键
+            //不论跨过多少层setTimeout，async/await，当前Zone竟然能自动传递过去
+            console.log('go2 inner',Zone.current.get('fish'));
+        },10);
+    });
+}
+
+go2();
+
+
 
 const delay = (timeout:number)=>{
     return new Promise((resolve,reject)=>{
@@ -25,38 +52,33 @@ const delay = (timeout:number)=>{
     });
 }
 
-//可以捕捉异步错误
-errorZone.runGuarded(async ()=>{
+async function go3_2(){
     await delay(10);
-    throw new Error("456");
-});
-
-const myFun = async()=>{
-    await delay(10);
-    throw new Error("789");
+    console.log('go3 inner',Zone.current.get('fish'));
 }
 
-//可以捕捉await异常里面的错误
-errorZone.runGuarded(async()=>{
-    console.log('inner');
-    await myFun();
-    console.log("outer");
-    await myFun();
-    console.log("outer2");
-})
-
-const myFun2 = async()=>{
+async function go3_1(){
     await delay(10);
-    throw new Error("010");
+    await go3_2();
 }
 
-//可以捕捉异步，但没有await的错误
-errorZone.runGuarded(async()=>{
-    console.log('inner2');
-    myFun2();
-    console.log("outer2");
-})
+
+const go3 = ()=>{
+    //默认Zone就是root，值为undefined
+    console.log('go3 outer',Zone.current.get('fish'));
+
+    //通过normalZone.run来切换zone
+    normalZone.run(async ()=>{
+        //有加await，能传递Zone
+        await go3_1();
+
+        //没有加await，也能传递Zone，实在屌
+        go3_1();
+    });
+}
+
+go3();
 
 export default ()=>{
-    return (<div>{'123'}</div>);
+    return <div>{'123'}</div>;
 }

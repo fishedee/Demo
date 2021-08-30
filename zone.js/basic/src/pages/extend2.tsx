@@ -49,15 +49,19 @@ export default function IndexPage() {
         throw new Error("456");
     });
 
+    //直接使用myFun2
+    const onClick3 = myFun2;
+
+    //这里故意直接嵌套的是myFun2方法，很多库在这里就测试失败了
     //可以捕捉异步的错误，能避免next的出现
-    const onClick3 = wrapper(async ()=>{
+    const onClick4 = wrapper(async ()=>{
         console.log('inner');
         await myFun2();
         console.log('outer');
     });
 
     //不能捕捉异常错误中，没有await的
-    const onClick4 = wrapper(async ()=>{
+    const onClick5 = wrapper(async ()=>{
         console.log('inner2');
         myFun2();
         console.log('outer2');
@@ -65,7 +69,7 @@ export default function IndexPage() {
 
 
     //故意没有进行wrapper的callback
-    const onClick5 = ()=>{
+    const onClick6 = ()=>{
         throw new Error("010");
     }
     return (
@@ -75,6 +79,7 @@ export default function IndexPage() {
         <button onClick={onClick3}>点我3</button>
         <button onClick={onClick4}>点我4</button>
         <button onClick={onClick5}>点我5</button>
+        <button onClick={onClick6}>点我6</button>
       </div>
     );
   }
