@@ -88,8 +88,19 @@ function testStringAsEnum() {
     // testEnum5Inner(200)
 }
 
-testEnum()
-testEnum2()
-testEnum3()
-testEnum4()
-testStringAsEnum()
+class PlatformObj {
+    1: '众富'
+
+    2: '富常乐'
+}
+
+type Platform = keyof PlatformObj
+
+function get(a: Platform): string {
+    const result = new PlatformObj()
+    return result[a]
+}
+
+console.log(get(1))
+console.log(get(2))
+console.log(get(34))
