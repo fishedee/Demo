@@ -1,29 +1,17 @@
 import {
-    createSchemaField,
     observer,
     FormConsumer,
     Field,
     ObjectField,
     ArrayField,
-    mapProps,
-    useField,
 } from '@formily/react';
-import { Button } from 'antd';
-import {
-    Input,
-    Select,
-    FormItem,
-    FormButtonGroup,
-    Submit,
-    Form,
-} from '@formily/antd';
+import { Input, FormItem, Form } from '@formily/antd';
 import { useMemo } from 'react';
 import { createForm } from '@formily/core';
 import { Space } from 'antd';
 
 const MyTree: React.FC<any> = observer((props) => {
     const value = props.value;
-    const field = useField();
 
     let onClick = () => {
         value[0]._expand = true;
@@ -52,17 +40,6 @@ const MyTree: React.FC<any> = observer((props) => {
             ) : null}
         </span>
     );
-});
-
-const SchemaField = createSchemaField({
-    components: {
-        MyTree,
-        Select,
-        FormItem,
-        Space,
-        Button,
-        Submit,
-    },
 });
 
 const Test1: React.FC<any> = (props) => {
