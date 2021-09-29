@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import spring_test.business.Country;
+import spring_test.business.Country_;
 import spring_test.infrastructure.CountryRepository;
 import spring_test.query.CountryCount;
 
@@ -23,7 +24,7 @@ public class CountryTest {
 
     @Transactional
     public void initData(){
-
+        log.info("{}",Country_.NAME);
         Country country1 = new Country("中A国","亚洲");
         Country country2 = new Country("日A本","亚洲");
         Country country3 = new Country("美B国","北美洲");
