@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test5 1`] = `
+<div>
+  <h2>
+    12
+  </h2>
+  <button>
+    button1
+  </button>
+  <button>
+    button2
+  </button>
+</div>
+`;
