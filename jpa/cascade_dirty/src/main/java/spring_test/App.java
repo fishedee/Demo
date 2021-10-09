@@ -42,7 +42,10 @@ public class App implements ApplicationRunner
     @Autowired
     private PurchaseOrderTest purchaseOrderTest;
 
+    @Autowired
+    private GoodTest goodTest;
+
     public   void run(ApplicationArguments arguments) throws Exception {
-        purchaseOrderTest.go();
+        goodTest.go();
     }
 }
