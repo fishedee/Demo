@@ -45,7 +45,10 @@ public class App implements ApplicationRunner
     @Autowired
     private GoodTest goodTest;
 
+    @Autowired
+    private Good2Test good2Test;
+
     public   void run(ApplicationArguments arguments) throws Exception {
-        goodTest.go();
+        good2Test.go();
     }
 }

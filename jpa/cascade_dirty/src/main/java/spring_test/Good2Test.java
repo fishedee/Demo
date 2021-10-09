@@ -5,59 +5,59 @@ import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import spring_test.business.Good;
+import spring_test.business.Good2;
 import spring_test.business.PurchaseOrder;
-import spring_test.infrastructure.GoodRepository;
+import spring_test.infrastructure.Good2Repository;
 import spring_test.infrastructure.PurchaseOrderRepositoy;
-import spring_test.infrastructure.RemainRepository;
+import spring_test.infrastructure.Remain2Repository;
 
 import java.util.List;
 
 @Component
 @Slf4j
-public class GoodTest {
+public class Good2Test {
     @Autowired
-    private RemainRepository remainRepository;
+    private Remain2Repository remainRepository;
 
     @Autowired
-    private GoodRepository goodRepository;
+    private Good2Repository goodRepository;
 
     @Transactional
     public Long addOne(){
-        Good good = new Good();
+        Good2 good = new Good2();
         this.goodRepository.add(good);
         return good.getId();
     }
 
     @Transactional
     public Long addRemain(Long goodId,int count){
-        Good good = this.goodRepository.find(goodId);
+        Good2 good = this.goodRepository.find(goodId);
         good.setRemainService(remainRepository);
         return good.addRemain(count);
     }
 
     @Transactional
     public void incRemainCount(Long goodId,Long remainId,int incCount){
-        Good good = this.goodRepository.find(goodId);
+        Good2 good = this.goodRepository.find(goodId);
         good.setRemainService(remainRepository);
         good.incRemain(remainId,incCount);
     }
 
     @Transactional
     public void show(Long goodId){
-        Good good = this.goodRepository.find(goodId);
+        Good2 good = this.goodRepository.find(goodId);
         log.info("good {} {}",goodId,good);
     }
 
     @Transactional
     public void showAll(){
-        List<Good> good = this.goodRepository.getAll();
+        List<Good2> good = this.goodRepository.getAll();
         log.info("good all {}",good);
     }
 
     public void go1(){
         log.info("go1 begin.......");
-        GoodTest app = (GoodTest) AopContext.currentProxy();
+        Good2Test app = (Good2Test) AopContext.currentProxy();
 
         //插入需要2个sql，取hibernate_sequence的id，以及good本身
         Long goodId = app.addOne();
@@ -85,7 +85,7 @@ public class GoodTest {
 
     public void go2(){
         log.info("go2 begin.......");
-        GoodTest app = (GoodTest) AopContext.currentProxy();
+        Good2Test app = (Good2Test) AopContext.currentProxy();
 
         Long goodId = app.addOne();
 
@@ -105,3 +105,4 @@ public class GoodTest {
         go2();
     }
 }
+

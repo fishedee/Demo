@@ -53,6 +53,25 @@ create table remain(
 	primary key(id)
 )engine=innodb default charset=utf8mb4 auto_increment = 10001;
 
+
+create table good2(
+	id integer not null auto_increment,
+	create_time timestamp not null default CURRENT_TIMESTAMP,
+	modify_time timestamp not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+	primary key(id)
+)engine=innodb default charset=utf8mb4 auto_increment = 10001;
+
+create table remain2(
+	id integer not null,
+	good_id integer not null,
+	count integer not null,
+	has_data tinyint not null,
+	create_time timestamp not null default CURRENT_TIMESTAMP,
+	modify_time timestamp not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+	primary key(id)
+)engine=innodb default charset=utf8mb4 auto_increment = 10001;
+
+
 create table hibernate_sequence(
 	next_val bigint not null,
 	primary key(next_val)

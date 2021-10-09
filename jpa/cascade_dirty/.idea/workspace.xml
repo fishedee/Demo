@@ -5,26 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce7d17d5-349e-4f30-8c1c-5b9568363266" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/spring_test/GoodTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/spring_test/business/Good.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/spring_test/infrastructure/GoodRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/spring_test/infrastructure/RemainRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/spring_test/Good2Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/spring_test/business/Good2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/spring_test/infrastructure/Good2Repository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/spring_test/infrastructure/Remain2Repository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cascade_dirty.iml" beforeDir="false" afterPath="$PROJECT_DIR$/cascade_dirty.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/data.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/spring_test/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/spring_test/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/spring_test/GoodTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/spring_test/GoodTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/spring_test/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/spring_test/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/spring_test/PurchaseOrderTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/spring_test/PurchaseOrderTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/spring_test/SalesOrderTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/spring_test/SalesOrderTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/spring_test/business/PurchaseOrder$Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/spring_test/business/PurchaseOrder$Item.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/spring_test/business/PurchaseOrder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/spring_test/business/PurchaseOrder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/spring_test/business/SalesOrder$User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/spring_test/business/SalesOrder$User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/spring_test/business/SalesOrder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/spring_test/business/SalesOrder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/spring_test/infrastructure/CurdRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/spring_test/infrastructure/CurdRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/spring_test/AppTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/spring_test/AppTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/spring_test/GoodTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/spring_test/GoodTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -264,6 +254,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
     <property name="settings.editor.selected.configurable" value="project.propCompiler" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="spring_test" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -570,7 +565,7 @@
       <updated>1619944521441</updated>
       <workItem from="1619944522625" duration="2383000" />
       <workItem from="1622274810096" duration="392000" />
-      <workItem from="1633763666747" duration="3071000" />
+      <workItem from="1633763666747" duration="4022000" />
     </task>
     <servers />
   </component>
