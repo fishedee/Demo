@@ -59,7 +59,7 @@ public class Test1 {
 
         orderDO.setSize(1);
         orderDO.setName("fish");
-        expect.scenario("1").serializer("json").toMatchSnapshot(toString(orderDO));
+        expect.scenario("1").serializer("json").toMatchSnapshot(orderDO);
 
 
         OrderDO orderDO2 = new OrderDO();
@@ -67,7 +67,7 @@ public class Test1 {
         orderDO2.setSize(2);
         orderDO2.setName("dog");
 
-        expect.scenario("2").serializer("json").toMatchSnapshot(toString(orderDO2));
+        expect.scenario("2").serializer("json").toMatchSnapshot(orderDO2);
 
     }
 

@@ -9,10 +9,16 @@ spring_test.Test1.test1[2]=[
 
 
 spring_test.Test1.test2[1]=[
-  "{\"id\":null,\"name\":\"fish\",\"email\":null,\"size\":1,\"total\":null}"
+  {
+    "name": "fish",
+    "size": 1
+  }
 ]
 
 
 spring_test.Test1.test2[2]=[
-  "{\"id\":null,\"name\":\"dog2\",\"email\":null,\"size\":2,\"total\":null}"
+  {
+    "name": "dog",
+    "size": 2
+  }
 ]
