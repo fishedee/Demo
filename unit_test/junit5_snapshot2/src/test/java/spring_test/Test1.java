@@ -51,6 +51,7 @@ public class Test1 {
 
     }
 
+    //json测试，就是指定一个序列化器而已，没有改变diff的方式
     @Test
     public void test2() throws Exception{
 
