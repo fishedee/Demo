@@ -11,6 +11,7 @@ package spring_test;
         import javax.validation.constraints.NotEmpty;
         import javax.validation.constraints.NotNull;
         import java.math.BigDecimal;
+        import java.util.Arrays;
         import java.util.HashMap;
         import java.util.List;
         import java.util.Map;
@@ -36,6 +37,10 @@ public class Controller {
     @GetMapping("/go2")
     public String go2()throws Exception{
         OrderDO orderDO = new OrderDO();
+        orderDO.setExtInfo(objectMapper.writeValueAsString(Arrays.asList(
+                new OrderDO.Address("中国","西藏"),
+                new OrderDO.Address("中国2","西藏2")
+        )));
         orderDO.setEmail("123@qq.com");
         orderDO.setName("678");
         orderDO.setSize(123);

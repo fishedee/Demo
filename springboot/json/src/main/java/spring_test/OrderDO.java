@@ -2,6 +2,7 @@ package spring_test;
 
         import com.fasterxml.jackson.annotation.JsonIgnore;
         import com.fasterxml.jackson.annotation.JsonProperty;
+        import com.fasterxml.jackson.annotation.JsonRawValue;
         import com.fasterxml.jackson.annotation.JsonUnwrapped;
         import lombok.AllArgsConstructor;
         import lombok.Data;
@@ -32,6 +33,9 @@ public class OrderDO {
 
     @JsonUnwrapped
     private Address address;
+
+    @JsonRawValue
+    private String extInfo;
 
     private int size;
 
