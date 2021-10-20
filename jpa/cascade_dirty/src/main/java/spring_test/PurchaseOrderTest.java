@@ -39,6 +39,12 @@ public class PurchaseOrderTest {
     }
 
     @Transactional
+    public void add3(Long id,String name){
+        PurchaseOrder purchaseOrder = this.purchaseOrderRepositoy.find(id);
+        purchaseOrder.addItemWrong(name);
+    }
+
+    @Transactional
     public void mod1(Long id,int index,String name){
         PurchaseOrder purchaseOrder = this.purchaseOrderRepositoy.find(id);
         purchaseOrder.modItemName(index,name);

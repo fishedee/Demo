@@ -49,6 +49,6 @@ public class App implements ApplicationRunner
     private Good2Test good2Test;
 
     public   void run(ApplicationArguments arguments) throws Exception {
-        good2Test.go();
+        purchaseOrderTest.go();
     }
 }

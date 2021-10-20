@@ -11,6 +11,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -63,6 +64,12 @@ public class PurchaseOrder {
 
     }
 
+    public void addItemWrong(String name){
+
+        ArrayList<Item> newUser = new ArrayList<>(this.items);
+        newUser.add(new Item(name));
+        this.items = newUser;
+    }
     public void addItem(String name){
         ArrayList<Item> newUser = new ArrayList<>(this.items);
         newUser.add(new Item(name));
