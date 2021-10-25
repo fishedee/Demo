@@ -52,6 +52,11 @@ export function getRoutes() {
     "component": require('@/pages/index.tsx').default
   },
   {
+    "path": "/query",
+    "exact": true,
+    "component": require('@/pages/query/index.tsx').default
+  },
+  {
     "path": "/terse",
     "exact": true,
     "component": require('@/pages/terse/index.tsx').default

@@ -52,15 +52,13 @@ const UsetDetail: React.FC<any> = observer((props) => {
     });
   }, []);
   const refreshTableColumn = (typeValue: string) => {
-    const field = form.query("detail.selectItems").take();
-    if (!field) {
-      return;
-    }
-    if (typeValue == "COMBO") {
-      field.visible = true;
-    } else {
-      field.visible = false;
-    }
+    form.setFieldState("detail.selectItems", (state) => {
+      if (typeValue == "COMBO") {
+        state.visible = true;
+      } else {
+        state.visible = false;
+      }
+    });
   };
   useEffect(() => {
     setTimeout(() => {
