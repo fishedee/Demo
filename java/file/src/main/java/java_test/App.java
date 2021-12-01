@@ -17,21 +17,12 @@ public class App {
     private FileTest fileTest;
 
     @Autowired
-    private FileTest2 fileTest2;
-
-    @Autowired
-    private FileTest3 fileTest3;
-
-    @Autowired
-    private ByteArrayStreamTest readToMemoryTest;
-
-    @Autowired
-    private ByteBufferTest byteBufferTest;
+    private DirectoryTest directoryTest;
 
     @PostConstruct
     public void go(){
         try{
-            byteBufferTest.go();;
+            fileTest.go();
         }catch(Exception e ){
             e.printStackTrace();
         }
