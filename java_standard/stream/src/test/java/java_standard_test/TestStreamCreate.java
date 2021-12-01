@@ -11,7 +11,7 @@ import java.util.stream.StreamSupport;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestStream {
+public class TestStreamCreate {
     @Test
     public void testCollect(){
         List<Integer> lists = Arrays.asList(1,2,3);
