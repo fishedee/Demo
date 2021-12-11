@@ -28,10 +28,13 @@ public class App {
     @Autowired
     private ByteBufferTest byteBufferTest;
 
+    @Autowired
+    private CloseFileTest closeFileTest;
+
     @PostConstruct
     public void go(){
         try{
-            byteBufferTest.go();;
+            closeFileTest.go();;
         }catch(Exception e ){
             e.printStackTrace();
         }

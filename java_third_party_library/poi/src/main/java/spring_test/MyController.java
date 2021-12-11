@@ -53,7 +53,6 @@ public class MyController {
 
             workbook = excelService.createWorkbook2003();
             workbook.write(out);
-            workbook.close();
         }catch(IOException e){
             throw new RuntimeException(e);
         }finally {
@@ -90,7 +89,6 @@ public class MyController {
 
             workbook = excelService.createWorkbook2007();
             workbook.write(out);
-            workbook.close();
         }catch(IOException e){
             throw new RuntimeException(e);
         }finally {
@@ -127,7 +125,6 @@ public class MyController {
 
             workbook = excelService.createWorkbook2007_large();
             workbook.write(out);
-            workbook.close();
         }catch(IOException e){
             throw new RuntimeException(e);
         }finally {
