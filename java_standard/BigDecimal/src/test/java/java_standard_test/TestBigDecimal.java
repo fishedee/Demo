@@ -110,8 +110,8 @@ public class TestBigDecimal {
         assertEquals(b_2.setScale(1,BigDecimal.ROUND_HALF_DOWN).toPlainString(),"-2.1");
 
         //总结如下：
-        //ROUND_CEILING和ROUND_FLOOR是考虑符号的进位，ROUND_CEILING总是偏大，ROUND_FLOOR总是偏小。
-        //ROUND_UP和ROUND_DOWN是不考虑符号的进位，ROUND_UP总是偏大，ROUND_DOWN总是偏小。
+        //ROUND_CEILING和ROUND_FLOOR是考虑符号的进位，ROUND_CEILING总是偏大（同时考虑数和符号），ROUND_FLOOR总是偏小（同时考虑数和符号）。
+        //ROUND_UP和ROUND_DOWN是不考虑符号的进位，ROUND_UP总是偏大（只考虑数，不考虑符号），ROUND_DOWN总是偏小（只考虑数，不考虑符号）。
         //ROUND_HALF_UP和ROUND_HALF_DOWN是不考虑符号的进位，ROUND_HALF_UP遇到5进位，ROUND_HALF_DOWN遇到5退位。
     }
 
