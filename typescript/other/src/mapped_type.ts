@@ -76,12 +76,35 @@ function testMappedType4() {
 }
 // 同理，还有预定义好的方法，例如Record,Partial,Required,ReadOnly和Pick等等
 
+const MyAccount = {
+    a:()=>{
+        return "123"
+    },
+    b:()=>{
+        return 123
+    }
+}
+
+//typeof 操作符，不仅可以在运行时使用，编译时也能用来使用
+type MyAccountType = typeof MyAccount;
+
+type MyAccountKeyType = keyof MyAccountType;
+
+function testMappedType5(){
+    function ok(a:MyAccountKeyType){
+        console.log(a);
+    }
+    ok('a');
+    ok('b');
+}
+
 // mappedType的意思是，将一个类型为依据，转换到另外一个类型
 function testMappedType() {
     testMappedType1()
     testMappedType2()
     testMappedType3()
     testMappedType4()
+    testMappedType5();
 }
 
 export default testMappedType
