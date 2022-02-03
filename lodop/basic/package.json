@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "start": "umi dev",
+    "start": "cross-env PORT=8881 umi dev",
     "build": "umi build",
     "postinstall": "umi generate tmp",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
@@ -21,16 +21,18 @@
   },
   "dependencies": {
     "@ant-design/pro-layout": "^6.5.0",
-    "lodop-printer": "^1.2.6",
+    "@types/underscore": "^1.11.4",
     "react": "17.x",
     "react-dom": "17.x",
-    "umi": "^3.5.7"
+    "umi": "^3.5.7",
+    "underscore": "^1.13.2"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.5.7",
+    "cross-env": "^7.0.3",
     "lint-staged": "^10.0.7",
     "prettier": "^2.2.0",
     "typescript": "^4.1.2",
