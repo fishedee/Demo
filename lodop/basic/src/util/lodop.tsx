@@ -1,6 +1,6 @@
-var CLodopIsLocal: boolean, CLodopJsState: string;
-//加载CLodop时用双端口(http是8000/18000,而https是8443/8444)以防其中某端口被占,
-//主JS文件“CLodopfuncs.js”是固定文件名，其内容是动态的，与当前打印环境有关:
+import { LodopLoadingError, LodopNotInstallError } from "./lodopError";
+
+var CLodopIsLocal: any, CLodopJsState: any;
 
 function loadCLodop() {
     if (CLodopJsState == 'loading' || CLodopJsState == 'complete') return;
@@ -40,24 +40,25 @@ function getLodop() {
     var strCLodopInstall_2 =
         "<br>（若此前已安装过，可<a href='CLodop.protocol:setup' target='_self'>点这里直接再次启动</a>）";
     var strCLodopInstall_3 = '，成功后请刷新或重启浏览器。</font>';
-    var LODOP: any;
+    var LODOP;
     try {
-        const myGlobal = window as any;
+        const myGlobal = window;
         LODOP = myGlobal.getCLodop();
-    } catch (err) {}
+    } catch (err) { }
     if (!LODOP && CLodopJsState !== 'complete') {
-        if (CLodopJsState == 'loading')
-            alert('网页还没下载完毕，请稍等一下再操作.');
-        else alert('没有加载CLodop的主js，请先调用loadCLodop过程.');
-        return;
+        if (CLodopJsState == 'loading') {
+            throw new LodopLoadingError('网页还没下载完毕，请稍等一下再操作.');
+        } else {
+            throw new LodopNotInstallError('没有加载CLodop的主js，请先调用loadCLodop过程.');
+        }
     }
     if (!LODOP) {
-        document.body.innerHTML =
+        const message =
             strCLodopInstall_1 +
             (CLodopIsLocal ? strCLodopInstall_2 : '') +
             strCLodopInstall_3 +
             document.body.innerHTML;
-        return;
+        throw new LodopNotInstallError(message);
     }
     //===如下空白位置适合调用统一功能(如注册语句、语言选择等):==
     LODOP.SET_LICENSES(
