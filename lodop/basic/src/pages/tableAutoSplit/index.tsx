@@ -23,7 +23,8 @@ const tableContent = `
 <thead>
     <tr>
     <th width="100%" colspan="4" tindex="1">
-      当前是第<font tdata="PageNO" format="ChineseNum" color="blue">##</font>页</span>/共<font tdata="PageCount" format="ChineseNum" color="blue">##</font></span>页
+      <span tdata="PageNO" format="ChineseNum" color="blue">当前是第##页/</span> 
+      <span tdata="PageCount" format="ChineseNum" color="blue">共##页</span>
     </tr>
     <tr>
         <th width="20%">序号</th>
@@ -35,11 +36,11 @@ const tableContent = `
 <tbody>
     <% for(var i = 0 ;i != data.length;i ++){ var single = data[i];%>
     <tr>
-        <!--必须放在font里面才能生效-->
-        <td width="20%"><font tdata="Count" format="#">第######行</font></td>
-        <td width="26%"><%= single.amount %></td>
-        <td width="26%"><%= single.price %></td>
-        <td width="28%"><%= single.total %></td>
+        <!--放在td里面不能生效，放在th或者span里面都可以-->
+        <td><span tdata="Count" format="#">第######行</span></td>
+        <td><%= single.amount %></td>
+        <td><%= single.price %></td>
+        <td><%= single.total %></td>
     </tr>
     <% } %>
     <tr>
@@ -47,19 +48,15 @@ const tableContent = `
 </tbody>
 <tfoot>
         <tr>
-            <th width="20%"></th>
-            <th align="left" width="26%" tdata="SubSum" format="#.##">
-            本页数量小计：######</th>            
-            <th width="26%"></th>
-            <th align="left" width="28%" tdata="SubSum" format="#,##0.00">
+            <th align="right" colspan="2" tdata="SubSum" format="#.##">
+            本页数量小计：######</th>   
+            <th align="right" colspan="2" tdata="SubSum" format="#,##0.00">
             本页金额小计：######</th>   
         </tr>
         <tr>
-            <th width="20%"></th>
-            <th align="left" width="26%" tdata="AllSum" format="#.##" tindex="4">
-            全部金额小计：######</th>            
-            <th width="26%"></th>
-            <th align="left" width="28%" tdata="AllSum" format="#,##0.00" tindex="2">
+            <th align="right" colspan="2" tdata="AllSum" format="#.##" tindex="4">
+            全部金额小计：######</th>   
+            <th align="right" colspan="2" tdata="AllSum" format="ChineseNum" tindex="2">
             全部数量小计：######</th>   
         </tr>
 </tfoot>
