@@ -6,43 +6,7 @@ import React, {
     useState,
 } from 'react';
 import ReactDOM, { createPortal } from 'react-dom';
-
-type ProtalRender = (portal: MyPortal) => ReactElement;
-
-class MyPortal {
-    private ref: HTMLElement | null = null;
-
-    constructor(private render: ProtalRender) {}
-
-    public open() {
-        if (this.ref) {
-            throw new Error('对话框已经打开了');
-        }
-        this.ref = document.createElement('div');
-        document.body.appendChild(this.ref);
-
-        const node = this.render(this);
-
-        ReactDOM.render(node, this.ref);
-    }
-
-    public rerender() {
-        if (!this.ref) {
-            throw new Error('对话框未打开');
-        }
-
-        const node = this.render(this);
-        ReactDOM.render(node, this.ref);
-    }
-
-    public close() {
-        if (!this.ref) {
-            throw new Error('对话框未打开');
-        }
-        ReactDOM.unmountComponentAtNode(this.ref);
-        this.ref = null;
-    }
-}
+import MyPortal from './MyPortal';
 
 type SamplePortal = {
     onClick: () => void;
@@ -60,18 +24,19 @@ const SamplePortal: React.FC<SamplePortal> = (props) => {
 
 const HelloReact: React.FC<any> = (props) => {
     const [state, setState] = useState(0);
-    const data = useRef<MyPortal>();
+    const data = useRef<MyPortal<string>>();
     const counter = useRef<number>(0);
     return (
         <div>
             <h1>父组件</h1>
             <button
-                onClick={() => {
+                onClick={async () => {
                     if (data.current) {
                         return;
                     }
                     data.current = new MyPortal((protal) => {
                         const onClick = () => {
+                            protal.setResult("cc");
                             protal.close();
                             data.current = undefined;
                         };
@@ -82,7 +47,8 @@ const HelloReact: React.FC<any> = (props) => {
                             />
                         );
                     });
-                    data.current.open();
+                    let result = await data.current.awaitOpen();
+                    console.log(result);
                 }}
             >
                 显示Protal
