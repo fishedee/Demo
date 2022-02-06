@@ -2,7 +2,6 @@ package spring_test;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.h2.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -20,9 +19,9 @@ import java.net.URLEncoder;
  * Created by fish on 2021/4/25.
  */
 @RestController
-@RequestMapping("/hello")
+@RequestMapping("/api/excel")
 @Slf4j
-public class MyController {
+public class ExcelController {
 
     @GetMapping("/go")
     public String go(){
