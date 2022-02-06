@@ -142,6 +142,14 @@ public class MyController {
     }
 
     @Autowired
+    private ExportExcelService2 exportExcelService2;
+
+    @GetMapping("get4")
+    public void get4(){
+        exportExcelService2.export();
+    }
+
+    @Autowired
     private ImportExcelSevice importExcelSevice;
 
     //使用curl提交，curl http://localhost:8585/hello/post -X POST -F "data=@./excel.xlsx"
