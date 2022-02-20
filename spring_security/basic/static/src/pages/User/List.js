@@ -6,6 +6,7 @@ import StandardQuery from '@/components/StandardQuery';
 import StandardTable from '@/components/StandardTable';
 import qs from 'qs';
 import cache from '@/utils/cache';
+import axios from 'axios';
 
 const roleOption = {
 	1:'管理员',
@@ -115,9 +116,21 @@ export default class List extends React.Component{
 	      },
 	      {
 	        title: '操作',
-	        render: (val,data) => (
-	        	<div/>
-	        ),
+	        render: (val,data) => {
+				const onLoginChange = async ()=>{
+					await axios({
+						method:'POST',
+						url:'/login/impersonate',
+						params:{
+							username:data.name,
+						}
+					});
+					window.location.reload();
+				}
+	        	return (<div >
+					<a onClick={onLoginChange}>{'切换到该用户'}</a>
+					</div>);
+			},
 	      },
 	    ];
 		return (

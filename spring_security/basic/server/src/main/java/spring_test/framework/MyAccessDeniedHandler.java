@@ -1,6 +1,5 @@
 package spring_test.framework;
 
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;

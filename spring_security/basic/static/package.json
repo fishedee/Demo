@@ -26,6 +26,7 @@
     "@antv/data-set": "^0.10.2",
     "antd": "^3.13.2",
     "art-template": "^4.13.2",
+    "axios": "^0.26.0",
     "big.js": "^5.2.2",
     "bizcharts": "^3.4.3",
     "classname": "0.0.0",

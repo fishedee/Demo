@@ -14,7 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.switchuser.SwitchUserFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import javax.sql.DataSource;
@@ -76,6 +78,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    @Bean
+    public SwitchUserFilter switchUserFilter(){
+        SwitchUserFilter filter = new SwitchUserFilter();
+        filter.setUserDetailsService(myUserDetailService);
+        filter.setSwitchUserUrl("/login/impersonate");
+        filter.setSuccessHandler(authSuccessHandler);
+        filter.setFailureHandler(authFailureHandler);
+        return filter;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
@@ -128,5 +140,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login/login").permitAll()
                 .antMatchers("/login/islogin").permitAll()
                 .anyRequest().authenticated();
+
+        http.addFilterAfter(switchUserFilter(), FilterSecurityInterceptor.class);
     }
 }
