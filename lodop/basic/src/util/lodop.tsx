@@ -64,6 +64,7 @@ export type LodopType = {
         Name: string,
     ) => void;
     On_Return: (taskId: any, newValue: any) => void | undefined;
+    SET_SHOW_MODE: (type: 'HIDE_PBUTTIN_PREVIEW', value: string | number) => void;
     SET_PRINT_MODE: (key: string, value: any) => void;
     SET_PRINT_STYLEA: (targetId: number, key: string, value: any) => void;
     PREVIEW: (oView?: '_dialog' | '_blank' | '' | string, iWidth?: number, iHeight?: number, iOption?: number) => void;

@@ -34,6 +34,16 @@ export default function IndexPage() {
             console.log(e);
         }
     }
+    const prn1_preview2 = () => {
+        try {
+            let LODOP = getAntdLodop();
+            CreateOneFormPage(LODOP);
+            LODOP.SET_SHOW_MODE('HIDE_PBUTTIN_PREVIEW', 1);
+            LODOP.PREVIEW();
+        } catch (e) {
+            console.log(e);
+        }
+    }
     const prn1_preview_dialog = () => {
         try {
             let LODOP = getAntdLodop();
@@ -107,6 +117,7 @@ export default function IndexPage() {
             <p>1：若只打印《表单一》,看一下<a onClick={prn1_preview}>打印预览</a>,可<a onClick={prn1_print}>直接打印</a>也可
                 <a onClick={prn1_printA}>选择打印机</a>打印。<br /><br /></p>
             <p>
+                <a onClick={prn1_preview2}>预览，无打印</a><br />
                 <a onClick={prn1_preview_dialog}>预览在_dialog</a><br />
                 <a onClick={prn1_preview_blank}>预览在_blank，别用，它会在当前页面中加入元素来展示</a><br />
                 <a onClick={prn1_preview_iframe}>预览在_iframe</a><br />
