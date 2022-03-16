@@ -1,9 +1,10 @@
 import styles from './index.less';
 import getAntdLodop from '@/util/lodopAntd';
+import { LODOP_PREVIEW_OPTION_HIDDEN_PRINT, LODOP_PREVIEW_OPTION_HIDDEN_STATUS } from '@/util/lodop';
 export default function IndexPage() {
 
     function CreateOneFormPage(LODOP: any) {
-        LODOP.PRINT_INIT('打印控件功能演示_Lodop功能_表单一');
+        LODOP.SET_PRINT_PAGESIZE(1, "210mm", "139.49mm", '打印控件功能演示_Lodop功能_表单一');
         LODOP.SET_PRINT_STYLE('FontSize', 18);
         LODOP.SET_PRINT_STYLE('Bold', 1);
         LODOP.ADD_PRINT_TEXT(50, 231, 260, 39, '打印页面部分内容');
@@ -14,12 +15,48 @@ export default function IndexPage() {
             600,
             document.getElementById('form1')!.innerHTML,
         );
+        LODOP.NewPage();
+        LODOP.ADD_PRINT_HTM(
+            88,
+            200,
+            350,
+            600,
+            document.getElementById('form1')!.innerHTML,
+        );
     }
+
     const prn1_preview = () => {
         try {
             let LODOP = getAntdLodop();
             CreateOneFormPage(LODOP);
             LODOP.PREVIEW();
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    const prn1_preview_dialog = () => {
+        try {
+            let LODOP = getAntdLodop();
+            CreateOneFormPage(LODOP);
+            LODOP.PREVIEW('_dialog', 0, 0, LODOP_PREVIEW_OPTION_HIDDEN_PRINT + LODOP_PREVIEW_OPTION_HIDDEN_STATUS);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    const prn1_preview_blank = () => {
+        try {
+            let LODOP = getAntdLodop();
+            CreateOneFormPage(LODOP);
+            LODOP.PREVIEW('_blank', 0, 0, 0);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    const prn1_preview_iframe = () => {
+        try {
+            let LODOP = getAntdLodop();
+            CreateOneFormPage(LODOP);
+            LODOP.PREVIEW('kk', 0, 0, 8);
         } catch (e) {
             console.log(e);
         }
@@ -67,9 +104,14 @@ export default function IndexPage() {
                     </td><td width="80" height="16" style={{ border: 'solid 1px black', overflow: 'hidden' }}>韩-안녕</td><td width="51" height="16">C3<sup>x</sup>
                         </td></tr> </table>
             </form>
-
             <p>1：若只打印《表单一》,看一下<a onClick={prn1_preview}>打印预览</a>,可<a onClick={prn1_print}>直接打印</a>也可
                 <a onClick={prn1_printA}>选择打印机</a>打印。<br /><br /></p>
+            <p>
+                <a onClick={prn1_preview_dialog}>预览在_dialog</a><br />
+                <a onClick={prn1_preview_blank}>预览在_blank，别用，它会在当前页面中加入元素来展示</a><br />
+                <a onClick={prn1_preview_iframe}>预览在_iframe</a><br />
+            </p>
+            <iframe id="kk" width={'100%'} height={'800px'}></iframe>
         </div>
     );
 }

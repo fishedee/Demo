@@ -10,6 +10,16 @@ type LodopBarCodeType = '128Auto' | 'QRCode';
 
 type LodopPageOrient = 0 | 1 | 2 | 3;
 
+const LODOP_PREVIEW_OPTION_HIDDEN_NORAML = 1;
+
+const LODOP_PREVIEW_OPTION_HIDDEN_BIGGER = 2;
+
+const LODOP_PREVIEW_OPTION_HIDDEN_SMALLER = 4;
+
+const LODOP_PREVIEW_OPTION_HIDDEN_PRINT = 8;
+
+const LODOP_PREVIEW_OPTION_HIDDEN_STATUS = 16;
+
 export type LodopType = {
     PRINT_INITA: (
         Top: LodopPixelType,
@@ -56,7 +66,7 @@ export type LodopType = {
     On_Return: (taskId: any, newValue: any) => void | undefined;
     SET_PRINT_MODE: (key: string, value: any) => void;
     SET_PRINT_STYLEA: (targetId: number, key: string, value: any) => void;
-    PREVIEW: () => void;
+    PREVIEW: (oView?: '_dialog' | '_blank' | '' | string, iWidth?: number, iHeight?: number, iOption?: number) => void;
     //直接打印
     PRINT: () => void;
     //选择打印机后打印
@@ -135,3 +145,11 @@ function getLodop(): LodopType {
 }
 
 export default getLodop;
+
+export {
+    LODOP_PREVIEW_OPTION_HIDDEN_NORAML,
+    LODOP_PREVIEW_OPTION_HIDDEN_BIGGER,
+    LODOP_PREVIEW_OPTION_HIDDEN_SMALLER,
+    LODOP_PREVIEW_OPTION_HIDDEN_PRINT,
+    LODOP_PREVIEW_OPTION_HIDDEN_STATUS,
+}
