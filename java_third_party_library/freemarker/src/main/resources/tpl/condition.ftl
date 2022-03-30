@@ -28,6 +28,15 @@
         <p>Nothing</p>
 </#list>
 
+<!--for，访问哈希表-->
+<#assign keys = brands?keys>
+<p>共有${keys?size}个种类的袋子</p>
+<ul>
+    <#list keys as key>
+        <li>${key} => ${brands[key]}</li>
+    </#list>
+</ul>
+
 <#--注释标签，不会输出到前端-->
 <#include "/footer.ftl">
 <body>

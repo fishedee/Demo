@@ -9,9 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by fish on 2021/4/25.
@@ -55,6 +53,8 @@ public class MyController {
         private Long assets2;
 
         private Product latestProduct;
+
+        private Map<String,String> brands = new HashMap<>();
     }
 
     @GetMapping("/mainTpl")
@@ -86,6 +86,8 @@ public class MyController {
         MainData data = new MainData();
         data.setUser("Cat");
         data.setSex("mm");
+        data.brands.put("LV","10个");
+        data.brands.put("Coach","20个");
         return freeMarkerService.execute("condition.ftl",data);
     }
 
