@@ -9,18 +9,19 @@
 <#else>
     Welcome Man ${user}
 </#if>
-<!--for，一个独特的as语法，并且支持sep指令来指定非末尾行的数-->
+<!--for，一个独特的as语法，并且支持sep指令来指定非末尾行的数，index从0开始-->
+<p>共有${cars?size}个车子</p>
 <ul>
 <#list cars as car>
-    <li>name为${car.name}<#sep>，<#sep></li>
+    <li>${car?index} name为${car.name}<#sep>，<#sep></li>
 </#list>
 </ul>
 
-<!--for的另外一种写法，当cars为空的时候，连ul标签都不输出。我们还能额外用else标签来输出-->
+<!--for的另外一种写法，当cars为空的时候，连ul标签都不输出。我们还能额外用else标签来输出，index从1开始-->
 <#list cars >
     <ul>
     <#items as car>
-        <li>name2为${car.name}<#sep>，</#sep></li>
+        <li>${car?counter} name2为${car.name}<#sep>，</#sep></li>
     </#items>
     </ul>
     <#else>

@@ -22,5 +22,9 @@
 <#--默认数字输出有分割符，需要用?c来避免这个问题-->
 <p>${assets?c}</p>
 <p>${assets2?c}</p>
+
+<#--字符串组合-->
+<p>${"hello ${assets}"}</p>
+<p>${"hello ${user[0..1]}"}</p>
 </body>
 </html>
