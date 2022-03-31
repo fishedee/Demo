@@ -15,7 +15,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableOpenApi
-@Profile("development")
 public class SwaggerConfiguration {
     //api接口包扫描路径
     public static final String SWAGGER_SCAN_BASE_PACKAGE = "spring_test";
@@ -31,7 +30,7 @@ public class SwaggerConfiguration {
                 .build();
     }
 
-    //http://localhost:8080/swagger-ui/
+    //http://localhost:8080/swagger-ui/index.html
     //http://localhost:8080/v2/api-docs
     //http://localhost:8080/v3/api-docs
     private ApiInfo apiInfo() {

@@ -10,6 +10,7 @@ import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by fish on 2021/4/25.
@@ -29,6 +30,8 @@ public class OrderDO {
     @NotNull
     @DecimalMin(value = "0.0001",message = "必须为正数")
     private BigDecimal total;
+
+    private Map<String,Item> addressMap;
 
     @Data
     @AllArgsConstructor

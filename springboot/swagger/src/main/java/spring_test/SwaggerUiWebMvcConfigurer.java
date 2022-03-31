@@ -1,12 +1,14 @@
 package spring_test;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+@Profile("development")
 public class SwaggerUiWebMvcConfigurer implements WebMvcConfigurer {
     private final String baseUrl = "";
 
