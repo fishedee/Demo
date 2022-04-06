@@ -21,6 +21,9 @@ public class OrderDO {
     private String name;
 
     @NotNull
+    private OrderType orderType;
+
+    @NotNull
     @Email
     private String email;
 
