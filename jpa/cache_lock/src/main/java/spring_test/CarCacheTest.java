@@ -43,6 +43,20 @@ public class CarCacheTest {
         log.info("all cars {}",cars2);
     }
 
+    @Transactional
+    public void mod2(Long carId,String name){
+        //先用ReadOnly的方式读取Car出来
+        Car car = this.carRepository.findForReadOnly(carId);
+
+        //然后用findBatch的方式读取出来，修改
+        Car car2 = this.carRepository.findBatch(Arrays.asList(carId)).get(0);
+        car2.setName(name);
+    }
+
+    public String getName(Long carId){
+        return this.carRepository.find(carId).getName();
+    }
+
     public void go(){
         CarCacheTest app = (CarCacheTest) AopContext.currentProxy();
 
@@ -50,5 +64,10 @@ public class CarCacheTest {
         Long carId2 = app.add(new Car("车2"));
 
         app.mod(carId1,carId2);
+
+        //以下的实验相当诡异，以forRead的方式读取数据到一级缓存以后，即使以后的数据不是forRead的方式，也会导致数据无法更新
+        app.mod2(carId2,"车3");
+        //这里输出的数据是，车2，而不是车3。结论是，永远不要使用forRead读取数据，因为这样可能导致失去脏检查没有写入数据。
+        log.info("carId2 name {}",app.getName(carId2));
     }
 }
