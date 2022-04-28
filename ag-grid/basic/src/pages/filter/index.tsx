@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import moment from 'moment';
 
 const GridExample = () => {
     const gridRef = useRef<any>();
@@ -42,6 +43,26 @@ const GridExample = () => {
             filterParams: {
                 buttons: ['apply', 'cancel'],
                 closeOnApply: true,
+            },
+            maxWidth: 100,
+        },
+        {
+            headerName: '年',
+            field: 'year',
+            filter: 'agDateColumnFilter',
+            filterParams: {
+                comparator: function (filterLocalDateAtMidnight: Date, cellValue: string) {
+                    let left = moment(filterLocalDateAtMidnight);
+                    let right = moment(cellValue, 'YYYY');
+                    let result = left.year() - right.year();
+                    if (result < 0) {
+                        return 1;
+                    } else if (result > 0) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
             },
             maxWidth: 100,
         },
