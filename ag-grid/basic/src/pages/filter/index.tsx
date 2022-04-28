@@ -62,7 +62,9 @@ const GridExample = () => {
                     } else {
                         return 0;
                     }
-                }
+                },
+                //默认inRange不包含两个边界点，需要指定这个选项
+                inRangeInclusive: true,
             },
             maxWidth: 100,
         },
