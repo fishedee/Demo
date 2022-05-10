@@ -1,8 +1,7 @@
-import { Select } from 'antd';
-import { RefSelectProps } from 'antd/lib/select';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { ICellEditorParams } from 'ag-grid-community';
 
+import './style.css';
 const KEY_BACKSPACE = 'Backspace';
 const KEY_DELETE = 'Delete';
 const KEY_ENTER = 'Enter';
@@ -30,7 +29,7 @@ export default forwardRef((props: ICellEditorParams, ref) => {
 
     const initialState = createInitialState();
     const [value, setValue] = useState(initialState.value);
-    const refInput = useRef<RefSelectProps>(null);
+    const refInput = useRef<HTMLInputElement>(null);
 
     // focus on the input
     useEffect(() => {
@@ -38,6 +37,7 @@ export default forwardRef((props: ICellEditorParams, ref) => {
         window.setTimeout(() => {
             const eInput = refInput.current!;
             eInput.focus();
+            eInput.select();
         }, 0);
     }, []);
 
@@ -68,75 +68,12 @@ export default forwardRef((props: ICellEditorParams, ref) => {
         };
     });
 
-
-    const isCharNumeric = (charStr: string) => {
-        return !!/\d/.test(charStr);
-    };
-
-    const isKeyPressedNumeric = (event: any) => {
-        const charStr = event.key;
-        return isCharNumeric(charStr);
-    };
-
-    const deleteOrBackspace = (event: any) => {
-        return [KEY_DELETE, KEY_BACKSPACE].indexOf(event.key) > -1;
-    };
-
-    const finishedEditingPressed = (event: any) => {
-        const key = event.key;
-        return key === KEY_ENTER || key === KEY_TAB;
-    };
-
-    const onKeyDown = (event: any) => {
-        /*
-        console.log('keyDown', event);
-        if (event.key === KEY_ENTER) {
-            console.log('enter!!!');
-            event.preventDefault();
-        }
-        if (!finishedEditingPressed(event) && !isKeyPressedNumeric(event)) {
-            if (event.preventDefault) event.preventDefault();
-        }
-        */
-    };
-
     return (
-        <Select
+        <input
             ref={refInput}
-            className={'simple-input-editor'}
+            className={'my-input'}
             value={value}
-            options={[
-                {
-                    label: 'fish',
-                    value: 'fish',
-                },
-                {
-                    label: 'cat',
-                    value: 'cat',
-                },
-                {
-                    label: 'dog',
-                    value: 'dog',
-                },
-                {
-                    label: 'sheep',
-                    value: 'sheep',
-                },
-                {
-                    label: 'goat',
-                    value: 'goat',
-                },
-                {
-                    label: 'cow',
-                    value: 'cow',
-                }
-            ]}
-            showSearch={true}
-            onChange={(event: any) => setValue(event)}
-
-            onInputKeyDown={(event: any) => onKeyDown(event)}
-            allowClear={true}
-            defaultOpen={true}
+            onChange={(event: any) => setValue(event.target.value)}
         />
     );
 });

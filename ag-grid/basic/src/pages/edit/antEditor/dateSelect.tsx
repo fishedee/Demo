@@ -1,46 +1,55 @@
-import { Input, InputRef } from 'antd';
+import { Select, AutoComplete, Input, InputRef, DatePicker } from 'antd';
+import { RefSelectProps } from 'antd/lib/select';
 import { forwardRef, useContext, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { ICellEditorParams } from 'ag-grid-community';
-import { ModeContext } from '.';
 
 const KEY_BACKSPACE = 'Backspace';
 const KEY_DELETE = 'Delete';
 const KEY_ENTER = 'Enter';
 const KEY_TAB = 'Tab';
+import moment from 'moment';
+import { ModeContext } from '.';
 
 export default forwardRef((props: ICellEditorParams, ref) => {
     const modeContext = useContext(ModeContext);
+
     const createInitialState = () => {
         let startValue;
 
         if (props.key === KEY_BACKSPACE || props.key === KEY_DELETE) {
             // if backspace or delete pressed, we clear the cell
-            startValue = '';
+            startValue = null;
         } else if (props.charPress) {
             // if a letter was pressed, we start with the letter
-            startValue = props.charPress;
+            startValue = moment(props.charPress, 'YYYY-MM-DD');
         } else {
             // otherwise we start with the current value
-            startValue = props.value;
+            startValue = moment(props.value, 'YYYY-MM-DD');
         }
-
+        if (startValue?.isValid() == false) {
+            startValue = null;
+        }
         return {
             value: startValue,
         };
     };
 
     const initialState = createInitialState();
+
     const [value, setValue] = useState(initialState.value);
-    const refInput = useRef<InputRef>(null);
+    const refInput = useRef<RefSelectProps>(null);
+    const refInput2 = useRef<HTMLDivElement>(null);
 
     // focus on the input
     useEffect(() => {
-        // get ref from React component
-        window.setTimeout(() => {
-            const eInput = refInput.current!;
-            eInput.focus();
-            eInput.select();
-        }, 0);
+        setTimeout(() => {
+            if (!refInput2.current) {
+                return;
+            }
+            let m = refInput2.current!.querySelector('input')!;
+            m.focus();
+            m.select();
+        }, 100);
     }, []);
 
     /* Component Editor Lifecycle methods */
@@ -48,7 +57,15 @@ export default forwardRef((props: ICellEditorParams, ref) => {
         return {
             // the final value to send to the grid, on completion of editing
             getValue() {
-                return value;
+                //使用Input的话能直接自己手动输入日期
+                let myValue = refInput2.current!.querySelector('input')!.value;
+                let myMoment = moment(myValue, 'YYYY-MM-DD');
+                console.log('getValue', myValue);
+                if (myMoment.isValid()) {
+                    return myMoment.format('YYYY-MM-DD');
+                } else {
+                    return '';
+                }
             },
 
             // Gets called once before editing starts, to give editor a chance to
@@ -69,18 +86,25 @@ export default forwardRef((props: ICellEditorParams, ref) => {
             },
         };
     });
-
     return (
-        <Input
-            ref={refInput}
-            className={'simple-input-editor'}
-            value={value}
-            onChange={(event: any) => setValue(event.target.value)}
-            onKeyDown={(event) => {
-                if (event.key == 'Enter') {
-                    modeContext.mode();
-                }
-            }}
-        />
+        <div ref={refInput2}>
+            <DatePicker
+                value={value}
+                onChange={(event: any, dateString: any) => setValue(event)}
+                //重置PopupContainer的位置以保证跟随滚动
+                getPopupContainer={() => {
+                    return document.querySelector(".my-grid .ag-center-cols-container")!;
+                }}
+                defaultOpen={true}
+                onSelect={() => {
+                    const ref = modeContext.mode();
+                }}
+                onKeyDown={(event) => {
+                    if (event.key == 'Enter') {
+                        const ref = modeContext.mode();
+                    }
+                }}
+            />
+        </div>
     );
 });
