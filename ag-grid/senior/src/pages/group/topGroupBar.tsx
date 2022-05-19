@@ -78,7 +78,7 @@ const GridExample = () => {
                     //顶部的分组列，可以通过拖动列的方式自定义分组
                     rowGroupPanelShow={'always'}
                     suppressDragLeaveHidesColumns={true}
-                    suppressMakeColumnVisibleAfterUnGroup={true}
+                    //suppressMakeColumnVisibleAfterUnGroup={true}
                     //子合计，没啥用，别用
                     //groupIncludeFooter={true}
                     //主合计
