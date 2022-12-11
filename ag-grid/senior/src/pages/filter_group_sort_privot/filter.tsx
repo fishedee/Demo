@@ -18,6 +18,7 @@ const GridExample = () => {
             filter: 'agTextColumnFilter',
         },
         {
+            colId: 'age2',
             field: 'age',
             maxWidth: 100,
             filter: 'agNumberColumnFilter',
@@ -81,9 +82,85 @@ const GridExample = () => {
 
     const getFilter = () => {
         const filterModel = gridRef.current!.api.getFilterModel();
+        /*
+        filterModel是object类型，key为colId，不是field，value为filter配置
+        搜索age为19的rows
+        {
+            "age2": {
+                "filterType": "number",
+                "type": "equals",
+                "filter": 19
+            }
+        }
+        */
+        /*
+        搜索age为19岁和2岁的rows
+        {
+            "age2": {
+                "filterType": "number",
+                "operator": "AND",
+                "condition1": {
+                    "filterType": "number",
+                    "type": "equals",
+                    "filter": 19
+                },
+                "condition2": {
+                    "filterType": "number",
+                    "type": "equals",
+                    "filter": 2
+                }
+            }
+        }
+        */
+        /*
+        搜索age为19至80的rows
+        {
+            "age2": {
+                "filterType": "number",
+                "type": "inRange",
+                "filter": 19,
+                "filterTo": 80
+            }
+        }
+          */
+        /*
+        搜索age为19，country包含United的rows
+       {
+           "age2": {
+               "filterType": "number",
+               "type": "equals",
+               "filter": 19
+           },
+           "country": {
+               "filterType": "text",
+               "type": "contains",
+               "filter": "United"
+           }
+       }
+       */
         console.log('filterModel', filterModel);
     }
-
+    const setFilter = useCallback(() => {
+        gridRef.current!.api.setFilterModel({
+            "age2": {
+                "filterType": "number",
+                "type": "equals",
+                "filter": 19
+            }
+        });
+    }, []);
+    const addRows = useCallback(() => {
+        let rows = [];
+        gridRef.current!.api.forEachNode(single => {
+            rows.push(single.data);
+        });
+        rows.push({
+            athlete: 'FishGold',
+            age: 19,
+            country: new Date().toLocaleString(),
+        });
+        gridRef.current!.api.setRowData(rows);
+    }, []);
     const onFilterChanged = useCallback((params: FilterChangedEvent) => {
         console.log('filter Changed', params);
     }, []);
@@ -92,6 +169,8 @@ const GridExample = () => {
             <div>
                 <Button onClick={clearFilter}>{'清除筛选'}</Button>
                 <Button onClick={getFilter}>{'获取筛选数据'}</Button>
+                <Button onClick={setFilter}>{'剔除其他条件，只搜索19岁的群众'}</Button>
+                <Button onClick={addRows}>{'添加19岁的数据'}</Button>
             </div>
             <div className="ag-theme-alpine" style={{ height: '100%', width: '100%' }}>
                 <AgGridReact
