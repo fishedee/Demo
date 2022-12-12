@@ -5,14 +5,14 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import moment from 'moment';
-import { FilterChangedEvent } from 'ag-grid-community';
+import { ColDef, FilterChangedEvent, ValueGetterFunc, ValueGetterParams } from 'ag-grid-community';
 
 const GridExample = () => {
     const gridRef = useRef<AgGridReact>(null);
     const containerStyle = useMemo(() => ({ width: '100%', height: '100%' }), []);
     const gridStyle = useMemo(() => ({ height: '100%', width: '100%' }), []);
     const [rowData, setRowData] = useState();
-    const [columnDefs, setColumnDefs] = useState([
+    const [columnDefs, setColumnDefs] = useState<ColDef[]>([
         {
             field: 'athlete',
             filter: 'agTextColumnFilter',
@@ -26,6 +26,15 @@ const GridExample = () => {
         {
             field: 'country',
             filter: 'agTextColumnFilter',
+        },
+        {
+            //显示为country2，filter的数据为age
+            colId: 'country2',
+            field: 'country(以age来刷新)',
+            filter: 'agNumberColumnFilter',
+            filterValueGetter: (params: ValueGetterParams) => {
+                return params.data.age;
+            }
         },
         {
             field: 'date',

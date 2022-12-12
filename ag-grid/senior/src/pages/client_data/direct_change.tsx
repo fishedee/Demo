@@ -14,7 +14,6 @@ const GridExample = () => {
     const gridRef = useRef<AgGridReact>(null);
     const containerStyle = useMemo<React.CSSProperties>(() => ({ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column' }), []);
     const gridStyle = useMemo(() => ({ height: '100%', width: '100%' }), []);
-    const [rowData, setRowData] = useState<any[]>(getData());
     const [columnDefs, setColumnDefs] = useState<ColDef[]>([
         { field: 'firstName' },
         { field: 'lastName' },
@@ -36,19 +35,11 @@ const GridExample = () => {
     }, []);
 
     const getAllData = useCallback(() => {
-        console.log('allRowData', rowData);
+        let rowData: any[] = [];
         gridRef.current!.api.forEachNode((rowNode, index) => {
-            console.log('node ' + index + " : " + JSON.stringify(rowNode.data) + " is in the grid");
+            rowData.push(rowNode.data);
         });
-
-        // iterate only nodes that pass the filter
-        //forEachNodeAfterFilter
-
-        //iterate only nodes that pass the filter and ordered by the sort order
-        //forEachNodeAfterFilterAndSort
-
-        //iterate through every leaf node in the grid
-        //forEachLeafNode
+        return rowData;
     }, []);
 
     const refreshAllData = useCallback(() => {
@@ -60,44 +51,48 @@ const GridExample = () => {
         //gridRef.current!.api.setRowData(getData());
 
         //更好的做法是，坚持不更改rowData的引用传递进去
-        rowData.splice(0, rowData.length);
-        let newData = getData();
-        for (let i in newData) {
-            rowData.push(newData[i]);
+        let newData = getAllData();
+        let rows = getData();
+        newData.splice(0, newData.length);
+        for (let i in rows) {
+            newData.push(rows[i]);
         }
-        gridRef.current!.api.setRowData(rowData);
+        gridRef.current!.api.setRowData(newData);
 
         //另外一种办法是，坚持不是用api.setRowData，而是使用React的setRowData来设置数据，但是这样做需要Immutable的设置
         //看index2的实现
     }, []);
 
     const reverseData = useCallback(() => {
-        rowData.reverse();
-        gridRef.current!.api.setRowData(rowData);
+        let newData = getAllData();
+        newData.reverse();
+        gridRef.current!.api.setRowData(newData);
     }, []);
     const pushData = useCallback(() => {
+        let newData = getAllData();
         let maxId = -1;
-        for (let i in rowData) {
-            if (rowData[i].id > maxId) {
-                maxId = rowData[i].id;
+        for (let i in newData) {
+            if (newData[i].id > maxId) {
+                maxId = newData[i].id;
             }
         }
         let id = maxId + 1;
-        rowData.push({
+        newData.push({
             id: id,
             firstName: 'Fish_' + id,
             lastName: 'Fish_' + id,
             gender: 'Male',
             age: id,
         });
-        gridRef.current!.api.setRowData(rowData);
+        gridRef.current!.api.setRowData(newData);
     }, []);
 
     const popData = useCallback(() => {
-        if (rowData.length != 0) {
-            rowData.splice(0, 1);
+        let newData = getAllData();
+        if (newData.length != 0) {
+            newData.splice(0, 1);
         }
-        gridRef.current!.api.setRowData(rowData);
+        gridRef.current!.api.setRowData(newData);
     }, []);
 
     const removeSelected = useCallback(() => {
@@ -105,27 +100,41 @@ const GridExample = () => {
         const selectedIds = selectedRowNodes.map(function (rowNode) {
             return rowNode.id;
         });
+        let newData = getAllData();
         selectedIds.forEach(single => {
-            const delIndex = rowData.findIndex((data) => {
+            const delIndex = newData.findIndex((data) => {
                 return data.id == single;
             });
             if (delIndex != -1) {
-                rowData.splice(delIndex, 1);
+                newData.splice(delIndex, 1);
             }
         })
-        gridRef.current!.api.setRowData(rowData);
+        gridRef.current!.api.setRowData(newData);
     }, []);
 
     const allSetAge = useCallback(() => {
         //修改一个单元格的信息时，需要将整个row的引用改掉
-        for (let i in rowData) {
-            let single = rowData[i];
-            rowData[i] = {
+        let newData = getAllData();
+        for (let i in newData) {
+            let single = newData[i];
+            //这样做是正确的，修改需要将整个row的引用改掉
+            newData[i] = {
                 ...single,
-                age: Math.floor(Math.random() * 200)
+                age: Math.floor(Math.random() * 200),
             }
         }
-        gridRef.current!.api.setRowData(rowData);
+        gridRef.current!.api.setRowData(newData);
+    }, []);
+
+    const failAllSetAge = useCallback(() => {
+        //修改一个单元格的信息时，需要将整个row的引用改掉
+        let newData = getAllData();
+        for (let i in newData) {
+            let single = newData[i];
+            //这样做是错误的，因为key对应的object引用不变，所以Grid不进行修改
+            single.age = Math.floor(Math.random() * 200);
+        }
+        gridRef.current!.api.setRowData(newData);
     }, []);
 
     const getRowId = useCallback((params: GetRowIdParams) => {
@@ -141,12 +150,12 @@ const GridExample = () => {
                 <Button onClick={popData}>{'pop数据'}</Button>
                 <Button onClick={removeSelected}>{'删除选中行'}</Button>
                 <Button onClick={allSetAge}>{'随机设置Age'}</Button>
+                <Button onClick={failAllSetAge}>{'错误随机设置Age'}</Button>
             </div>
             <div className="grid-wrapper">
                 <div style={gridStyle} className="ag-theme-alpine">
                     <AgGridReact
                         ref={gridRef}
-                        rowData={rowData}
                         columnDefs={columnDefs}
                         defaultColDef={defaultColDef}
                         //需要设置getRowId，才能得到更好的刷新效果
