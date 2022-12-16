@@ -11,22 +11,21 @@ import org.springframework.web.bind.annotation.*;
 //@Controller+@ResponseBody，相当于@RestController
 @Controller
 @ResponseBody
-@RequestMapping("/hello")
+@RequestMapping("/hello2")
 @Slf4j
-public class MyController {
+public class MyController2 {
     @Autowired
-    private Service service;
+    private Service2 service2;
 
     @GetMapping("/getNoAsync")
     public String getNoAsync()throws  Exception{
-        service.goNoAsync();
+        service2.goNoAsync();
         return "Hello World";
     }
 
     @GetMapping("/getAsync")
     public String getAsync()throws Exception{
-        service.goAsync();
+        service2.goAsync();
         return "Hello World";
     }
 }
-

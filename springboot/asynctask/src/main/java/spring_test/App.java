@@ -22,21 +22,11 @@ import javax.annotation.PostConstruct;
  */
 @EnableScheduling
 @SpringBootApplication
-//@EnableTransactionManagement(proxyTargetClass = true)
+@EnableTransactionManagement(proxyTargetClass = true)
 @EnableAspectJAutoProxy(exposeProxy = true)
 @Slf4j
-public class App implements ApplicationRunner {
+public class App {
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
-    }
-
-    @Transactional
-    public void go() {
-
-    }
-
-    public void run(ApplicationArguments arguments) throws Exception {
-        App app = (App) (AopContext.currentProxy());
-        go();
     }
 }

@@ -6,32 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Slf4j
 public class Service {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
+    /*
+    无需打开@EnableAspectJAutoProxy(exposeProxy = true)
+    无需打开@EnableTransactionManagement(proxyTargetClass = true)
+    只需打开@EnableAsync
+    就能使用
+     */
     @Async
-    public void goAsyncInner()throws Exception{
-        log.info("begin long task2");
-        Thread.sleep(5000);
-        log.info("end long task2");
-    }
-
-    //@Transactional会指定将该对象放入Advised名单
-    //@Transactional
     public void goAsync()throws Exception{
-        Service service = (Service)AopContext.currentProxy();
-        service.goAsyncInner();
+        this.goNoAsync();
     }
 
     public void goNoAsync() throws Exception{
-        log.info("begin long task");
+        log.info("origin begin long task");
         Thread.sleep(5000);
-        log.info("end long task");
+        log.info("origin end long task");
     }
 }
