@@ -23,7 +23,7 @@ import javax.annotation.PostConstruct;
 @EnableScheduling
 @SpringBootApplication
 @EnableTransactionManagement(proxyTargetClass = true)
-@EnableAspectJAutoProxy(exposeProxy = true)
+@EnableAspectJAutoProxy(exposeProxy = true,proxyTargetClass = true)
 @Slf4j
 public class App {
     public static void main(String[] args) {
