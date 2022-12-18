@@ -152,8 +152,10 @@ public class ExcelController {
     private ImportExcelSevice importExcelSevice;
 
     //使用curl提交，curl http://localhost:8585/hello/post -X POST -F "data=@./excel.xlsx"
-    @PostMapping("post")
-    public Object post1(@RequestParam(name="data") MultipartFile file){
+    @PostMapping("post1")
+    public Object post1(@RequestParam(name="data") MultipartFile file,
+                        @RequestParam(name="type") String type){
+        log.info("type {}",type);
         InputStream is = null;
         try{
             is = file.getInputStream();
