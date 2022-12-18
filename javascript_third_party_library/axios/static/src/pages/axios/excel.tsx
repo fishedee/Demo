@@ -37,7 +37,7 @@ const AxiosExcelTest: React.FC<any> = (props) => {
         const response = await axios({
             method: "POST",
             headers: {
-                'Content-type': 'mulitpart/form-data',
+                'Content-Type': 'mulitpart/form-data',
             },
             url: "/api/excel/post1",
             data: formData,
