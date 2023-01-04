@@ -6,7 +6,7 @@
     "dva": "^2.2.3",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "react-scripts": "1.1.4",
+    "react-scripts": "5.0.1",
     "redux-saga": "^0.16.0",
     "redva": "^1.0.4"
   },
