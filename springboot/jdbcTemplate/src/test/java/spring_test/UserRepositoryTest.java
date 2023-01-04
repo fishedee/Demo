@@ -2,13 +2,10 @@ package spring_test;
 
 
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
@@ -21,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
         type= FilterType.ASSIGNABLE_TYPE,
         classes = {UserRepository.class}
 ))
-public class JdbcTemplateTest {
+public class UserRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
