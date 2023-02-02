@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>flex测试</title>
+		<style>
+			*{
+				margin:0px;
+				padding:0px;
+			}
+			.container{
+				display: flex;
+				flex-direction: row;
+				border:1px solid green;
+				width: 500px;
+			}
+			.nowrap{
+				flex-wrap: nowrap;/*默认值*/
+			}
+			.wrap{
+				flex-wrap: wrap;
+			}
+			.body{
+				flex:1;
+			}
+			.right{
+				display:flex;
+				flex-direction: row;
+				max-width:100px;/*max-width与wrap合并以后，宽度计算会不准确，计算的宽度依然是100px，而不是wrap以后的60px*/
+			}
+			.content{
+				border:1px solid black;
+				width:60px;
+				height:60px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<h1>flex nowrap</h1>
+			<div class="container">
+				<div class="body">
+					<h1>123</h1>
+					<h1>23</h1>
+				</div>
+				<div class="right nowrap">
+					<div class="content">123</div>
+					<div class="content">23</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<h1>float wrap</h1>
+			<div class="container">
+				<div class="body">
+					<h1>123</h1>
+					<h1>23</h1>
+				</div>
+				<div class="right wrap">
+					<div class="content">123</div>
+					<div class="content">23</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

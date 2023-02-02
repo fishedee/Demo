@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>flex测试</title>
+		<style>
+			*{
+				margin:0px;
+				padding:0px;
+			}
+			.flex{
+				display: flex;
+				flex-direction: column;
+				align-items: stretch;
+				width:100%;
+				height: 100vh;
+			}
+			.flex .header{
+				height:70px;
+				background: blue;
+			}
+			.flex .flex2{
+				flex:1;
+				display: flex;
+			}
+			.flex .sidebar{
+				width:70px;
+				background: red;
+			}
+			.flex .content{
+				flex:1;
+				background: pink;
+			}
+			.flex .footer{
+				height: 70px;
+				background: yellow;
+			}
+			.flex .content{
+				overflow:auto;
+				height:calc(100vh - 140px);
+				width:calc(100% - 40px);
+			}
+			.flex .realContent{
+				width:1800px;
+				height:1800px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<div>
+				<div class="flex">
+					<div class="header">
+						header
+					</div>
+					<div class="flex2">
+						<div class="sidebar">
+							sidebar
+						</div>
+						<div class="content">
+							<div class="realContent">
+								content
+							</div>
+						</div>
+					</div>
+					<div class="footer">
+						footer
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
