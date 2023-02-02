@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>absolute的Square</title>
+		<style>
+			*{
+				margin:0px;
+				padding:0px;
+			}
+			body{
+				padding:20px;
+			}
+			.wrapper{
+				position:absolute;
+				outline: 1px solid blue;
+			}
+			.topSquare{
+				position: absolute;
+				top:0px;
+				left:50%;
+				margin-left:-4px;
+				margin-top:-4px;
+				width:8px;
+				height:8px;
+				border:1px solid blue;
+				background: white;
+				cursor: n-resize;
+			}
+			.topMove{
+				position: absolute;
+				top:-5px;
+				left:0px;
+				width:100%;
+				height:10px;
+				cursor: move;
+			}
+			.leftSquare{
+				position: absolute;
+				top:50%;
+				left:0;
+				margin-left:-4px;
+				margin-top:-4px;
+				width:8px;
+				height:8px;
+				border:1px solid blue;
+				background: white;
+				cursor: w-resize;
+			}
+			.leftMove{
+				position: absolute;
+				top:0px;
+				left:-5px;
+				width:10px;
+				height:100%;
+				cursor: move;
+			}
+			.content{
+				width:100px;
+				height:100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="topMove"></div>
+			<div class="leftMove"></div>
+			<div class="topSquare"></div>
+			<div class="leftSquare"></div>
+			<div class="content">uuu</div>
+		</div>
+	</body>
+</html>

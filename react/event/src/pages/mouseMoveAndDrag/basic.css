@@ -1,0 +1,4 @@
+.moveTarget::selection {
+    color: inherit;
+    background-color: inherit;
+}
