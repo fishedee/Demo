@@ -37,7 +37,16 @@ aggregated_daily_totals AS (
   FROM daily_totals
   GROUP BY contact_id
 )
-SELECT
+(SELECT
+count(*) over () as all,
   *
 FROM aggregated_daily_totals
-ORDER BY total_on_specific_date DESC;
+where contact_id is not null
+ORDER BY total_on_specific_date DESC
+limit 4)
+UNION  all
+(select 
+1 as all,
+  *
+from aggregated_daily_totals
+where contact_id is null)

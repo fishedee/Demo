@@ -14,7 +14,7 @@ public class MainController {
 
     @GetMapping("/jdbc")
     public void testJdbc() throws Exception{
-        this.benchmarkTest.testSingle("jdbc",this.benchmarkTest::testJdbc);
+        this.benchmarkTest.testSingle("jdbc",this.benchmarkTest::testJdbcBySpecifyRowMapper);
     }
 
     @GetMapping("/jpa")

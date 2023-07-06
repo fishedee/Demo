@@ -1,6 +1,7 @@
 package spring_test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.org.apache.xpath.internal.functions.Function2Args;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,6 +26,11 @@ interface Handler< R> {
     R apply();
 }
 
+@FunctionalInterface
+interface Functional2<T1,T2,R> {
+    R apply(T1 a,T2 b);
+}
+
 @Component
 @Slf4j
 public class BenchmarkTest {
@@ -42,16 +48,18 @@ public class BenchmarkTest {
         return itemList;
     }
 
-    public List<ItemDTO> testJdbc(){
+    private List<ItemDTO> testJdbcInner(Function<JdbcTemplate,List<ItemDTO>> getAllItemList,
+                                        Functional2<JdbcTemplate,List<Long>,List<ItemUnitConvertDTO>> getUnitConvertsList,
+                                        Functional2<JdbcTemplate,List<Long>,List<ItemContactAliasDTO>> getAliasList){
         //查询
-        List<ItemDTO> itemList = ItemDTO.getAll(jdbcTemplate);
+        List<ItemDTO> itemList = getAllItemList.apply(jdbcTemplate);
         List<Long> itemIdList = itemList.stream().map(single->{
             return single.getId();
         }).collect(Collectors.toList());
-        Map<Long,List<ItemContactAliasDTO>> aliasDTOS = ItemContactAliasDTO.getBatch(jdbcTemplate,itemIdList)
+        Map<Long,List<ItemContactAliasDTO>> aliasDTOS = getAliasList.apply(jdbcTemplate,itemIdList)
                 .stream().collect(Collectors.groupingBy(single->single.getItemId(),Collectors.toList()));
-        Map<Long,List<ItemUnitConvertDTO>> itemUnitConvertDTOS = ItemUnitConvertDTO.getBatch(jdbcTemplate,itemIdList)
-            .stream().collect(Collectors.groupingBy(single->single.getItemId(),Collectors.toList()));
+        Map<Long,List<ItemUnitConvertDTO>> itemUnitConvertDTOS = getUnitConvertsList.apply(jdbcTemplate,itemIdList)
+                .stream().collect(Collectors.groupingBy(single->single.getItemId(),Collectors.toList()));
 
         //组合数据
         itemList.stream().forEach(single->{
@@ -67,6 +75,24 @@ public class BenchmarkTest {
         return itemList;
     }
 
+    public List<ItemDTO> testJdbcByBeanPropertyRowMapper(){
+        return this.testJdbcInner(ItemDTO::getAll,
+                ItemUnitConvertDTO::getBatch,
+                ItemContactAliasDTO::getBatch);
+    }
+
+    public List<ItemDTO> testJdbcBySpecifyRowMapper(){
+        return this.testJdbcInner(ItemDTO::getAllBySpecifyRowMapper,
+                ItemUnitConvertDTO::getBatchBySpecifyRowMapper,
+                ItemContactAliasDTO::getBatchBySpecifyRowMapper);
+    }
+
+    public List<ItemDTO> testJdbcByReflectRowMapper(){
+        return this.testJdbcInner(ItemDTO::getAllByReflectRowMapper,
+                ItemUnitConvertDTO::getBatchByReflectRowMapper,
+                ItemContactAliasDTO::getBatchByReflectRowMapper);
+    }
+
     public void testSingle(String msg,Handler<List> handler)throws Exception{
         Date beginTime = new Date();
         List list = handler.apply();
@@ -80,6 +106,8 @@ public class BenchmarkTest {
 
     public void go()throws Exception{
         this.testSingle("jpa",this::testJpa);
-        this.testSingle("jdbc",this::testJdbc);
+        this.testSingle("jdbcByBeanPropertyRowMapper",this::testJdbcByBeanPropertyRowMapper);
+        this.testSingle("jdbcByReflectRowMapper",this::testJdbcByReflectRowMapper);
+        this.testSingle("jdbcBySpecifyRowMapper",this::testJdbcBySpecifyRowMapper);
     }
 }
