@@ -113,6 +113,20 @@ func getData(db SqlfDB) []Item {
 	return items
 }
 
+func goBenchmark(db SqlfDB){
+	beginTime := time.Now()
+	list := getData(db)
+	endTime := time.Now()
+
+	duration := endTime.Sub(beginTime)
+	json, err := json.Marshal(list)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("duration [%v], dataSize:[%v], dataLength:[%v]\n", duration, len(list), len(json))
+	ioutil.WriteFile("output.txt", json, 0666)
+}
+
 func main() {
 	log, err := NewLog(LogConfig{
 		Driver: "console",
@@ -128,15 +142,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	beginTime := time.Now()
-	list := getData(db)
-	endTime := time.Now()
-
-	duration := endTime.Sub(beginTime)
-	json, err := json.Marshal(list)
-	if err != nil {
-		panic(err)
+	for i := 0 ;i != 10;i++{
+		goBenchmark(db);
 	}
-	fmt.Printf("duration [%v], dataSize:[%v], dataLength:[%v]", duration, len(list), len(json))
-	ioutil.WriteFile("output.txt", json, 0666)
 }
