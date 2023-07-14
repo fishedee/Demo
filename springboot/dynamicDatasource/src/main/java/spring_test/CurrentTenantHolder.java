@@ -55,7 +55,7 @@ public class CurrentTenantHolder {
         //清空原来的key
         List<String> allKeys = dynamicDataSource.getDataSources().keySet().stream().collect(Collectors.toList());
         allKeys.forEach(sourceKey->{
-            dynamicDataSource.getGroupDataSources();
+            dynamicDataSource.removeDataSource(sourceKey);
         });
         //逐个添加，没有做相同dataSource的合并操作
         Map<String,TenantInfo> newTenantMap = new HashMap<>();
