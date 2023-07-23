@@ -40,6 +40,9 @@ public class MyTenantHolder {
             return tenantId;
         }
         Cookie[] cookies  = request.getCookies();
+        if( cookies == null ){
+            return null;
+        }
         for (int i = 0; i < cookies.length; i++) {
             Cookie cookie = cookies[i];
             if( cookie.getName().toLowerCase().equals("tenantid")){

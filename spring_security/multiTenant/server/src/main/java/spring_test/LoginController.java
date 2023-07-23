@@ -46,7 +46,7 @@ public class LoginController {
             return new User("","",null);
         }else{
             AbstractAuthenticationToken token = (AbstractAuthenticationToken) securityContextImpl.getAuthentication();
-            MyUserDetail userDetail = (MyUserDetail)token.getPrincipal();
+            MyTenantUserDetails userDetail = (MyTenantUserDetails)token.getPrincipal();
             return this.userRepository.find(userDetail.getUserId());
         }
     }

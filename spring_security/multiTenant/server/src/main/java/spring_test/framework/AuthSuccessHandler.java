@@ -8,6 +8,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import spring_test.MyTenantUserDetails;
 import spring_test.business.User;
 import spring_test.infrastructure.UserRepository;
 
@@ -40,7 +41,7 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
 
-        MyUserDetail userDetails = (MyUserDetail) authentication.getPrincipal();
+        MyTenantUserDetails userDetails = (MyTenantUserDetails) authentication.getPrincipal();
         User user = userRepository.find(userDetails.getUserId());
 
         if( myAuthSuccessHandler != null ){

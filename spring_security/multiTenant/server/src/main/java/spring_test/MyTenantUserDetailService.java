@@ -19,7 +19,7 @@ public class MyTenantUserDetailService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public MyTenantUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         String tenantId = MyTenantHolder.getTenantIdByRequest();
         if( tenantId == null ){
             throw new UsernameNotFoundException("缺少租户参数");
@@ -31,6 +31,6 @@ public class MyTenantUserDetailService implements UserDetailsService {
             //这个异常是固定的,不能改其他的
             throw new UsernameNotFoundException("用户不存在");
         }
-        return new MyUserDetail(user);
+        return new MyTenantUserDetails(tenantId,user);
     }
 }
