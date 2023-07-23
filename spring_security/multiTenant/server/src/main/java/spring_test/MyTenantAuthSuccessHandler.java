@@ -36,8 +36,5 @@ public class MyTenantAuthSuccessHandler implements MyAuthSuccessHandler {
         }catch(UnsupportedEncodingException e){
             throw new RuntimeException(e);
         }
-
-        //写入session
-        request.getSession().setAttribute("tenantId",tenantId);
     }
 }
