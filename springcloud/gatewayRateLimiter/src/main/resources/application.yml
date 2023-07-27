@@ -1,0 +1,35 @@
+# curl http://localhost:8111/get，正常的拉取数据的方式
+# curl --dump-header - --header 'Host: www.circuitbreaker.com' http://localhost:8111/delay/3, 模拟断线的方式
+server:
+  port: 8111
+spring:
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    timeout: PT10S
+    password:
+  cloud:
+    gateway:
+      routes:
+        - id: rateLimit
+          uri: http://localhost:9199/
+          predicates:
+            - Path=/get
+          filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 1
+                redis-rate-limiter.burstCapacity: 1
+                redis-rate-limiter.requestedTokens: 1
+                key-resolver: "#{@defaultResolver}"
+
+
+
+
+
+
+
+
+
+
