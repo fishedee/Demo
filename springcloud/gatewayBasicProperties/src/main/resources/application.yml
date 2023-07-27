@@ -1,0 +1,33 @@
+# curl http://localhost:8111/get，正常的拉取数据的方式
+# curl --dump-header - --header 'Host: www.circuitbreaker.com' http://localhost:8111/delay/3, 模拟断线的方式
+server:
+  port: 8111
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: addRequestHeader
+          uri: http://httpbin.org:80
+          predicates:
+            - Path=/get
+          filters:
+            - AddRequestHeader=Hello,World
+        - id: breakerCheck
+          uri: http://httpbin.org:80
+          predicates:
+            - Host=*.circuitbreaker.com
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: mycmd
+                fallbackUri: foward:/fallback
+
+
+
+
+
+
+
+
+
+
