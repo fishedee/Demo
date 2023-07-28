@@ -1,0 +1,56 @@
+# http://localhost:8111/get1，尝试globalFilter
+# http://localhost:8111/get3?tenantId=fish，自定义的Predicate. CheckTenantRoutePredicateFactory
+# http://localhost:8111/gg?dynamic&tenantId=dog, 自定义Filter，DynamicServiceGatewayFilterFactory
+# https://blog.csdn.net/weixin_43142697/article/details/122605048
+server:
+  port: 8111
+spring:
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    timeout: PT10S
+    password:
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: 200
+        response-timeout: PT10S
+        pool:
+          max-idle-time: PT10S
+          eviction-interval: PT30S
+      routes:
+        - id: customGlobalFilter
+          uri: http://localhost:9199/
+          predicates:
+            - Path=/get1
+        - id: customPredicate
+          uri: http://localhost:9199/
+          predicates:
+            - CheckTenant=fish
+          filters:
+            - RewritePath=/.*, /get2
+        - id: customFilter
+          uri: no://op
+          predicates:
+            - Query=dynamic
+          filters:
+            - name: DynamicService
+              order: 10000
+              args:
+                host: localhost:9199
+                routes:
+                  - tenantId: dog
+                    path: /get3
+                  - tenantId: cat
+                    path: /get4
+
+
+
+
+
+
+
+
+
+
