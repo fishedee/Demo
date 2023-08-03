@@ -6,7 +6,7 @@ type MainPanelProps ={
 }
 const MainPanel:React.FC<MainPanelProps> = (props)=>{
     return (<div>
-        <Button>{'点我8'}</Button>
+        <Button>{'点我8dd'}</Button>
     </div>);
 }
 

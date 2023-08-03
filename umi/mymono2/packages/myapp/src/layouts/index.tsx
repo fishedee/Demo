@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'umi';
 import styles from './index.less';
-import {MainPanel} from 'mylib/dist/MainPanel';
+import {MainPanel} from 'mylib/MainPanel';
 
 export default function Layout() {
   return (
