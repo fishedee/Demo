@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "mylib2": ["src"],
+      "mylib2/*": ["src/*", "*"]
+    }
+  },
+  "include": ["src/**/*"]
+}

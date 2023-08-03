@@ -1,0 +1,17 @@
+{
+  "name": "mymono2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm --filter \"./packages/**\" run -r dev ",
+    "build": "pnpm --filter \"./packages/**\" run -r build ",
+    "clean": "rimraf node_modules **/*/{node_modules,lib,es,dist}"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
