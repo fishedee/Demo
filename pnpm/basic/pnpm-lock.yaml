@@ -1,0 +1,17 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .: {}
+
+  packages/myapp:
+    dependencies:
+      mylib:
+        specifier: workspace:^
+        version: link:../mylib
+
+  packages/mylib: {}
