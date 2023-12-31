@@ -1,0 +1,3 @@
+<navigation-bar title="Weixin" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+<view>{{ msg }}</view>
+<button bindtap="clickMe">点击我</button>
