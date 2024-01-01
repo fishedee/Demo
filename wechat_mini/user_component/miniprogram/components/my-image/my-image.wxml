@@ -1,0 +1,12 @@
+<view class="wrapper">
+    <image class="img" src="{{img}}" mode='aspectFill'/>
+    <block wx:if="{{header || description}}" >
+    <view class="body" bind:tap="onBodyTap">
+            <text class="header">{{header}}</text>
+            <text class="description">{{description}}</text>
+    </view>
+    </block>
+    <block wx:else>
+        <slot name="body"></slot>
+    </block>
+</view>

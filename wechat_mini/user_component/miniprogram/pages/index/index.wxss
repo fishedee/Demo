@@ -1,0 +1,28 @@
+/**index.wxss**/
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.scrollarea {
+  flex: 1;
+  overflow-y: hidden;
+}
+
+.my_body{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    gap:20rpx;
+    flex:1;
+}
+
+.my_body_header{
+    font-size:14px;
+    align-self: flex-end;
+}
+
+.my_body_body{
+    font-size:18px;
+    color:red;
+}

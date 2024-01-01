@@ -15,7 +15,7 @@
     "postcss": false,
     "minified": false,
     "es6": true,
-    "enhance": true,
+    "enhance": false,
     "showShadowRootInWxmlPanel": false,
     "ignoreUploadUnusedFiles": true,
     "compileHotReLoad": false,

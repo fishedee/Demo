@@ -1,0 +1,12 @@
+<!--index.wxml-->
+<navigation-bar title="Weixin" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y type="list">
+    <my-image header="我是头部1" description="我是内容1" bind:myevent="onTap1"/>
+    <my-image img="https://img0.baidu.com/it/u=1678524518,3262908896&fm=253&fmt=auto&app=138&f=JPEG?w=667&h=500" header="我是头部2" description="我是内容2" bind:myevent="onTap2"/>
+    <my-image>
+        <view slot="body" class="my_body" bind:tap="onTap3">
+            <text class="my_body_header">已售完！</text>
+            <text class="my_body_body">¥180</text>
+        </view>
+    </my-image>
+</scroll-view>
