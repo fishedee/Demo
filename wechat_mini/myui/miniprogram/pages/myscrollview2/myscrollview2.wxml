@@ -2,7 +2,7 @@
 <scroll-view 
     class="box-scroll" 
     scroll-y='{{true}}' 
-    type='list'
+    type='custom'
     refresher-enabled="true" 
     refresher-threshold="{{100}}" 
     refresher-default-style="black" 
@@ -12,6 +12,25 @@
     bindrefresherrefresh="onScrollRefresh" 
     bindscrolltolower="onScrollToEnd"
     enable-passive="{{true}}">
+    <!-- 数据列表 -->  
+    <view slot="refresher">
+        <view class="expand">
+            <view class="refresher-tips">{{'我是自定义的下拉刷新'}}</view>
+        </view>
+    </view>
+    <!-- list-builder 无法正常运行
+    <list-builder
+        list="{{list}}"
+        child-count="{{list.length}}"
+        child-height="{{50}}"
+    >
+        <view slot:item slot:index style="height: 50px;">
+            <view>{{item.content}}</view>  
+        </view>
+    </list-builder>
+    -->
+
+    
     <!-- 数据列表 -->  
     <view wx:for="{{list}}" wx:key="id" wx:for-item="myitem">  
       <!-- 数据项内容 -->  
