@@ -1,0 +1,36 @@
+/* pages/tcache.wxss */
+.tpersist{
+	flex:1;
+}
+.todoItem{
+	display: flex;
+	flex-direction: row;
+	padding:20rpx;
+	border-bottom:1px solid #DDD;
+	align-items: center;
+}
+
+.todoItem:first-child{
+	border-top:1px solid #DDD;
+}
+
+.todoBody{
+	flex:1;
+}
+
+.todoButtonGroup{
+	display: flex;
+	flex-direction:row;
+	gap:5rpx;
+}
+
+.todoButtonGroup button{
+	width:150rpx;
+	font-size:14px;
+	padding-left:5rpx;
+	padding-right:5rpx;
+}
+
+.add{
+	margin-top:10rpx;
+}

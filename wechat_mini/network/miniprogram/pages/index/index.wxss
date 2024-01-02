@@ -1,0 +1,9 @@
+/* pages/index/index.wxss */
+.index{
+	display:flex;
+	flex-direction: column;
+	margin-top:20rpx;
+	gap:20rpx;
+	flex:1;
+	justify-content: flex-start;
+}

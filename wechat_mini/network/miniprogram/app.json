@@ -1,0 +1,27 @@
+{
+	"pages": [
+		"pages/index/index",
+		"pages/network/network",
+		"pages/timage/timage",
+		"pages/tpersist/tpersist"
+	],
+	"window": {
+		"backgroundTextStyle": "light",
+		"navigationBarBackgroundColor": "#f6f6f6",
+		"backgroundColor": "#f6f6f6",
+		"navigationBarTitleText": "Demo测试",
+		"navigationBarTextStyle": "black"
+	},
+	"style": "v2",
+	"rendererOptions": {
+		"skyline": {
+			"defaultDisplayBlock": true,
+			"disableABTest": true,
+			"sdkVersionBegin": "3.0.0",
+			"sdkVersionEnd": "15.255.255"
+		}
+	},
+	"componentFramework": "glass-easel",
+	"sitemapLocation": "sitemap.json",
+	"lazyCodeLoading": "requiredComponents"
+}

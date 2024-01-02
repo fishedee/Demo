@@ -1,0 +1,7 @@
+<!--index.wxml-->
+<scroll-view class="scrollarea image" scroll-y type="list">
+	<image src="{{image}}" mode="aspectFill"/>
+	<button bind:tap="onSelectImage">选择图库，或直接拍照</button>
+	<button bind:tap="onCameraImage">仅直接拍照</button>
+	<button bind:tap="onPreviewImage">预览图片</button>
+</scroll-view>

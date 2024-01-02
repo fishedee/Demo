@@ -1,0 +1,5 @@
+<view class="index">
+	<button bind:tap="onNetworkTap">网络测试</button>
+	<button bind:tap="onImageTap">图片测试</button>
+	<button bind:tap="onPersistTap">持久化测试</button>
+</view>

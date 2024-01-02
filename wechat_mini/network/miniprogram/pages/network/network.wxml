@@ -1,0 +1,12 @@
+<!--index.wxml-->
+<scroll-view class="scrollarea" scroll-y type="list">
+	<text>{{content}}</text>
+	<button bind:tap="onRequestGet">查看GET请求包</button>
+	<button bind:tap="onRequestPostForm">查看POST FORM请求包</button>
+	<button bind:tap="onRequestPostJson">查看POST JSON请求包</button>
+	<button bind:tap="onRequestHostError">查看请求Host不存在</button>
+	<button bind:tap="onRequestPathError">查看请求Path不存在</button>
+	<image src="{{image}}" mode="aspectFill"/>
+	<button bind:tap="onDownloadFile">下载图片</button>
+	<button bind:tap="onUploadFile">上传文件</button>
+</scroll-view>

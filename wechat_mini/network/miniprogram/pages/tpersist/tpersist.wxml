@@ -1,0 +1,39 @@
+<!--index.wxml-->
+<scroll-view
+ 	class="scrollarea tpersist" 
+ 	scroll-y 
+ 	type="list" 
+	style="height:{{windowHeight-40}}px;" 
+	refresher-enabled="{{true}}" 
+	refresher-triggered="{{triggered}}"
+	bindrefresherrefresh="onPullDownRefresh">
+  <view class="todoItem" wx:for="{{todos}}" wx:key="id" wx:for-item="todo">
+	<block wx:if="{{todo.isEdit}}">
+		<input 
+			id="{{todo.id}}" 
+			class="todoBody" 
+			placeholder="请输入" 
+			value="{{todo.editText}}"
+			auto-focus="{{true}}"
+			confirm-type="done"
+			bindconfirm="onConfirmEdit"/>
+		<view class="todoButtonGroup">
+			<button 
+				id="{{todo.id}}" 
+				bind:tap="onCancelEdit">取消</button>
+		</view>
+	</block>
+	<block wx:else>
+		<text class="todoBody">{{todo.text}}</text>
+		<view class="todoButtonGroup">
+			<button 
+				id="{{todo.id}}" 
+				bind:tap="onStartEdit">编辑</button>
+			<button 
+				id="{{todo.id}}" 
+				bind:tap="onDel">删除</button>
+		</view>
+	</block>
+  </view>
+</scroll-view>
+<button class="add" bind:tap="onAdd">添加todo</button>

@@ -1,0 +1,14 @@
+/**index.wxss**/
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+text{
+	font-size:12px;
+}
+
+button{
+	font-size:12px;
+}
