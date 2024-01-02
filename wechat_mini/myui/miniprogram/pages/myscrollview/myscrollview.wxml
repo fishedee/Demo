@@ -1,0 +1,25 @@
+<navigation-bar title="myscrollview测试"/>
+<scroll-view 
+    class="box-scroll" 
+    scroll-y='{{true}}' 
+    type='list'
+    refresher-enabled="true" 
+    refresher-threshold="{{100}}" 
+    refresher-default-style="black" 
+    refresher-background="white" 
+    refresher-default-style="none"
+    refresher-triggered="{{triggered}}" 
+    bindrefresherrefresh="onScrollRefresh" 
+    bindscrolltolower="onScrollToEnd">
+    <view slot="refresher">
+        <view class="expand">
+            <view class="refresher-tips">{{'我是自定义的下拉刷新'}}</view>
+        </view>
+    </view>
+    <!-- 数据列表 -->  
+    <view wx:for="{{list}}" wx:key="id" wx:for-item="myitem">  
+      <!-- 数据项内容 -->  
+      <text>{{myitem.content}}</text>  
+    </view>  
+    <view class="bottom">{{'滚动到底部了'}}</view>
+</scroll-view>

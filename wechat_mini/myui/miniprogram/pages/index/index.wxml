@@ -1,0 +1,5 @@
+<navigation-bar title="UI测试" back="{{false}}"/>
+<view class="index">
+	<button bind:tap="onMyScrollView">scroll-view测试</button>
+    <button bind:tap="onMyScrollView2">scroll-view2测试</button>
+</view>
