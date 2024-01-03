@@ -1,0 +1,6 @@
+/* pages/myswiper/myswiper.wxss */
+.swiper-item{
+	display: block;
+	height: 150px;
+	width:100%;
+  }

@@ -16,4 +16,10 @@ Page({
 			url:'/pages/myscrollview2/myscrollview2',
 		})
 	},
+
+	onMySwiper(){
+		wx.navigateTo({
+			url:'/pages/myswiper/myswiper',
+		})
+	},
 })

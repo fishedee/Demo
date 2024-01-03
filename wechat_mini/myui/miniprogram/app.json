@@ -2,7 +2,8 @@
 	"pages": [
 		"pages/index/index",
         "pages/myscrollview/myscrollview",
-        "pages/myscrollview2/myscrollview2"
+		"pages/myscrollview2/myscrollview2",
+		"pages/myswiper/myswiper"
 	],
 	"window": {
 		"backgroundTextStyle": "light",

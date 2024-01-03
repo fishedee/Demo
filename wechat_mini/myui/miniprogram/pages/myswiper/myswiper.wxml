@@ -1,0 +1,24 @@
+<!--pages/myswiper/myswiper.wxml-->
+<navigation-bar title="myswiper测试"/>
+<swiper
+	current="{{current}}"
+	indicator-dots="{{indicatorDots}}"
+	indicator-type="{{indicatorType}}"
+	scroll-with-animation="{{true}}"
+	autoplay="{{false}}"
+	circular="{{circular}}"
+	vertical="{{false}}"
+	interval="{{2000}}"
+	duration="{{500}}"
+	cache-extent="3"
+	previous-margin="{{0}}"
+	next-margin="{{0}}"
+	bind:change="onChange"
+	bind:transition="onTransition"
+	bind:animationfinish="onAnimationfinish">
+	<block wx:for="{{list}}" wx:key="*this">
+		<swiper-item>
+			<image class="swiper-item" src="{{item}}" mode="aspectFill" style="background:#ddd"/>
+		</swiper-item>
+	</block>
+</swiper>

@@ -1,0 +1,8 @@
+{
+	"disableScroll": true,
+	"renderer": "skyline",
+	"navigationStyle": "custom",
+	"usingComponents": {
+		"navigation-bar": "../../components/navigation-bar"
+	}
+}
