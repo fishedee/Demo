@@ -3,9 +3,6 @@
  	class="scrollarea tpersist" 
  	scroll-y 
  	type="list" 
-	style="height:{{windowHeight-40}}px;" 
-	refresher-enabled="{{true}}" 
-	refresher-triggered="{{triggered}}"
 	bindrefresherrefresh="onPullDownRefresh">
   <view class="todoItem" wx:for="{{todos}}" wx:key="id" wx:for-item="todo">
 	<block wx:if="{{todo.isEdit}}">

@@ -9,7 +9,7 @@ let globalId = 10001;
 const myapp = getApp<IAppOption>()
 
 const initData:TodoData[] = [];
-for( let i = 0 ;i != 100;i++){
+for( let i = 0 ;i != 10;i++){
 	initData.push({
 		id:(globalId++)+'',
 		isEdit:false,
@@ -36,6 +36,11 @@ Component({
 		triggered:false as boolean,
 	},
 
+	lifetimes:{
+		attached(){
+			this.readData();
+		}
+	},
 	/**
 	 * 组件的方法列表
 	 */
@@ -44,6 +49,25 @@ Component({
 			this.setData({
 				todos:this.data.todos,
 			});
+		},
+		saveData(){
+			const value = JSON.stringify(this.data.todos);
+			//异步方法，这里不需要等待
+			wx.setStorage({
+				key:'todos',
+				data:value,
+			});
+		},
+		async readData(){
+			try{
+				let data = await wx.getStorage({
+					key:'todos'
+				});
+				this.data.todos = JSON.parse(data.data);
+				this.refresh();
+			}catch(e){
+				console.error('cache is empty',e);
+			}
 		},
 		findToDo(id:string):TodoData|undefined{
 			const targetIndex = this.data.todos.findIndex(single=>{
@@ -63,19 +87,6 @@ Component({
 			}
 			this.refresh();
 		},
-		onPullDownRefresh(e){
-			console.log('start pulldown',e);
-			this.setData({
-				todos:[],
-			});
-			setTimeout(()=>{
-				console.log('finish pulldown');
-				this.setData({
-					triggered:false,
-					todos:initData,
-				});
-			},1000);
-		},
 		onConfirmEdit(event:any){
 			const todo = this.findToDo(event.currentTarget.id);
 			if( todo){
@@ -83,6 +94,7 @@ Component({
 				todo.text = event.detail.value;
 			}
 			this.refresh();
+			this.saveData();
 		},
 		onCancelEdit(event:any){
 			const todo = this.findToDo(event.currentTarget.id);
@@ -97,6 +109,7 @@ Component({
 			})
 			this.data.todos = newTodos;
 			this.refresh();
+			this.saveData();
 		},
 		onAdd(){
 			const todo:TodoData = {
@@ -107,6 +120,7 @@ Component({
 			}
 			this.data.todos.push(todo);
 			this.refresh();
+			this.saveData();
 		}
 	}
 })

@@ -1,6 +1,7 @@
 /* pages/tcache.wxss */
 .tpersist{
 	flex:1;
+	height:calc(100vh - 40px);
 }
 .todoItem{
 	display: flex;
