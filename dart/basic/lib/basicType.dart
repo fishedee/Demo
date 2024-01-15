@@ -70,6 +70,7 @@ testObject(){
 
 testTypeCheckAndConvert(){
   Object a = 123;
+  //is和is!操作符
   print('a is number = ${a is num}');
   print('a is double = ${a is double}');
   print('a is not string = ${a is! String}');

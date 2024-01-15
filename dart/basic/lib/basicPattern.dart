@@ -134,16 +134,80 @@ testPatternMatchCast(){
   handler4('bb');
 }
 
-testPatternMatchType(){
-
+class MyRect{
+  int x;
+  int y;
+  int width;
+  int height;
+  MyRect({required this.x,required this.y, required this.width, required this.height});
 }
 
-testPatternMatchToVariable(){
+testPatternMatchType(){
+  print('-----------testPatternMatchType-----------');
+  var handler1 = ((Object object){
+    switch(object){
+      case int a:
+        print('int $a');
+      case [var a, var b]:
+        print('lsit: two [$a,$b]');
+      case [var a, ...var rest, var b]:
+        print('list: three or more, inner is $rest');
+      case {"name":String name}:
+        print('map: name with String value: $name');
+      case {"name":var name}:
+        print('map: name with any value: $name');
+      case (var first,var second):
+        print('record: position (first,second)');
+      case (name1:var name1,name2:var name2):
+        print('record: name($name1,$name2)');
+      case MyRect(width:var width,height: var height)://通过object的getter来抽取变量
+        print('myRect: width = $width,height = $height');
+      case _:
+        print('other');
+    }
+  });
 
+  handler1(123);
+  handler1([1,2]);
+  handler1([1,2,3,4,5,6,7]);
+  handler1({"name":"fish","age":123});
+  handler1({"name":520});
+  handler1(('fish',123));
+  handler1(('fish',123,true));//不能匹配(var first,var second)
+  handler1((name1:'jj',name2:'kk'));
+  handler1((name1:'jj',name2:'kk',name3:'uu'));//不能匹配(name1:var name1,name2:var name2)
+  handler1(MyRect(x:1,y:1,width:100,height:200));
 }
 
 testPatternMatchRelation(){
+  print('-----------testPatternMatchRelation-----------');
+   var handler1 = ((int char){
+    const space = 32;
+    const zero = 48;
+    const nine = 57;
+    const a = 97;
+    const A = 65;
 
+     switch (char) {
+      case < space: 
+        print('control');
+      case == space:
+        print('space');
+      case > space && < zero:
+        print('punctuation');
+      case >= zero && <= nine:
+        print('digit');
+      case == a || == A:
+        print('alpha A/a');
+      default:
+        print('other');
+    };
+  });
+  handler1(' '.codeUnitAt(0));
+  handler1('\t'.codeUnitAt(0));
+  handler1('2'.codeUnitAt(0));
+  handler1('a'.codeUnitAt(0));
+  handler1('你'.codeUnitAt(0));
 }
 
 //pattern是类型与值的组合匹配工具，
@@ -154,4 +218,5 @@ testPattern(){
   testPatternMatchValue();
   testPatternMatchType();
   testPatternMatchCast();
+  testPatternMatchRelation();
 }

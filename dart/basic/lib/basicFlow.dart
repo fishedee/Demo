@@ -71,7 +71,6 @@ String testIfCase(Object input){
   }else{
     return 'other';
   }
-
 }
 
 testCondtion(){
@@ -82,7 +81,29 @@ testCondtion(){
   print('testIfCase (1,\'c3\'): ${testIfCase((1,'c3'))}');
 }
 
+testSwitch(){
+  //switch表达式，可以获取值，而且自动进行Exhaustiveness checking
+  var a = 33;
+  var b = switch(a){
+    >10 => 'big',
+    ==10 => 'middle',
+    <10 => 'little',
+    _ =>'unknown'
+  };
+  print('switch $a is $b');
+
+  //switch语句，可以带有独特的Guard clause，when语句，不匹配的话会fall through
+  var c = (111,33);
+  switch(c){
+    case (int a, int b) when a>b:
+      print('switch c is (a,b) and a > b');
+    case (int a,int b):
+      print('switch c is (a,b)');
+  }
+}
+
 testFlow(){
   testLoop();
   testCondtion();
+  testSwitch();
 }
