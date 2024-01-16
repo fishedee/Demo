@@ -4,7 +4,19 @@ class Point {
   double x;
   double y;
 
-  Point(this.x, this.y);
+  static int _instanceCount = 0 ;
+
+  static incInstanceCount(){
+    _instanceCount++;
+  }
+
+  static getInstanceCount(){
+    return _instanceCount;
+  }
+
+  Point(this.x, this.y){
+    incInstanceCount();
+  }
 
   double distanceTo(Point other) {
     var dx = x - other.x;
@@ -51,6 +63,8 @@ testClassMethodBasic(){
   print('point = $point, point2 = $point2, if point == point2 : ${point==point2}');
 
   print('point to point2 distance = ${point.distanceTo(point2)}');
+
+  print('point instance count: ${Point.getInstanceCount()}');
 }
 
 extension isBlankString on String {

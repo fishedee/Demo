@@ -23,11 +23,11 @@ void main(List<String> arguments) {
   //testException();
   //testClassBasic();
   //testClassConstruct();
-  //testClassMethod();
+  testClassMethod();
   //testClassInterface();
   //testClassEnum();
   //testClassModifier();
   //testGeneric();
   //testAsyncBasic();
-  testNullBasic();
+  //testNullBasic();
 }

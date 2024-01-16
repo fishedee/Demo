@@ -8,7 +8,7 @@ T printTemp<T>(T a){
 T printTemp2<T extends num>(T a){
   print('${a}_temp2');
   var c = a+1;
-  //dart的泛型是真实泛型，编译时进行替换，所以可以用is T的操作
+  //dart的泛型是运行时泛型，所以可以用is T的操作
   if( c is T){
     return c;
   }
