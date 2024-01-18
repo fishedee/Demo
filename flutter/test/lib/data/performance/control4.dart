@@ -81,6 +81,7 @@ class _Page1 extends State<Page1> with SingleTickerProviderStateMixin {
                 child: const Text('Go!')
             ),
             SizedBox(height:tween.evaluate(controller)),
+            //使用缓存方式的Widget，可以避免渲染子组件
             ShouldRebuildWidget(
               build: ()=>RedText(text:text),
               shouldRebuild: (oldWidget)=>oldWidget.text != text

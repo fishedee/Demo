@@ -10,33 +10,6 @@ void main() {
   );
 }
 
-
-class ShouldRebuildWidget<T extends Widget> extends StatefulWidget{
-  final bool Function(T oldWidget) shouldRebuild;
-
-  final T Function() build;
-
-  const ShouldRebuildWidget({super.key,required this.shouldRebuild, required this.build});
-
-  @override
-  State<ShouldRebuildWidget<T>> createState()=>_ShouldRebuildWidget<T>();
-}
-
-class _ShouldRebuildWidget<T extends Widget> extends State<ShouldRebuildWidget<T>>{
-    T? _oldWidget;
-
-    @override
-    Widget build(BuildContext context){
-      var old = _oldWidget;
-      if( old == null || widget.shouldRebuild(old)){
-          var newWidget = widget.build();
-          _oldWidget = newWidget;
-          return newWidget;
-      }
-      return old;
-    }
-}
-
 class Page1 extends StatefulWidget{
 
   const Page1({super.key});
@@ -46,7 +19,6 @@ class Page1 extends StatefulWidget{
     return _Page1();
   }
 }
-
 
 class _Page1 extends State<Page1> with SingleTickerProviderStateMixin {
 
@@ -81,10 +53,7 @@ class _Page1 extends State<Page1> with SingleTickerProviderStateMixin {
                 child: const Text('Go!')
             ),
             SizedBox(height:tween.evaluate(controller)),
-            ShouldRebuildWidget(
-              build: ()=>RedText(text:text),
-              shouldRebuild: (oldWidget)=>oldWidget.text != text
-            )
+            RedText(text:text)
           ],
         )
       ),
@@ -99,7 +68,7 @@ class RedText extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     //触发了很多次的build，因为每次的RedText都是重新创建的
-    print('red text build4');
+    print('red text build2');
     return Container(
                   color:Colors.redAccent,
                   constraints: const BoxConstraints(maxHeight: 200,maxWidth: 100),
