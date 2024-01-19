@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Counter extends StatefulWidget {
-  // This class is the configuration for the state.
-  // It holds the values (in this case nothing) provided
-  // by the parent and used by the build  method of the
-  // State. Fields in a Widget subclass are always marked
-  // "final".
-  //FIXME，counter的props发生变化的时候，Counter实例发生变化，是否意味着State丢失
+  //counter的props发生变化的时候，Counter实例发生变化，是否意味着State丢失
   const Counter({super.key});
 
   @override
