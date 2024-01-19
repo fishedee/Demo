@@ -1,5 +1,48 @@
 import 'package:flutter/material.dart';
 
+/*
+了解关键的几步：
+Constraints go down. Sizes go up. Parent sets position.
+
+其实就是Android measure, layout的过程。但是每次刷新的时候，Android的measure是多次执行的，flutter仅执行一次。
+
+当前widget的长宽必须在父级constraint的约束下进行得到。
+* 父级constraint不断往下传递。
+* widget结合自己设定（padding,margin等）+ 父级constraint，计算得到下级的constraint，并将这些下级的constraint传递给他们
+* 下级constraint结合自己的宽高（text,image）和constraint，得到宽高返回给widget。
+* widget得到子级宽高，合并计算得到自己的宽高。
+* 父级获得自己的宽高。
+
+constraint的定义 
+* minWidth,maxWidth
+* minHeight,maxHeight
+
+参考资料： https://docs.flutter.dev/ui/layout/constraints
+
+三种情况的Widget的constraints类型
+
+* Tight, minWidth = maxWidth && minHeight = maxHeight。这种情况下，子级需要计算自身的宽高，宽高必然为constraint
+* Loose, minWidth < maxWidth || minHeight < maxHeight。minWidth和minHeight允许为0，这种情况下，子级才有可能有自己设置宽高的可能性
+* Unbounded ， maxWidth = 无穷 || maxHeight =  无穷。这种情况下，子级有设置自己宽高的巨大空间。
+*    但是，1.如果放在ListView是垂直的，（交叉轴）同时给他一个宽度Unbounded的约束，它就会抱怨无法排版。因为它不知道如何wrap每个item
+*          2.在Column里面，（主轴）同时给他一个高度为Unbounded的约束，同时给一个Expandable的child，它就会抱怨无法排版，因为它不知道空白空间应该分配多少。
+
+实际Widget的常见constraints
+
+* MaterialApp，Tight约束，宽高都是就是Screen的宽高
+* Center/Align/Scaffold，可以将Tight约束转换为Loose约束，不改变maxWidth和maxHeight，但是将minWidth和minHeight设置为0，以保证子组件可以设置自己的宽高。
+* SizedBox.expand，可以将Loose约束转换为Tight约束。将minWidth和minHeight设置为对应的maxWidth和maxHeight。
+* Container，无Child的时候，宽高就是constraint的最大值，有Child的时候，宽高就是子Child在宽高（在constraint的计算下）。
+* BoxConstraints，不改变Tight和Loose，仅仅是在父constraint，的条件下加入自己的constraint（如果交集为空，且只取父级的constraint），然后传递到下一级。
+* UnconstrainedBox，Unbounded约束，minWidth = minHeight = 0，maxWidth=maxHeight = 0，如果子控件超出了父控件的渲染范围，就会报出overflow warning的错误。如果最终计算的子控件的宽高是无穷的话，就会取消渲染
+* OverflowBox约束，忽略父级约束，直接指定当前约束，如果子控件超出了父控件的渲染范围，也不会报错
+* LimitedBox，将父级的Unbounded约束转换为Loose或Tight约束，如果父级不是Unbounded约束，则不进行转换，常用于UnconstrainedBox下面。
+* FittedBox，将Loose或Tight约束转换为一个Unbounded约束，然后使用scale的手段来显示，返回一个满足上级约束的宽高。如果下级的宽高结果是Unbounded的话，则渲染错误error。
+* Row/Column，传递下级是（主轴）Unbounded约束，（交叉轴）是将父级的constraint约束转换为loose约束。
+*     1.可以使用Expanded来实现传递下级变为Tight约束，分配固定的空白空间。
+*     2.可以使用Flexible来实现传递下级变为Loose约束，maxWidth和maxHeight是空白空间，但是minWidth和minHeight允许为0。这样做的话，相对布局不确定。
+*     3.Expanded/Flexible不能同时与Row/Column自身的主轴是Unbounded约束结合，因为无法计算无穷的空白空间是多少。
+*/
 void main() => runApp(const HomePage());
 
 const red = Colors.red;
@@ -893,17 +936,14 @@ class Example24 extends Example {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(
-            child: Center(
-              child: Container(
-                color: red,
-                child: const Text(
-                  'This is a very long text that won\'t fit the line.',
-                  style: big,
-                ),
-              ),
-            ),
+        Container(
+          color: red,
+          child: const Text(
+            'This is a very long text that '
+            'won\'t fit the line.',
+            style: big,
           ),
+        ),
         Container(color: green, child: const Text('Goodbye!', style: big)),
       ],
     );
@@ -930,22 +970,22 @@ class Example25 extends Example {
 
   @override
   Widget build(BuildContext context) {
-    return OverflowBox(
-      
-        maxWidth: double.infinity,
-        child: Row(
-          children: [
-                Container(
-                  color: red,
-                  child: const Text(
-                    'This is a very long text that won\'t fit the line.',
-                    style: big,
-                  ),
+    return Row(
+        children: [
+          Expanded(
+            child: Center(
+              child: Container(
+                color: red,
+                child: const Text(
+                  'This is a very long text that won\'t fit the line.',
+                  style: big,
+                ),
+              ),
             ),
-            Container(color: green, child: const Text('Goodbye!', style: big)),
-          ],
-        )
-    );
+          ),
+          Container(color: green, child: const Text('Goodbye!', style: big)),
+        ]
+      );
   }
 }
 
