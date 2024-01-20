@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 了解关键的几步：
 Constraints go down. Sizes go up. Parent sets position.
 
-其实就是Android measure, layout的过程。但是每次刷新的时候，Android的measure是多次执行的，flutter仅执行一次。
+其实就是Android measure, layout的过程。区别在于：
+
+* Android的measure是允许多次的，对子控件传入match_parent或者wrap_content的约束，从而测量出不同情况下的measure，然后再进行一次layout的操作。
+* Flutter的measure仅仅允许一次，然后子控件只返回一次width/height，最后就layout了。
 
 当前widget的长宽必须在父级constraint的约束下进行得到。
 * 父级constraint不断往下传递。
@@ -26,11 +29,14 @@ constraint的定义
 * Unbounded ， maxWidth = 无穷 || maxHeight =  无穷。这种情况下，子级有设置自己宽高的巨大空间。
 *    但是，1.如果放在ListView是垂直的，（交叉轴）同时给他一个宽度Unbounded的约束，它就会抱怨无法排版。因为它不知道如何wrap每个item
 *          2.在Column里面，（主轴）同时给他一个高度为Unbounded的约束，同时给一个Expandable的child，它就会抱怨无法排版，因为它不知道空白空间应该分配多少。
+*          3.在Column里面，嵌套一个无Expandable的垂直ListView，它就抱怨无法排版。因为ListView只有高度确定的情况下才能按需显示元素。
 
 实际Widget的常见constraints
 
 * MaterialApp，Tight约束，宽高都是就是Screen的宽高
-* Center/Align/Scaffold，可以将Tight约束转换为Loose约束，不改变maxWidth和maxHeight，但是将minWidth和minHeight设置为0，以保证子组件可以设置自己的宽高。
+* Center/Align/Scaffold，
+*  1. 修改子约束，可以将Tight约束转换为Loose约束，不改变maxWidth和maxHeight，但是将minWidth和minHeight设置为0，以保证子组件可以设置自己的宽高。
+*  2. 确定自身宽高，没有widthFactor，没有heightFactor的时候，宽高取父的宽高。存在的时候，取子宽高的比例放大。
 * SizedBox.expand，可以将Loose约束转换为Tight约束。将minWidth和minHeight设置为对应的maxWidth和maxHeight。
 * Container，无Child的时候，宽高就是constraint的最大值，有Child的时候，宽高就是子Child在宽高（在constraint的计算下）。
 * BoxConstraints，不改变Tight和Loose，仅仅是在父constraint，的条件下加入自己的constraint（如果交集为空，且只取父级的constraint），然后传递到下一级。
@@ -38,12 +44,12 @@ constraint的定义
 * OverflowBox约束，忽略父级约束，直接指定当前约束，如果子控件超出了父控件的渲染范围，也不会报错
 * LimitedBox，将父级的Unbounded约束转换为Loose或Tight约束，如果父级不是Unbounded约束，则不进行转换，常用于UnconstrainedBox下面。
 * FittedBox，将Loose或Tight约束转换为一个Unbounded约束，然后使用scale的手段来显示，返回一个满足上级约束的宽高。如果下级的宽高结果是Unbounded的话，则渲染错误error。
+* FractionallySizedBox，以父级的maxWidth和maxHeight为依据，乘以对应的widthFactor和heightFactor，得到一个tight约束，也就是子控件无法控制宽高。
 * Row/Column，传递下级是（主轴）Unbounded约束，（交叉轴）是将父级的constraint约束转换为loose约束。
 *     1.可以使用Expanded来实现传递下级变为Tight约束，分配固定的空白空间。
 *     2.可以使用Flexible来实现传递下级变为Loose约束，maxWidth和maxHeight是空白空间，但是minWidth和minHeight允许为0。这样做的话，相对布局不确定。
 *     3.Expanded/Flexible不能同时与Row/Column自身的主轴是Unbounded约束结合，因为无法计算无穷的空白空间是多少。
 */
-void main() => runApp(const HomePage());
 
 const red = Colors.red;
 const green = Colors.green;
@@ -52,8 +58,8 @@ const big = TextStyle(fontSize: 30);
 
 //////////////////////////////////////////////////
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class ConstraintBoxDemo extends StatelessWidget {
+  const ConstraintBoxDemo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +93,7 @@ class HomePage extends StatelessWidget {
       Example27(),
       Example28(),
       Example29(),
+      Example30(),
     ]);
   }
 }
@@ -970,22 +977,20 @@ class Example25 extends Example {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-        children: [
-          Expanded(
-            child: Center(
-              child: Container(
-                color: red,
-                child: const Text(
-                  'This is a very long text that won\'t fit the line.',
-                  style: big,
-                ),
-              ),
+    return Row(children: [
+      Expanded(
+        child: Center(
+          child: Container(
+            color: red,
+            child: const Text(
+              'This is a very long text that won\'t fit the line.',
+              style: big,
             ),
           ),
-          Container(color: green, child: const Text('Goodbye!', style: big)),
-        ]
-      );
+        ),
+      ),
+      Container(color: green, child: const Text('Goodbye!', style: big)),
+    ]);
   }
 }
 
@@ -1163,3 +1168,62 @@ class Example29 extends Example {
 }
 
 //////////////////////////////////////////////////
+
+class Example30 extends Example {
+  const Example30({super.key});
+
+  @override
+  final code = '''
+Scaffold(
+  body: Container(
+      color: Colors.blue,
+      height: 150,
+      width: 150,
+      padding: const EdgeInsets.all(10),
+      child: FractionallySizedBox(
+          alignment: Alignment.topLeft,
+          widthFactor: 1.5,
+          heightFactor: 1.5,
+          child: Container(
+            color: Colors.red,
+            child: const Column(
+              children: [
+                Text('Hello!'),
+                Text('Goodbye!'),
+              ],
+            ),
+          )))
+''';
+
+  @override
+  final String explanation = '''
+FractionallySizedBox的布局行为主要跟它的宽高因子两个参数有关，当参数为null或者有具体数值的时候，布局表现不一样。当然，还有一个辅助参数alignment，作为对齐方式进行布局。
+
+当设置了具体的宽高因子，具体的宽高则根据现有空间宽高 * 因子，有可能会超出父控件的范围，当宽高因子大于1的时候；
+当没有设置宽高因子，则填满可用区域；
+''';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+          color: Colors.blue,
+          height: 150,
+          width: 150,
+          padding: const EdgeInsets.all(10),
+          child: FractionallySizedBox(
+              alignment: Alignment.topLeft,
+              widthFactor: 1.5,
+              heightFactor: 1.5,
+              child: Container(
+                color: Colors.red,
+                child: const Column(
+                  children: [
+                    Text('Hello!'),
+                    Text('Goodbye!'),
+                  ],
+                ),
+              ))),
+    );
+  }
+}
