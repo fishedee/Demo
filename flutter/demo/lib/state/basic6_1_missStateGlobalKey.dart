@@ -76,14 +76,13 @@ class _MessageState extends State<Message> {
   }
 }
 
-void main() {
-  runApp(
-    const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Message(),
-        ),
-      ),
-    ),
-  );
+class BasicWidget6_1 extends StatelessWidget {
+  const BasicWidget6_1({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Message();
+  }
 }

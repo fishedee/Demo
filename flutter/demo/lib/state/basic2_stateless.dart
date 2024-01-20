@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(
-    const Center(
-      child: Echo(text: 'Hello World2'),
-    ),
-  );
+class BasicWidget2 extends StatelessWidget {
+  const BasicWidget2({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MyText(text: "Hello World");
+  }
 }
 
-class Echo extends StatelessWidget {
-  const Echo({
+class MyText extends StatelessWidget {
+  const MyText({
     Key? key,
     required this.text,
     this.backgroundColor = Colors.grey, //默认为灰色

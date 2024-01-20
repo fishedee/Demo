@@ -2,16 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
-        theme: ThemeData(useMaterial3: false),
-        home: const Scaffold(
-          body: SafeArea(child: IconDemo()),
-        )),
-  );
-}
-
 class IconDemo extends StatelessWidget {
   const IconDemo({
     Key? key,

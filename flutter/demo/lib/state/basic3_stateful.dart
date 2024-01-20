@@ -110,14 +110,13 @@ class _CounterState extends State<Counter> {
   }
 }
 
-void main() {
-  runApp(
-    const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Counter(initValue: 0),
-        ),
-      ),
-    ),
-  );
+class BasicWidget3 extends StatelessWidget {
+  const BasicWidget3({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Counter(initValue: 0);
+  }
 }

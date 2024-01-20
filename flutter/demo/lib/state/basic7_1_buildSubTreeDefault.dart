@@ -2,12 +2,15 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(
-    const MaterialApp(
-      home: Page1(),
-    ),
-  );
+class BasicWidget7_1 extends StatelessWidget {
+  const BasicWidget7_1({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Page1();
+  }
 }
 
 class Page1 extends StatefulWidget {
@@ -41,21 +44,18 @@ class _Page1 extends State<Page1> with SingleTickerProviderStateMixin {
     var tween =
         Tween<double>(begin: 100.0, end: 10).chain(CurveTween(curve: curve));
 
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-          child: Column(
-        children: [
-          ElevatedButton(
-              onPressed: () {
-                controller.forward();
-              },
-              child: const Text('Go!')),
-          SizedBox(height: tween.evaluate(controller)),
-          RedText(text: text)
-        ],
-      )),
-    );
+    return Center(
+        child: Column(
+      children: [
+        ElevatedButton(
+            onPressed: () {
+              controller.forward();
+            },
+            child: const Text('Go!')),
+        SizedBox(height: tween.evaluate(controller)),
+        RedText(text: text)
+      ],
+    ));
   }
 }
 
