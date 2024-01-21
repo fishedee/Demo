@@ -18,7 +18,7 @@ class _HomePageState extends State<ListViewInColumnFixDemo> {
   @override
   Widget build(BuildContext context) {
     // RenderBox was not laid out，报错
-    //Column的child的主轴设置为Expanded的话，会变成loose约束
+    //Column的child设置为Expanded的话，会变成loose约束
     return Column(children: [
       const Text("ListViewInColumnFixDemo"),
       Expanded(
