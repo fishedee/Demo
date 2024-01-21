@@ -22,6 +22,6 @@ void main() {
       ...topRoutes,
       "/": (context) => homeWidget,
     }),
-    initialRoute: "/layout/flow",
+    initialRoute: "/layout/listViewInRowFix",
   ));
 }

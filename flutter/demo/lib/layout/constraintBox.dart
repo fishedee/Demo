@@ -27,9 +27,10 @@ constraint的定义
 * Tight, minWidth = maxWidth && minHeight = maxHeight。这种情况下，子级需要计算自身的宽高，宽高必然为constraint
 * Loose, minWidth < maxWidth || minHeight < maxHeight。minWidth和minHeight允许为0，这种情况下，子级才有可能有自己设置宽高的可能性
 * Unbounded ， maxWidth = 无穷 || maxHeight =  无穷。这种情况下，子级有设置自己宽高的巨大空间。
-*    但是，1.如果放在ListView是垂直的，（交叉轴）同时给他一个宽度Unbounded的约束，它就会抱怨无法排版。因为它不知道如何wrap每个item
-*          2.在Column里面，（主轴）同时给他一个高度为Unbounded的约束，同时给一个Expandable的child，它就会抱怨无法排版，因为它不知道空白空间应该分配多少。
-*          3.在Column里面，嵌套一个无Expandable的垂直ListView，它就抱怨无法排版。因为ListView只有高度确定的情况下才能按需显示元素。
+*    但是，1.如果放在ListView是垂直的，（主轴或交叉轴）同时给他一个宽度Unbounded的约束，它就会抱怨无法排版。因为它不知道如何wrap每个item，或者如何显示滚动条
+*          2.在Column里面，（主轴）给他一个高度为Unbounded的约束，同时给一个Expandable的child，它就会抱怨无法排版，因为它不知道空白空间应该分配多少。
+*          3.在Column里面，（交叉轴）给它一个宽度为Unbounded的约束，同时给一个CrossAxisAlignment.stretch，它就会抱怨无法排版，因为无法计算交叉轴应该stretch到一个什么的数值。
+*          4.在Column里面，嵌套一个无Expandable的垂直ListView，它就抱怨无法排版。因为ListView只有高度确定的情况下才能按需显示元素。
 
 实际Widget的常见constraints
 
@@ -49,6 +50,7 @@ constraint的定义
 *     1.可以使用Expanded来实现传递下级变为Tight约束，分配固定的空白空间。
 *     2.可以使用Flexible来实现传递下级变为Loose约束，maxWidth和maxHeight是空白空间，但是minWidth和minHeight允许为0。这样做的话，相对布局不确定。
 *     3.Expanded/Flexible不能同时与Row/Column自身的主轴是Unbounded约束结合，因为无法计算无穷的空白空间是多少。
+*     4.crossAxisAlignment: CrossAxisAlignment.stretch不能同时与Row/Column自身的交叉轴是Unbounded约束结合，因为无法计算交叉轴应该stretch到一个什么的数值。
 */
 
 const red = Colors.red;

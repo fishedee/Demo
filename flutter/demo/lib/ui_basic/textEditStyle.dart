@@ -15,21 +15,21 @@ class TextEditStyleDemo extends StatelessWidget {
       ),
     );
 
-    return const [
-      TextField(
+    return [
+      const TextField(
         autofocus: true,
         decoration: InputDecoration(
             labelText: "用户名",
             hintText: "用户名或邮箱",
             prefixIcon: Icon(Icons.person)),
       ),
-      TextField(
+      const TextField(
         decoration: InputDecoration(
             labelText: "密码", hintText: "您的登录密码", prefixIcon: Icon(Icons.lock)),
         //密码
         obscureText: true,
       ),
-      TextField(
+      const TextField(
         //仅输入数字的输入框，其他的还有
         //TextInputType.datetime
         //TextInputType.emailAddress
@@ -39,14 +39,17 @@ class TextEditStyleDemo extends StatelessWidget {
       TextField(
         //键盘的输入类型
         textInputAction: TextInputAction.search,
-        decoration: InputDecoration(labelText: "搜索", hintText: "查询"),
+        decoration: const InputDecoration(labelText: "搜索", hintText: "查询"),
+        onSubmitted: (data) {
+          print('submit! ${data}');
+        },
       ),
-      TextField(
+      const TextField(
         //多行文本
         maxLines: 3,
         decoration: InputDecoration(labelText: "内容"),
       ),
-      TextField(
+      const TextField(
         //自定义样式
         style: TextStyle(
           color: Colors.blue,
@@ -77,7 +80,7 @@ class TextEditStyleDemo extends StatelessWidget {
           ),
         ),
       ),
-      TextField(
+      const TextField(
           //常用样式配置
           style: TextStyle(
             color: Colors.red,
