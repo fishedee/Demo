@@ -38,7 +38,9 @@ constraint的定义
 * Center/Align/Scaffold，
 *  1. 修改子约束，可以将Tight约束转换为Loose约束，不改变maxWidth和maxHeight，但是将minWidth和minHeight设置为0，以保证子组件可以设置自己的宽高。
 *  2. 确定自身宽高，没有widthFactor，没有heightFactor的时候，宽高取父的宽高。存在的时候，取子宽高的比例放大。
-* SizedBox.expand，可以将Loose约束转换为Tight约束。将minWidth和minHeight设置为对应的maxWidth和maxHeight。
+* SizedBox.expand，将Loose约束转换为Tight约束。将minWidth和minHeight设置为对应的maxWidth和maxHeight。
+* SizedBox.shrink，将Loose约束转换为Tight约束。将maxWidth和maxHeight设置为对应的minWidth和minHeight。
+* SizedBox()，将Loose约束转换为Tight约束。将满足父约束的条件下，将min和max都一起收缩到指定的width和height。
 * Container，无Child的时候，宽高就是constraint的最大值，有Child的时候，宽高就是子Child在宽高（在constraint的计算下）。
 * BoxConstraints，不改变Tight和Loose，仅仅是在父constraint，的条件下加入自己的constraint（如果交集为空，且只取父级的constraint），然后传递到下一级。
 * UnconstrainedBox，Unbounded约束，minWidth = minHeight = 0，maxWidth=maxHeight = 无穷，如果子控件超出了父控件的渲染范围，就会报出overflow warning的错误。如果最终计算的子控件的宽高是无穷的话，就会取消渲染
@@ -46,7 +48,7 @@ constraint的定义
 * LimitedBox，将父级的Unbounded约束转换为Loose或Tight约束，如果父级不是Unbounded约束，则不进行转换，常用于UnconstrainedBox下面。
 * FittedBox，将Loose或Tight约束转换为一个Unbounded约束，然后使用scale的手段来显示，返回一个满足上级约束的宽高。如果下级的宽高结果是Unbounded的话，则渲染错误error。
 * FractionallySizedBox，以父级的maxWidth和maxHeight为依据，乘以对应的widthFactor和heightFactor，得到一个tight约束，也就是子控件无法控制宽高。
-* Row/Column，传递下级是（主轴）Unbounded约束，（交叉轴）是将父级的constraint约束转换为loose约束。
+* Row/Column，传递下级是（主轴）Unbounded约束，（交叉轴）是将父级的任意约束转换为loose约束。
 *     1.可以使用Expanded来实现传递下级变为Tight约束，分配固定的空白空间。
 *     2.可以使用Flexible来实现传递下级变为Loose约束，maxWidth和maxHeight是空白空间，但是minWidth和minHeight允许为0。这样做的话，相对布局不确定。
 *     3.Expanded/Flexible不能同时与Row/Column自身的主轴是Unbounded约束结合，因为无法计算无穷的空白空间是多少。

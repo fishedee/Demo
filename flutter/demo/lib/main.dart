@@ -1,4 +1,5 @@
 import 'package:demo/constraint/route.dart';
+import 'package:demo/layout/route.dart';
 import 'package:demo/routeWidget.dart';
 import 'package:demo/ui_basic/route.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ Map<String, WidgetBuilder> topRoutes = {
   '/state': (context) => RouteWidget(routes: pageStateRoutes),
   '/ui_basic': (context) => RouteWidget(routes: pageUiBasicRoutes),
   '/constraint': (context) => RouteWidget(routes: pageConstraintRoutes),
+  "/layout": (context) => RouteWidget(routes: pageLayoutRoutes),
 };
 
 Widget homeWidget = RouteWidget(routes: topRoutes);
@@ -19,9 +21,10 @@ void main() {
       ...pageStateRoutes,
       ...pageUiBasicRoutes,
       ...pageConstraintRoutes,
+      ...pageLayoutRoutes,
       ...topRoutes,
       "/": (context) => homeWidget,
     }),
-    initialRoute: "/constraint/intrinsticHeight_in_listview",
+    initialRoute: "/layout/flowParallel",
   ));
 }

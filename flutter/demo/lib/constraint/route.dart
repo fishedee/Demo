@@ -1,8 +1,8 @@
+import 'package:demo/constraint/columnInListView_spaceBetween.dart';
 import 'package:demo/constraint/constraintBox.dart';
-import 'package:demo/constraint/flow2.dart';
 import 'package:demo/constraint/intrinsticHeight_expanded.dart';
 import 'package:demo/constraint/intrinsticHeight_expanded_fix.dart';
-import 'package:demo/constraint/intrinsticHeight_inListView.dart';
+import 'package:demo/constraint/columnInListView_expanded.dart';
 import 'package:demo/constraint/intrinsticHeight_stretch.dart';
 import 'package:demo/constraint/intrinsticHeight_stretch_fix.dart';
 import 'package:demo/constraint/listViewDefault.dart';
@@ -16,7 +16,6 @@ import 'package:flutter/material.dart';
 
 Map<String, WidgetBuilder> pageConstraintRoutes = {
   "/constraint/constraintBox": (context) => const ConstraintBoxDemo(),
-  "/constraint/flow2": (context) => const ExampleParallax(),
   "/constraint/listViewDefault": (context) => const ListViewDefaultDemo(),
   "/constraint/listViewInfiniteWidth": (context) =>
       const ListViewInfiniteWidthDemo(),
@@ -35,6 +34,8 @@ Map<String, WidgetBuilder> pageConstraintRoutes = {
       const IntrinsticHeightStretchDemo(),
   "/constraint/intrinsticHeight_stretch_fix": (context) =>
       const IntrinsticHeightStretchFixDemo(),
-  "/constraint/intrinsticHeight_in_listview": (context) =>
-      const IntrinsticInListViewDemo(),
+  "/constraint/columnInListView_expanded": (context) =>
+      const ColumnInListViewExpandedDemo(),
+  "/constraint/columnInListView_spaceBetween": (context) =>
+      const ColumnInListViewSpaceBetweenDemo(),
 };
