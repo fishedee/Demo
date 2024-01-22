@@ -1,4 +1,5 @@
 import 'package:demo/constraint/route.dart';
+import 'package:demo/container/route.dart';
 import 'package:demo/layout/route.dart';
 import 'package:demo/routeWidget.dart';
 import 'package:demo/ui_basic/route.dart';
@@ -10,6 +11,7 @@ Map<String, WidgetBuilder> topRoutes = {
   '/ui_basic': (context) => RouteWidget(routes: pageUiBasicRoutes),
   '/constraint': (context) => RouteWidget(routes: pageConstraintRoutes),
   "/layout": (context) => RouteWidget(routes: pageLayoutRoutes),
+  "/container": (context) => RouteWidget(routes: pageContainerRoutes),
 };
 
 Widget homeWidget = RouteWidget(routes: topRoutes);
@@ -22,9 +24,10 @@ void main() {
       ...pageUiBasicRoutes,
       ...pageConstraintRoutes,
       ...pageLayoutRoutes,
+      ...pageContainerRoutes,
       ...topRoutes,
       "/": (context) => homeWidget,
     }),
-    initialRoute: "/layout/flowParallel",
+    initialRoute: "/container/fittedBox",
   ));
 }

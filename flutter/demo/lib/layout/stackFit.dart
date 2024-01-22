@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class StackNormalDemo extends StatelessWidget {
-  const StackNormalDemo({
+class StackFitDemo extends StatelessWidget {
+  const StackFitDemo({
     Key? key,
   }) : super(key: key);
 
@@ -10,22 +10,24 @@ class StackNormalDemo extends StatelessWidget {
     return ConstrainedBox(
       constraints: const BoxConstraints.expand(),
       child: Stack(
-        //默认在放在center的位置
-        alignment: Alignment.center, //指定未定位或部分定位widget的对齐方式
+        //默认放在中间
+        alignment: Alignment.center,
+        //没有left，没有top的占满整个空间
+        fit: StackFit.expand,
         children: <Widget>[
+          //left为18，加上垂直居中
+          const Positioned(
+            left: 18.0,
+            child: Text("I am Jack"),
+          ),
+          //占满整个空间
           Container(
-            //都在center
             color: Colors.red,
             child: const Text("Hello world",
                 style: TextStyle(color: Colors.white)),
           ),
+          //top为18，加上水平居中
           const Positioned(
-            //left为18，加上垂直居中
-            left: 18.0,
-            child: Text("I am Jack"),
-          ),
-          const Positioned(
-            //top为18，加上水平居中
             top: 18.0,
             child: Text("Your friend"),
           )
