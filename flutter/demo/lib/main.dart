@@ -31,6 +31,6 @@ void main() {
       ...topRoutes,
       "/": (context) => homeWidget,
     }),
-    initialRoute: "/scroll/scrollOffsetStorage",
+    initialRoute: "/scroll/silverCustom2",
   ));
 }

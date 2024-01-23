@@ -27,7 +27,7 @@ class _MyHomePageState extends State<ScrollOffsetStorageDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //body每次，仅显示当前Widget，另外一个Widget就会丢失
+      //body每次，仅显示当前Widget，另外一个Widget就会销毁
       //PageStorage在顶层记录每个PageStorageKey对应的位置
       body: PageStorage(
         bucket: _bucket,
