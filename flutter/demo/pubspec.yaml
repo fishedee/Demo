@@ -79,6 +79,12 @@ flutter:
   assets:
     - assets/images/star.webp
     - assets/images/infinite_star.webp
+    - assets/images/vertical1.webp
+    - assets/images/vertical2.webp
+    - assets/images/vertical3.webp
+    - assets/images/vertical4.webp
+    - assets/images/vertical5.webp
+    - assets/images/vertical6.webp
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

@@ -31,6 +31,6 @@ void main() {
       ...topRoutes,
       "/": (context) => homeWidget,
     }),
-    initialRoute: "/scroll/listViewInfinite",
+    initialRoute: "/scroll/scrollOffsetStorage",
   ));
 }

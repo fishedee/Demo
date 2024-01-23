@@ -22,6 +22,26 @@ class _InfiniteListViewState extends State<ListViewInfiniteDemo> {
 
   @override
   Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            setState(() {
+              if (_words.length > 2) {
+                _words[1] += 'Fish';
+              }
+            });
+          },
+          child: const Text("修改第2项"),
+        ),
+        Expanded(
+          child: _buildListView(context),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildListView(BuildContext context) {
     return ListView.separated(
       itemCount: _words.length,
       itemBuilder: (context, index) {
