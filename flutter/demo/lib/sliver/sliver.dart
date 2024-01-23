@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 //ListView，GridView，PageView，AnimatedList其实底层都是用CustomScrollView + Silver来实现。
 //我们可以直接用CustomScrollView + 多个silver一起做，实现多个滚动组件共用一个viewport和scrollable。
-class SilverDemo extends StatelessWidget {
-  const SilverDemo({
+class SliverDemo extends StatelessWidget {
+  const SliverDemo({
     Key? key,
   }) : super(key: key);
 

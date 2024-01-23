@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SilverPersistHeaderDemo extends StatelessWidget {
-  const SilverPersistHeaderDemo({
+class SliverPersistHeaderDemo extends StatelessWidget {
+  const SliverPersistHeaderDemo({
     Key? key,
   }) : super(key: key);
 

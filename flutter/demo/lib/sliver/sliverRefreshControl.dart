@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SilverRefreshControlDemo extends StatefulWidget {
-  const SilverRefreshControlDemo({
+class SliverRefreshControlDemo extends StatefulWidget {
+  const SliverRefreshControlDemo({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<SilverRefreshControlDemo> createState() => _SilverRefreshControlDemo();
+  State<SliverRefreshControlDemo> createState() => _SilverRefreshControlDemo();
 }
 
-class _SilverRefreshControlDemo extends State<SilverRefreshControlDemo> {
+class _SilverRefreshControlDemo extends State<SliverRefreshControlDemo> {
   ScrollController _scrollController = new ScrollController();
 
   var count = 30;

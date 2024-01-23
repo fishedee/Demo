@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class SilverCustomDemo extends StatelessWidget {
-  const SilverCustomDemo({
+class SliverCustomDemo extends StatelessWidget {
+  const SliverCustomDemo({
     Key? key,
   }) : super(key: key);
 

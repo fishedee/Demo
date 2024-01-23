@@ -80,6 +80,15 @@ class _ScrollListenerDemo extends State<ScrollListenerDemo> {
     //这样才能保证都显示滚动条
     return Column(
       children: [
+        ElevatedButton(
+            onPressed: () {
+              _controller.animateTo(
+                0,
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.ease,
+              );
+            },
+            child: const Text('返回顶部')),
         Expanded(child: _buildNormalListView()),
         Container(
           height: 30,

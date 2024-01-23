@@ -21,8 +21,8 @@ class ItemData {
 }
 
 //SliverMainAxisGroup包含一个SliverPersistentHeader和SliverList就可以轻松做到分组吸顶的效果
-class SilverMainAxisGroupDemo extends StatelessWidget {
-  const SilverMainAxisGroupDemo({super.key});
+class SliverMainAxisGroupDemo extends StatelessWidget {
+  const SliverMainAxisGroupDemo({super.key});
 
   @override
   Widget build(BuildContext context) {
