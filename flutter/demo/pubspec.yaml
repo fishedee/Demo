@@ -38,6 +38,14 @@ dependencies:
   transparent_image: ^2.0.1
   cached_network_image: ^3.3.1
   english_words: ^4.0.0
+  http: ^1.2.0
+  json_annotation: ^4.8.1
+  decimal: ^2.3.3
+  path_provider: ^2.1.2
+  shared_preferences: ^2.2.2
+  path: ^1.8.3
+  sqflite: ^2.3.0
+  web_socket_channel: ^2.4.0
 
 dev_dependencies:
   flutter_test:
@@ -85,6 +93,10 @@ flutter:
     - assets/images/vertical4.webp
     - assets/images/vertical5.webp
     - assets/images/vertical6.webp
+    - assets/images/beachball-alpha.png
+    - assets/images/binoculars-alpha.png
+    - assets/images/chair-alpha.png
+    - assets/images/flippers-alpha.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

@@ -35,6 +35,11 @@ class RouteWidget extends StatelessWidget {
           },
           child: Text(route.key)));
     }
-    return Column(children: widgets);
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Column(
+        children: widgets,
+      ),
+    );
   }
 }

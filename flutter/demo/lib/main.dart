@@ -1,8 +1,12 @@
+import 'package:demo/animation/route.dart';
 import 'package:demo/constraint/route.dart';
 import 'package:demo/container/route.dart';
+import 'package:demo/custom/route.dart';
+import 'package:demo/data/route.dart';
 import 'package:demo/event/route.dart';
 import 'package:demo/functional/route.dart';
 import 'package:demo/layout/route.dart';
+import 'package:demo/other/route.dart';
 import 'package:demo/routeWidget.dart';
 import 'package:demo/scroll/route.dart';
 import 'package:demo/sliver/route.dart';
@@ -20,6 +24,10 @@ Map<String, WidgetBuilder> topRoutes = {
   "/sliver": (context) => RouteWidget(routes: pageSliverRoutes),
   "/functional": (context) => RouteWidget(routes: pageFunctionalRoutes),
   "/event": (context) => RouteWidget(routes: pageEventRoutes),
+  "/animation": (context) => RouteWidget(routes: pageAnimationRoutes),
+  "/custom": (context) => RouteWidget(routes: pageCustomRoutes),
+  "/data": (context) => RouteWidget(routes: pageDataRoutes),
+  "/other": (context) => RouteWidget(routes: pageOtherRoutes),
 };
 
 Widget homeWidget = RouteWidget(routes: topRoutes);
@@ -37,9 +45,13 @@ void main() {
       ...pageSliverRoutes,
       ...pageFunctionalRoutes,
       ...pageEventRoutes,
+      ...pageAnimationRoutes,
+      ...pageCustomRoutes,
+      ...pageDataRoutes,
+      ...pageOtherRoutes,
       ...topRoutes,
       "/": (context) => homeWidget,
     }),
-    initialRoute: "/event/gestureRecognizer",
+    initialRoute: "/other/errorReport",
   ));
 }
