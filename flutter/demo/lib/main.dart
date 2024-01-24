@@ -1,5 +1,7 @@
 import 'package:demo/constraint/route.dart';
 import 'package:demo/container/route.dart';
+import 'package:demo/event/route.dart';
+import 'package:demo/functional/route.dart';
 import 'package:demo/layout/route.dart';
 import 'package:demo/routeWidget.dart';
 import 'package:demo/scroll/route.dart';
@@ -16,6 +18,8 @@ Map<String, WidgetBuilder> topRoutes = {
   "/container": (context) => RouteWidget(routes: pageContainerRoutes),
   "/scroll": (context) => RouteWidget(routes: pageScrollRoutes),
   "/sliver": (context) => RouteWidget(routes: pageSliverRoutes),
+  "/functional": (context) => RouteWidget(routes: pageFunctionalRoutes),
+  "/event": (context) => RouteWidget(routes: pageEventRoutes),
 };
 
 Widget homeWidget = RouteWidget(routes: topRoutes);
@@ -31,9 +35,11 @@ void main() {
       ...pageContainerRoutes,
       ...pageScrollRoutes,
       ...pageSliverRoutes,
+      ...pageFunctionalRoutes,
+      ...pageEventRoutes,
       ...topRoutes,
       "/": (context) => homeWidget,
     }),
-    initialRoute: "/sliver/sliverNestedScrollView",
+    initialRoute: "/event/gestureRecognizer",
   ));
 }
