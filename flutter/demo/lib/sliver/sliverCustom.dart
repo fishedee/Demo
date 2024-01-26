@@ -71,6 +71,7 @@ class RenderMySilverToBoxAdapter extends RenderSliverSingleBoxAdapter {
     geometry = SliverGeometry(
       //在滚动条中占有的位置
       scrollExtent: childExtent,
+      //在当前viewport的paint中起始渲染位置
       paintOrigin: 0,
       //在当前viewport的paint中渲染的大小
       paintExtent: paintedChildSize,

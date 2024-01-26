@@ -117,20 +117,21 @@ class _FlexibleHeaderRenderSliver extends RenderSliverSingleBoxAdapter {
 
     var offsetFixedSub = childExtent - visibleExtent;
 
-    //可以简单地理解为max(childExtent - constraints.scrollOffset, 0)
+    //可以简单地理解为max(visibleExtent - constraints.scrollOffset, 0)
     final double paintedChildSize =
         calculatePaintOffset(constraints, from: 0.0, to: visibleExtent);
 
     print(
         'scrollExtent childExtent:$childExtent offset:${constraints.scrollOffset}, paintedChildSize:${paintedChildSize + offsetAdd}');
+
     geometry = SliverGeometry(
       //在滚动条中占有的位置
       scrollExtent: visibleExtent,
-      //paintOrigin包括了overlap的大小
-      paintOrigin: 0,
-      //在当前viewport的paint中渲染的大小
+      //paintOrigin，负数的话，代表从可见viewPort往上偏移开始渲染
+      paintOrigin: -offsetFixedSub,
+      //在当前可见viewport的paint中渲染的大小
       paintExtent: paintedChildSize + offsetAdd,
-      //在当前viewport的paint中最大占用的位置
+      //在当前可见viewport的paint中最大占用的位置
       maxPaintExtent: paintedChildSize + offsetAdd,
     );
 
@@ -139,6 +140,6 @@ class _FlexibleHeaderRenderSliver extends RenderSliverSingleBoxAdapter {
     final SliverPhysicalParentData childParentData =
         newChild as SliverPhysicalParentData;
     childParentData.paintOffset =
-        Offset(0.0, -constraints.scrollOffset - offsetFixedSub + offsetAdd);
+        Offset(0.0, -constraints.scrollOffset + offsetAdd);
   }
 }

@@ -35,7 +35,7 @@ class _SilverRefreshControlDemo extends State<SliverRefreshControlDemo> {
     isRefreshing = true;
     print('getMoreData');
     //模拟网络请求
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 2000));
     setState(() {
       count += 30;
     });
