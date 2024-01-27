@@ -52,6 +52,6 @@ void main() {
       ...topRoutes,
       "/": (context) => homeWidget,
     }),
-    initialRoute: "/other/errorReport",
+    initialRoute: "/",
   ));
 }

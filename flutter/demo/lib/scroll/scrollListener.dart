@@ -23,7 +23,6 @@ class _ScrollListenerDemo extends State<ScrollListenerDemo> {
 
   Widget _buildNormalListView() {
     var size = 20;
-    //Lazy形式的listView，推荐使用，Widget按需加载
     return ListView(
       controller: _controller,
       children: List.generate(size, (index) {
@@ -38,7 +37,6 @@ class _ScrollListenerDemo extends State<ScrollListenerDemo> {
   }
 
   Widget _buildNormalListView2() {
-    //非lazy形式的listView，不推荐使用，会导致所有的Widget都会提前渲染。
     /*
     在接收到滚动事件时，参数类型为ScrollNotification，它包括一个metrics属性，它的类型是ScrollMetrics，该属性包含当前ViewPort及滚动位置等信息：
     pixels：当前滚动位置。
