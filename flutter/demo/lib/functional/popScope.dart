@@ -14,6 +14,17 @@ class PopScopeDemo extends StatefulWidget {
 class WillPopScopeTestRouteState extends State<PopScopeDemo> {
   bool canPopScope = false;
 
+  final snackBar = SnackBar(
+    content: const Text('1秒内再按一次确认返回'),
+    duration: const Duration(seconds: 1),
+    action: SnackBarAction(
+      label: '',
+      onPressed: () {
+        // Some code to undo the change.
+      },
+    ),
+  );
+
   DateTime? _lastPressedAt;
 
   @override
@@ -29,11 +40,13 @@ class WillPopScopeTestRouteState extends State<PopScopeDemo> {
                 const Duration(seconds: 1)) {
           //两次点击间隔超过1秒则重新计时
           _lastPressedAt = DateTime.now();
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
           setState(() {
             canPopScope = false;
           });
           return;
         }
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
         Navigator.pop(context);
       },
       child: Container(

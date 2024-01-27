@@ -15,8 +15,8 @@ class _DialogDemo extends State<DialogDemo> {
     var counter = 0;
     return Column(children: [
       ElevatedButton(
-        onPressed: () {
-          showDialog<bool>(
+        onPressed: () async {
+          final result = await showDialog<bool>(
             context: context,
             builder: (context) {
               return AlertDialog(
@@ -38,12 +38,13 @@ class _DialogDemo extends State<DialogDemo> {
               );
             },
           );
+          print('AlertDialog result:$result');
         },
         child: const Text("点我打开normalDialog"),
       ),
       ElevatedButton(
-        onPressed: () {
-          showDialog<bool>(
+        onPressed: () async {
+          final result = await showDialog<int>(
             context: context,
             builder: (context) {
               return SimpleDialog(
@@ -73,12 +74,13 @@ class _DialogDemo extends State<DialogDemo> {
               );
             },
           );
+          print('SimpleDialog result:$result');
         },
         child: const Text("点我打开simpleDialog"),
       ),
       ElevatedButton(
-        onPressed: () {
-          showCustomDialog<bool>(
+        onPressed: () async {
+          final result = await showCustomDialog<bool>(
             context: context,
             builder: (context) {
               return AlertDialog(
@@ -100,6 +102,7 @@ class _DialogDemo extends State<DialogDemo> {
               );
             },
           );
+          print('showCustomDialog result:$result');
         },
         child: const Text("点我打开customDialog"),
       ),
