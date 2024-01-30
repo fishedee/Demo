@@ -1,6 +1,12 @@
 import 'dart:math';
 
-class Point {
+abstract interface class IMap{
+  dynamic operator[](String name);
+
+  void operator[]=(String name ,dynamic target);
+}
+
+class Point implements IMap{
   double x;
   double y;
 
@@ -27,6 +33,21 @@ class Point {
   //操作符重载
   Point operator +(Point v) => Point(x + v.x, y + v.y);
   Point operator -(Point v) => Point(x - v.x, y - v.y);
+
+
+  Map<String,dynamic> myMap = {};
+
+  @override
+  dynamic operator[](String name){
+    print('get operator $name');
+    return myMap[name];
+  }
+
+  @override
+  void operator[]=(String name ,dynamic target){
+    print('set operator [] $name = $target');
+    myMap[name] = target;
+  }
 
   //override接口
   @override
@@ -60,6 +81,11 @@ testClassMethodBasic(){
   point.x = 10;
   point.y = 20;
   var point2 = point+point;
+
+  IMap map = point2;
+  map['name'] = 'fish';
+  print('map name is ${map['name']}');
+
   print('point = $point, point2 = $point2, if point == point2 : ${point==point2}');
 
   print('point to point2 distance = ${point.distanceTo(point2)}');
