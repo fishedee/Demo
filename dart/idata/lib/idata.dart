@@ -1,10 +1,24 @@
+import 'package:idata/request.dart';
+
+/*
+* 设计目标
+* 1. 支持后端Api升级以后，前端需要往后兼容新后端Api。包括，支持没有预定义的Enum，支持没有预定义的字段保存和透传
+* 2. 最大化兼容不同格式的后端格式，例如以string来传递int，double或者bool字段
+* 3. 数据不仅用来后端传递数据，也是前端表单的数据模型。所以，每个字段都需要允许为null，以保存用户暂时未填写的表单项
+* 4. 前端表单的数据模型，需要为强类型的，避免在编写业务逻辑代码中使用不存在的字段，传入不匹配的类型。
+* 5. 前端表单的数据模型，需要获取模型的field所有可能性，以保证在编译时进行校验field是否存在。
+*/
 abstract interface class IData {
   Object? operator [](String name);
   void operator []=(String name, Object? value);
 }
 
+abstract interface class IDataDynamic {
+  Object encodeDynamic();
+}
+
 class BoolHelper {
-  static bool? fromJson(Object? data) {
+  static bool? fromDynamic(Object? data) {
     if (data == null) {
       return null;
     } else if (data is bool) {
@@ -19,13 +33,13 @@ class BoolHelper {
     throw FormatException('can not parse to bool: [$data]');
   }
 
-  static Object? toJson(bool? data) {
+  static Object? toDynamic(bool? data) {
     return data;
   }
 }
 
 class IntHelper {
-  static int? fromJson(Object? data) {
+  static int? fromDynamic(Object? data) {
     if (data == null) {
       return null;
     } else if (data is int) {
@@ -38,13 +52,13 @@ class IntHelper {
     throw FormatException("can not parse to int: [$data]");
   }
 
-  static Object? toJson(int? data) {
+  static Object? toDynamic(int? data) {
     return data;
   }
 }
 
 class DoubleHelper {
-  static double? fromJson(Object? data) {
+  static double? fromDynamic(Object? data) {
     if (data == null) {
       return null;
     } else if (data is int) {
@@ -57,16 +71,17 @@ class DoubleHelper {
     throw FormatException('can not parse to double: [$data]');
   }
 
-  static Object? toJson(double? data) {
+  static Object? toDynamic(double? data) {
     return data;
   }
 }
 
 class StringHelper {
-  static String? fromJson(Object? data) {
+  static String? fromDynamic(Object? data) {
     if (data == null) {
       return null;
     } else if (data is String ||
+        data is int ||
         data is double ||
         data is String ||
         data is bool) {
@@ -75,45 +90,59 @@ class StringHelper {
     throw FormatException('can not parse to String: [$data]');
   }
 
-  static Object? toJson(String? data) {
+  static Object? toDynamic(String? data) {
     return data;
   }
 }
 
 class ListHelper {
-  static List<T>? Function(Object? data) wrapFromJson<T>(
-      T Function(Object? item) fromJsonItem) {
+  static List<T>? Function(Object? data) wrapFromDynamic<T>(
+      T Function(Object? item) fromDynamicItem) {
     return (Object? data) {
       if (data == null) {
         return null;
       } else if (data is List) {
-        return data.map((single) => fromJsonItem(single)).toList();
+        return data.map((single) => fromDynamicItem(single)).toList();
       }
       throw FormatException('can not parse to list: [$data]');
     };
   }
 
-  static Object? Function(List<T>? data) wrapToJson<T>(
-      Object Function(T data) toJsonItem) {
+  static Object? Function(List<T>? data) wrapToDynamic<T>(
+      Object Function(T data) toDynamicItem) {
     return (List<T>? data) {
       if (data == null) {
         return null;
       }
-      return data.map((single) => toJsonItem(single)).toList();
+      return data.map((single) => toDynamicItem(single)).toList();
     };
+  }
+
+  static bool equals<T>(List<T>? a, List<T>? b) {
+    if (a == null) return b == null;
+    if (b == null || a.length != b.length) return false;
+
+    /// Check whether two references are to the same object.
+    if (identical(a, b)) return true;
+    for (var i = 0; i != a.length; i++) {
+      if (a[i] != b[i]) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 
 class MapHelper {
-  static Map<String, T>? Function(Object? data) wrapFromJson<T>(
-      T Function(Object? item) fromJsonItem) {
+  static Map<String, T>? Function(Object? data) wrapFromDynamic<T>(
+      T Function(Object? item) fromDynamicItem) {
     return (Object? data) {
       if (data == null) {
         return null;
       } else if (data is Map<String, Object?>) {
         final result = <String, T>{};
         data.forEach((key, value) {
-          result[key] = fromJsonItem(value);
+          result[key] = fromDynamicItem(value);
         });
         return result;
       }
@@ -121,35 +150,108 @@ class MapHelper {
     };
   }
 
-  static Object? Function(Map<String, T>? data) wrapToJson<T>(
-      Object Function(T data) toJsonItem) {
+  static Object? Function(Map<String, T>? data) wrapToDynamic<T>(
+      Object Function(T data) toDynamicItem) {
     return (Map<String, T>? data) {
       if (data == null) {
         return null;
       }
       final result = <String, dynamic>{};
       data.forEach((key, value) {
-        result[key] = toJsonItem(value);
+        result[key] = toDynamicItem(value);
       });
       return result;
     };
+  }
+
+  static bool equals<T, U>(Map<T, U>? a, Map<T, U>? b) {
+    if (a == null) return b == null;
+    if (b == null || a.length != b.length) return false;
+
+    /// Check whether two references are to the same object.
+    if (identical(a, b)) return true;
+    for (final T key in a.keys) {
+      if (!b.containsKey(key) || b[key] != a[key]) {
+        return false;
+      }
+    }
+    return true;
+  }
+}
+
+class IDataEnum {
+  final String value;
+
+  final String label;
+
+  const IDataEnum(this.value, this.label);
+
+  @override
+  int get hashCode {
+    return value.hashCode;
+  }
+
+  @override
+  bool operator ==(Object? other) {
+    return other is IDataEnum &&
+        runtimeType == other.runtimeType &&
+        value == other.value;
+  }
+
+  @override
+  String toString() {
+    return '$runtimeType($value-$label)';
+  }
+}
+
+class UserType extends IDataEnum implements IDataDynamic {
+  static const ADMIN = UserType('ADMIN', '管理员');
+
+  static const NORMAL = UserType('NORMAL', '普通人员');
+
+  const UserType(super.value, super.label);
+
+  static UserType? fromDynamic(Object? data) {
+    if (data == null) {
+      return null;
+    } else if (data is String) {
+      return UserType(data, data);
+    }
+    throw FormatException('can not parse to UserType: [$data]');
+  }
+
+  static Object? toDynamic(UserType? result) {
+    if (result == null) {
+      return null;
+    } else {
+      return result.value;
+    }
+  }
+
+  @override
+  Object encodeDynamic() {
+    return toDynamic(this)!;
+  }
+
+  static List<UserType> values() {
+    return [ADMIN, NORMAL];
   }
 }
 
 typedef GetterHandler<T> = Object? Function(T data);
 typedef SetterHandler<T> = void Function(T data, Object? value);
-typedef ToJsonHandler<T> = Object? Function(T data);
-typedef FromJsonHandler<T> = void Function(T data, Object? value);
+typedef ToDynamicHandler<T> = Object? Function(T data);
+typedef FromDynamicHandler<T> = void Function(T data, Object? value);
 typedef FieldReflectInfo<T> = Map<
     String,
     ({
       GetterHandler<T> getter,
       SetterHandler<T> setter,
-      ToJsonHandler<T> toJson,
-      FromJsonHandler<T> fromJson
+      ToDynamicHandler<T> toDynamic,
+      FromDynamicHandler<T> fromDynamic
     })>;
 
-class IDataBasic implements IData {
+abstract class IDataBasic implements IData {
   final Map<String, Object?> _externalFields = {};
 
   IDataBasic();
@@ -193,69 +295,83 @@ class UserField extends IDataField {
   const UserField(super.key);
 }
 
-class User extends IDataBasic {
+class User extends IDataBasic implements IDataDynamic {
   static final FieldReflectInfo<User> _fields = {
     "id": (
       getter: (data) => data._id,
       setter: (data, value) => data._id = value as int?,
-      toJson: (data) {
-        final formatter = IntHelper.toJson;
+      toDynamic: (data) {
+        final formatter = IntHelper.toDynamic;
         return formatter(data._id);
       },
-      fromJson: (data, value) {
-        final parser = IntHelper.fromJson;
+      fromDynamic: (data, value) {
+        final parser = IntHelper.fromDynamic;
         data._id = parser(value);
+      }
+    ),
+    "type": (
+      getter: (data) => data._type,
+      setter: (data, value) => data._type = value as UserType?,
+      toDynamic: (data) {
+        final formatter = UserType.toDynamic;
+        return formatter(data._type);
+      },
+      fromDynamic: (data, value) {
+        final parser = UserType.fromDynamic;
+        data._type = parser(value);
       }
     ),
     "name": (
       getter: (data) => data._name,
       setter: (data, value) => data._name = value as String?,
-      toJson: (data) {
-        final formatter = StringHelper.toJson;
+      toDynamic: (data) {
+        final formatter = StringHelper.toDynamic;
         return formatter(data._name);
       },
-      fromJson: (data, value) {
-        final parser = StringHelper.fromJson;
+      fromDynamic: (data, value) {
+        final parser = StringHelper.fromDynamic;
         data._name = parser(value);
       }
     ),
     "isVip": (
       getter: (data) => data._isVip,
       setter: (data, value) => data._isVip = value as bool?,
-      toJson: (data) {
-        final formatter = BoolHelper.toJson;
+      toDynamic: (data) {
+        final formatter = BoolHelper.toDynamic;
         return formatter(data._isVip);
       },
-      fromJson: (data, value) {
-        final parser = BoolHelper.fromJson;
+      fromDynamic: (data, value) {
+        final parser = BoolHelper.fromDynamic;
         data._isVip = parser(value);
       }
     ),
   };
 
-  User({int? id, String? name, bool? isVip})
+  User({int? id, String? name, bool? isVip, UserType? type})
       : _id = id,
         _name = name,
-        _isVip = isVip;
+        _isVip = isVip,
+        _type = type;
 
-  static User? fromJson(Object? json) {
-    if (json == null) {
+  static User? fromDynamic(Object? dy) {
+    if (dy == null) {
       return null;
-    } else if (json is Map<String, dynamic>) {
+    } else if (dy is Map<String, dynamic>) {
       final user = User();
-      json.forEach((key, jsonValue) {
+      dy.forEach((key, dynamicValue) {
         final fieldInfo = _fields[key];
         if (fieldInfo == null) {
-          user.setExternalField(key, jsonValue);
+          user.setExternalField(key, dynamicValue);
           return;
         }
-        fieldInfo.fromJson(user, jsonValue);
+        fieldInfo.fromDynamic(user, dynamicValue);
       });
+      return user;
     }
-    throw FormatException('can not parse to user: [$json]');
+    throw FormatException('can not parse to user: [$dy]');
   }
 
-  static Map<String, dynamic>? toJson(User? data) {
+  static Map<String, dynamic>? toDynamic(User? data) {
     if (data == null) {
       return null;
     }
@@ -266,21 +382,22 @@ class User extends IDataBasic {
       }
     });
     _fields.forEach((key, fieldInfo) {
-      final jsonValue = fieldInfo.toJson(data);
-      if (jsonValue != null) {
-        result[key] = jsonValue;
+      final dynamicValue = fieldInfo.toDynamic(data);
+      if (dynamicValue != null) {
+        result[key] = dynamicValue;
       }
     });
     return result;
   }
 
-  Map<String, dynamic> toDynamic() {
-    return toJson(this)!;
+  @override
+  Map<String, dynamic> encodeDynamic() {
+    return toDynamic(this)!;
   }
 
   @override
   String toString() {
-    return toDynamic().toString();
+    return encodeDynamic().toString();
   }
 
   @override
@@ -318,6 +435,24 @@ class User extends IDataBasic {
 
   void setId(int? data) {
     _id = data;
+  }
+
+  UserType? _type;
+
+  UserType get type {
+    return _type!;
+  }
+
+  UserType? getType() {
+    return _type;
+  }
+
+  set type(UserType data) {
+    _type = data;
+  }
+
+  void setType(UserType? data) {
+    _type = data;
   }
 
   String? _name;
@@ -365,33 +500,33 @@ class CountryField extends IDataField {
   const CountryField(super.key);
 }
 
-class Country extends IDataBasic {
+class Country extends IDataBasic implements IDataDynamic {
   static final FieldReflectInfo<Country> _fields = {
     "id": (
       getter: (data) => data._id,
       setter: (data, value) => data._id = value as int?,
-      toJson: (data) {
-        final formatter = IntHelper.toJson;
+      toDynamic: (data) {
+        final formatter = IntHelper.toDynamic;
         return formatter(data._id);
       },
-      fromJson: (data, value) {
-        final parser = IntHelper.fromJson;
+      fromDynamic: (data, value) {
+        final parser = IntHelper.fromDynamic;
         data._id = parser(value);
       }
     ),
     "users": (
       getter: (data) => data._users,
       setter: (data, value) => data._users = value as List<User>?,
-      toJson: (data) {
-        final formatter = ListHelper.wrapToJson<User>((single) {
-          final handler = User.toJson;
+      toDynamic: (data) {
+        final formatter = ListHelper.wrapToDynamic<User>((single) {
+          final handler = User.toDynamic;
           return handler(single)!;
         });
         return formatter(data._users);
       },
-      fromJson: (data, value) {
-        final parser = ListHelper.wrapFromJson<User>((single) {
-          final handler = User.fromJson;
+      fromDynamic: (data, value) {
+        final parser = ListHelper.wrapFromDynamic<User>((single) {
+          final handler = User.fromDynamic;
           return handler(single)!;
         });
         data._users = parser(value);
@@ -403,25 +538,25 @@ class Country extends IDataBasic {
       : _id = id,
         _users = users;
 
-  static Country? fromJson(Object? json) {
-    if (json == null) {
+  static Country? fromDynamic(Object? dy) {
+    if (dy == null) {
       return null;
-    } else if (json is Map<String, dynamic>) {
+    } else if (dy is Map<String, dynamic>) {
       final data = Country();
-      json.forEach((key, jsonValue) {
+      dy.forEach((key, dynamicValue) {
         final fieldInfo = _fields[key];
         if (fieldInfo == null) {
-          data.setExternalField(key, jsonValue);
+          data.setExternalField(key, dynamicValue);
           return;
         }
-        fieldInfo.fromJson(data, jsonValue);
+        fieldInfo.fromDynamic(data, dynamicValue);
       });
       return data;
     }
-    throw FormatException('can not parse to country: [$json]');
+    throw FormatException('can not parse to country: [$dy]');
   }
 
-  static Map<String, dynamic>? toJson(Country? data) {
+  static Map<String, dynamic>? toDynamic(Country? data) {
     if (data == null) {
       return null;
     }
@@ -432,21 +567,22 @@ class Country extends IDataBasic {
       }
     });
     _fields.forEach((key, fieldInfo) {
-      final jsonValue = fieldInfo.toJson(data);
-      if (jsonValue != null) {
-        result[key] = jsonValue;
+      final dynamicValue = fieldInfo.toDynamic(data);
+      if (dynamicValue != null) {
+        result[key] = dynamicValue;
       }
     });
     return result;
   }
 
-  Map<String, dynamic> toDynamic() {
-    return toJson(this)!;
+  @override
+  Map<String, dynamic> encodeDynamic() {
+    return toDynamic(this)!;
   }
 
   @override
   String toString() {
-    return toDynamic().toString();
+    return encodeDynamic().toString();
   }
 
   @override
@@ -505,49 +641,49 @@ class Country extends IDataBasic {
   }
 }
 
-class Department extends IDataBasic {
+class Department extends IDataBasic implements IDataDynamic {
   static final FieldReflectInfo<Department> _fields = {
     "id": (
       getter: (data) => data._id,
       setter: (data, value) => data._id = value as int?,
-      toJson: (data) {
-        final formatter = IntHelper.toJson;
+      toDynamic: (data) {
+        final formatter = IntHelper.toDynamic;
         return formatter(data._id);
       },
-      fromJson: (data, value) {
-        final parser = IntHelper.fromJson;
+      fromDynamic: (data, value) {
+        final parser = IntHelper.fromDynamic;
         data._id = parser(value);
       }
     ),
     "manager": (
       getter: (data) => data._manager,
       setter: (data, value) => data._manager = value as User?,
-      toJson: (data) {
-        final formatter = User.toJson;
+      toDynamic: (data) {
+        final formatter = User.toDynamic;
         return formatter(data._manager);
       },
-      fromJson: (data, value) {
-        final parser = User.fromJson;
+      fromDynamic: (data, value) {
+        final parser = User.fromDynamic;
         data._manager = parser(value);
       }
     ),
     "colors": (
       getter: (data) => data._colors,
       setter: (data, value) => data._colors = value as List<List<int>>?,
-      toJson: (data) {
-        final formatter = ListHelper.wrapToJson<List<int>>((single) {
-          final handler = ListHelper.wrapToJson<int>((single) {
-            final handler = IntHelper.toJson;
+      toDynamic: (data) {
+        final formatter = ListHelper.wrapToDynamic<List<int>>((single) {
+          final handler = ListHelper.wrapToDynamic<int>((single) {
+            final handler = IntHelper.toDynamic;
             return handler(single)!;
           });
           return handler(single)!;
         });
         return formatter(data._colors);
       },
-      fromJson: (data, value) {
-        final parser = ListHelper.wrapFromJson<List<int>>((single) {
-          final handler = ListHelper.wrapFromJson<int>((single) {
-            final handler = IntHelper.fromJson;
+      fromDynamic: (data, value) {
+        final parser = ListHelper.wrapFromDynamic<List<int>>((single) {
+          final handler = ListHelper.wrapFromDynamic<int>((single) {
+            final handler = IntHelper.fromDynamic;
             return handler(single)!;
           });
           return handler(single)!;
@@ -558,16 +694,16 @@ class Department extends IDataBasic {
     "peoples": (
       getter: (data) => data._peoples,
       setter: (data, value) => data._peoples = value as Map<String, User>?,
-      toJson: (data) {
-        final formatter = MapHelper.wrapToJson<User>((single) {
-          final handler = User.toJson;
+      toDynamic: (data) {
+        final formatter = MapHelper.wrapToDynamic<User>((single) {
+          final handler = User.toDynamic;
           return handler(single)!;
         });
         return formatter(data._peoples);
       },
-      fromJson: (data, value) {
-        final parser = MapHelper.wrapFromJson<User>((single) {
-          final handler = User.fromJson;
+      fromDynamic: (data, value) {
+        final parser = MapHelper.wrapFromDynamic<User>((single) {
+          final handler = User.fromDynamic;
           return handler(single)!;
         });
         data._peoples = parser(value);
@@ -585,25 +721,25 @@ class Department extends IDataBasic {
         _colors = colors,
         _peoples = peoples;
 
-  static Department? fromJson(Object? json) {
-    if (json == null) {
+  static Department? fromDynamic(Object? dy) {
+    if (dy == null) {
       return null;
-    } else if (json is Map<String, dynamic>) {
+    } else if (dy is Map<String, dynamic>) {
       final data = Department();
-      json.forEach((key, jsonValue) {
+      dy.forEach((key, dynamicValue) {
         final fieldInfo = _fields[key];
         if (fieldInfo == null) {
-          data.setExternalField(key, jsonValue);
+          data.setExternalField(key, dynamicValue);
           return;
         }
-        fieldInfo.fromJson(data, jsonValue);
+        fieldInfo.fromDynamic(data, dynamicValue);
       });
       return data;
     }
-    throw FormatException('can not parse to country: [$json]');
+    throw FormatException('can not parse to country: [$dy]');
   }
 
-  static Map<String, dynamic>? toJson(Department? data) {
+  static Map<String, dynamic>? toDynamic(Department? data) {
     if (data == null) {
       return null;
     }
@@ -614,21 +750,22 @@ class Department extends IDataBasic {
       }
     });
     _fields.forEach((key, fieldInfo) {
-      final jsonValue = fieldInfo.toJson(data);
-      if (jsonValue != null) {
-        result[key] = jsonValue;
+      final dynamicValue = fieldInfo.toDynamic(data);
+      if (dynamicValue != null) {
+        result[key] = dynamicValue;
       }
     });
     return result;
   }
 
-  Map<String, dynamic> toDynamic() {
-    return toJson(this)!;
+  @override
+  Map<String, dynamic> encodeDynamic() {
+    return toDynamic(this)!;
   }
 
   @override
   String toString() {
-    return toDynamic().toString();
+    return encodeDynamic().toString();
   }
 
   @override
@@ -721,4 +858,53 @@ class Department extends IDataBasic {
   void setPeoples(Map<String, User>? data) {
     _peoples = data;
   }
+}
+
+Object? DynamicEncode(Object? info) {
+  if (info == null) {
+    return info;
+  } else if (info is IDataDynamic) {
+    return info.encodeDynamic();
+  } else if (info is bool) {
+    return BoolHelper.toDynamic(info);
+  } else if (info is int) {
+    return IntHelper.toDynamic(info);
+  } else if (info is double) {
+    return DoubleHelper.toDynamic(info);
+  } else if (info is String) {
+    return StringHelper.toDynamic(info);
+  } else if (info is List) {
+    return info.map((single) => DynamicEncode(single)).toList();
+  } else if (info is Map) {
+    final data = {};
+    info.forEach((key, value) {
+      data[DynamicEncode(key)] = DynamicEncode(value);
+    });
+    return data;
+  } else if (info is Set) {
+    final data = <dynamic>{};
+    for (final value in info) {
+      data.add(value);
+    }
+    return data;
+  } else {
+    throw FormatException('can not convertTo dynamic: ${info.runtimeType}');
+  }
+}
+
+int? ApiAddUserInfo([Object? params]) {
+  Object? info =
+      request(method: 'POST', url: '/api/addUser', data: DynamicEncode(params));
+  final parser = IntHelper.fromDynamic;
+  return parser(info);
+}
+
+List<User>? ApiGetAllUserInfo([Object? params]) {
+  Object? info =
+      request(method: 'GET', url: '/api/search', data: DynamicEncode(params));
+  final parser = ListHelper.wrapFromDynamic((single) {
+    final handler = User.fromDynamic;
+    return handler(single)!;
+  });
+  return parser(info);
 }

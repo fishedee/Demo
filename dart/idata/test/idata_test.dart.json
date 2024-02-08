@@ -1,0 +1,211 @@
+{
+  "int_1": {
+    "input": null,
+    "data": null
+  },
+  "int_2": {
+    "input": 123,
+    "data": 123
+  },
+  "int_3": {
+    "input": 123.6,
+    "data": 123
+  },
+  "int_4": {
+    "input": "123",
+    "data": 123
+  },
+  "int_5": {
+    "input": "ccd",
+    "error": "FormatException: Invalid radix-10 number (at character 1)\nccd\n^\n"
+  },
+  "bool_1": {
+    "input": null,
+    "data": null
+  },
+  "bool_2": {
+    "input": true,
+    "data": true
+  },
+  "bool_3": {
+    "input": false,
+    "data": false
+  },
+  "bool_4": {
+    "input": "true",
+    "data": true
+  },
+  "bool_5": {
+    "input": "false",
+    "data": false
+  },
+  "bool_6": {
+    "input": 123,
+    "error": "FormatException: can not parse to bool: [123]"
+  },
+  "bool_7": {
+    "input": 2.3,
+    "error": "FormatException: can not parse to bool: [2.3]"
+  },
+  "double_1": {
+    "input": null,
+    "data": null
+  },
+  "double_2": {
+    "input": 123,
+    "data": 123.0
+  },
+  "double_3": {
+    "input": 123.6,
+    "data": 123.6
+  },
+  "double_4": {
+    "input": "23.4",
+    "data": 23.4
+  },
+  "double_5": {
+    "input": "2cc",
+    "error": "FormatException: Invalid double\n2cc"
+  },
+  "string_1": {
+    "input": null,
+    "data": null
+  },
+  "string_2": {
+    "input": true,
+    "data": "true"
+  },
+  "string_3": {
+    "input": 123,
+    "data": "123"
+  },
+  "string_4": {
+    "input": 123.6,
+    "data": "123.6"
+  },
+  "string_5": {
+    "input": "23.4",
+    "data": "23.4"
+  },
+  "string_6": {
+    "input": "2cc",
+    "data": "2cc"
+  },
+  "user_1": {
+    "json": null
+  },
+  "user_2": {
+    "json": {}
+  },
+  "user_3": {
+    "json": {
+      "id": 1,
+      "name": "cc"
+    }
+  },
+  "user_4": {
+    "json": {
+      "id": 2,
+      "isVip": true
+    }
+  },
+  "country_1": {
+    "json": null
+  },
+  "country_2": {
+    "json": {}
+  },
+  "country_3": {
+    "json": {
+      "id": 1
+    }
+  },
+  "country_4": {
+    "json": {
+      "users": []
+    }
+  },
+  "country_5": {
+    "json": {
+      "id": 2,
+      "users": [
+        {
+          "id": 1,
+          "name": "cc"
+        },
+        {
+          "isVip": true
+        }
+      ]
+    }
+  },
+  "department_1": {
+    "json": null
+  },
+  "department_2": {
+    "json": {}
+  },
+  "department_3": {
+    "json": {
+      "id": 1,
+      "manager": {
+        "id": 2,
+        "name": "fish"
+      }
+    }
+  },
+  "department_4": {
+    "json": {
+      "id": 2,
+      "colors": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          3,
+          4,
+          5
+        ]
+      ]
+    }
+  },
+  "department_5": {
+    "json": {
+      "id": 3,
+      "peoples": {
+        "cc": {
+          "id": 1,
+          "name": "cc"
+        },
+        "c2": {
+          "isVip": false
+        }
+      }
+    }
+  },
+  "user_5": {
+    "json": {
+      "id": 2,
+      "type": "ADMIN",
+      "isVip": true
+    }
+  },
+  "apiInt_1": {
+    "data": 123
+  },
+  "apiUserList_1": {
+    "data": [
+      {
+        "id": 3,
+        "name": "cc"
+      },
+      {
+        "id": 4,
+        "type": "ADMIN",
+        "isVip": true
+      }
+    ]
+  }
+}
