@@ -207,5 +207,93 @@
         "isVip": true
       }
     ]
+  },
+  "user copy_1": {
+    "id": 1,
+    "name": "cc"
+  },
+  "user copy_2": {
+    "id": 4,
+    "name": "cc"
+  },
+  "user copy_3": {
+    "id": 1,
+    "name": "cc"
+  },
+  "user copy_4": {
+    "id": 4,
+    "name": "cc"
+  },
+  "country copy_1": {
+    "id": 2,
+    "users": [
+      {
+        "id": 1,
+        "name": "cc"
+      },
+      {
+        "isVip": true
+      }
+    ]
+  },
+  "country copy_2": {
+    "id": 2,
+    "users": [
+      {
+        "id": 1,
+        "name": "kjk"
+      },
+      {
+        "isVip": true
+      },
+      {
+        "id": 3,
+        "type": "ADMIN"
+      }
+    ]
+  },
+  "department copy_1": {
+    "id": 2,
+    "colors": [
+      [
+        1,
+        2,
+        3
+      ],
+      [
+        3,
+        4,
+        5
+      ]
+    ],
+    "peoples": {
+      "cc": {
+        "id": 1,
+        "name": "cc"
+      },
+      "c2": {
+        "isVip": false
+      }
+    }
+  },
+  "department copy_2": {
+    "id": 2,
+    "colors": [
+      [
+        3,
+        4,
+        5
+      ]
+    ],
+    "peoples": {
+      "cc": {
+        "id": 1,
+        "name": "cc"
+      },
+      "c2": {
+        "id": 4,
+        "isVip": false
+      }
+    }
   }
 }

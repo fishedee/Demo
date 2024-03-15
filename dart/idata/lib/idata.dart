@@ -15,6 +15,7 @@ abstract interface class IData {
 
 abstract interface class IDataDynamic {
   Object encodeDynamic();
+  Object? copy();
 }
 
 class BoolHelper {
@@ -36,6 +37,10 @@ class BoolHelper {
   static Object? toDynamic(bool? data) {
     return data;
   }
+
+  static bool? deepCopy(bool? data) {
+    return data;
+  }
 }
 
 class IntHelper {
@@ -53,6 +58,10 @@ class IntHelper {
   }
 
   static Object? toDynamic(int? data) {
+    return data;
+  }
+
+  static int? deepCopy(int? data) {
     return data;
   }
 }
@@ -74,6 +83,10 @@ class DoubleHelper {
   static Object? toDynamic(double? data) {
     return data;
   }
+
+  static double? deepCopy(double? data) {
+    return data;
+  }
 }
 
 class StringHelper {
@@ -91,6 +104,10 @@ class StringHelper {
   }
 
   static Object? toDynamic(String? data) {
+    return data;
+  }
+
+  static String? deepCopy(String? data) {
     return data;
   }
 }
@@ -115,6 +132,16 @@ class ListHelper {
         return null;
       }
       return data.map((single) => toDynamicItem(single)).toList();
+    };
+  }
+
+  static List<T>? Function(List<T>? data) wrapDeepCopy<T>(
+      T Function(T data) deepCopyItem) {
+    return (List<T>? data) {
+      if (data == null) {
+        return null;
+      }
+      return data.map((single) => deepCopyItem(single)).toList();
     };
   }
 
@@ -159,6 +186,20 @@ class MapHelper {
       final result = <String, dynamic>{};
       data.forEach((key, value) {
         result[key] = toDynamicItem(value);
+      });
+      return result;
+    };
+  }
+
+  static Map<String, T>? Function(Map<String, T>? data) wrapDeepCopy<T>(
+      T Function(T data) deepCopyItem) {
+    return (Map<String, T>? data) {
+      if (data == null) {
+        return null;
+      }
+      final result = <String, T>{};
+      data.forEach((key, value) {
+        result[key] = deepCopyItem(value);
       });
       return result;
     };
@@ -228,6 +269,15 @@ class UserType extends IDataEnum implements IDataDynamic {
     }
   }
 
+  static UserType? deepCopy(UserType? data) {
+    return data;
+  }
+
+  @override
+  UserType? copy() {
+    return deepCopy(this);
+  }
+
   @override
   Object encodeDynamic() {
     return toDynamic(this)!;
@@ -242,13 +292,15 @@ typedef GetterHandler<T> = Object? Function(T data);
 typedef SetterHandler<T> = void Function(T data, Object? value);
 typedef ToDynamicHandler<T> = Object? Function(T data);
 typedef FromDynamicHandler<T> = void Function(T data, Object? value);
+typedef DeepCopyHandler<T> = void Function(T newData, T oldData);
 typedef FieldReflectInfo<T> = Map<
     String,
     ({
       GetterHandler<T> getter,
       SetterHandler<T> setter,
       ToDynamicHandler<T> toDynamic,
-      FromDynamicHandler<T> fromDynamic
+      FromDynamicHandler<T> fromDynamic,
+      DeepCopyHandler<T> deepCopy,
     })>;
 
 abstract class IDataBasic implements IData {
@@ -258,6 +310,18 @@ abstract class IDataBasic implements IData {
 
   Map<String, Object?> getExternalFields() {
     return _externalFields;
+  }
+
+  Map<String, Object?> _copyExternalFields() {
+    final result = <String, Object?>{};
+    _externalFields.forEach((key, value) {
+      if (value is IDataDynamic) {
+        result[key] = value.copy();
+      } else {
+        result[key] = value;
+      }
+    });
+    return result;
   }
 
   Object? getExternalField(String name) {
@@ -307,7 +371,11 @@ class User extends IDataBasic implements IDataDynamic {
       fromDynamic: (data, value) {
         final parser = IntHelper.fromDynamic;
         data._id = parser(value);
-      }
+      },
+      deepCopy: (newData, oldData) {
+        final copyer = IntHelper.deepCopy;
+        newData._id = copyer(oldData._id);
+      },
     ),
     "type": (
       getter: (data) => data._type,
@@ -319,7 +387,11 @@ class User extends IDataBasic implements IDataDynamic {
       fromDynamic: (data, value) {
         final parser = UserType.fromDynamic;
         data._type = parser(value);
-      }
+      },
+      deepCopy: (newData, oldData) {
+        final copyer = UserType.deepCopy;
+        newData._type = copyer(oldData._type);
+      },
     ),
     "name": (
       getter: (data) => data._name,
@@ -331,7 +403,11 @@ class User extends IDataBasic implements IDataDynamic {
       fromDynamic: (data, value) {
         final parser = StringHelper.fromDynamic;
         data._name = parser(value);
-      }
+      },
+      deepCopy: (newData, oldData) {
+        final copyer = StringHelper.deepCopy;
+        newData._name = copyer(oldData._name);
+      },
     ),
     "isVip": (
       getter: (data) => data._isVip,
@@ -343,7 +419,11 @@ class User extends IDataBasic implements IDataDynamic {
       fromDynamic: (data, value) {
         final parser = BoolHelper.fromDynamic;
         data._isVip = parser(value);
-      }
+      },
+      deepCopy: (newData, oldData) {
+        final copyer = BoolHelper.deepCopy;
+        newData._isVip = copyer(oldData._isVip);
+      },
     ),
   };
 
@@ -393,6 +473,24 @@ class User extends IDataBasic implements IDataDynamic {
   @override
   Map<String, dynamic> encodeDynamic() {
     return toDynamic(this)!;
+  }
+
+  static User? deepCopy(User? data) {
+    if (data == null) {
+      return null;
+    }
+    final newData = User();
+    newData._externalFields.clear();
+    newData._externalFields.addAll(data._copyExternalFields());
+    _fields.forEach((key, fieldInfo) {
+      fieldInfo.deepCopy(newData, data);
+    });
+    return newData;
+  }
+
+  @override
+  User copy() {
+    return deepCopy(this)!;
   }
 
   @override
@@ -512,7 +610,11 @@ class Country extends IDataBasic implements IDataDynamic {
       fromDynamic: (data, value) {
         final parser = IntHelper.fromDynamic;
         data._id = parser(value);
-      }
+      },
+      deepCopy: ((newData, oldData) {
+        final copyer = IntHelper.deepCopy;
+        newData._id = copyer(oldData._id);
+      }),
     ),
     "users": (
       getter: (data) => data._users,
@@ -530,7 +632,14 @@ class Country extends IDataBasic implements IDataDynamic {
           return handler(single)!;
         });
         data._users = parser(value);
-      }
+      },
+      deepCopy: ((newData, oldData) {
+        final copyer = ListHelper.wrapDeepCopy<User>((single) {
+          final handler = User.deepCopy;
+          return handler(single)!;
+        });
+        newData._users = copyer(oldData._users);
+      }),
     ),
   };
 
@@ -578,6 +687,24 @@ class Country extends IDataBasic implements IDataDynamic {
   @override
   Map<String, dynamic> encodeDynamic() {
     return toDynamic(this)!;
+  }
+
+  static Country? deepCopy(Country? data) {
+    if (data == null) {
+      return null;
+    }
+    final newData = Country();
+    newData._externalFields.clear();
+    newData._externalFields.addAll(data._copyExternalFields());
+    _fields.forEach((key, fieldInfo) {
+      fieldInfo.deepCopy(newData, data);
+    });
+    return newData;
+  }
+
+  @override
+  Country copy() {
+    return deepCopy(this)!;
   }
 
   @override
@@ -653,7 +780,11 @@ class Department extends IDataBasic implements IDataDynamic {
       fromDynamic: (data, value) {
         final parser = IntHelper.fromDynamic;
         data._id = parser(value);
-      }
+      },
+      deepCopy: (newData, oldData) {
+        final copyer = IntHelper.deepCopy;
+        newData._id = copyer(oldData._id);
+      },
     ),
     "manager": (
       getter: (data) => data._manager,
@@ -665,7 +796,11 @@ class Department extends IDataBasic implements IDataDynamic {
       fromDynamic: (data, value) {
         final parser = User.fromDynamic;
         data._manager = parser(value);
-      }
+      },
+      deepCopy: (newData, oldData) {
+        final copyer = User.deepCopy;
+        newData._manager = copyer(oldData._manager);
+      },
     ),
     "colors": (
       getter: (data) => data._colors,
@@ -689,7 +824,17 @@ class Department extends IDataBasic implements IDataDynamic {
           return handler(single)!;
         });
         data._colors = parser(value);
-      }
+      },
+      deepCopy: (newData, oldData) {
+        final copyer = ListHelper.wrapDeepCopy<List<int>>((single) {
+          final handler = ListHelper.wrapDeepCopy<int>((single) {
+            final handler = IntHelper.fromDynamic;
+            return handler(single)!;
+          });
+          return handler(single)!;
+        });
+        newData._colors = copyer(oldData._colors);
+      },
     ),
     "peoples": (
       getter: (data) => data._peoples,
@@ -707,7 +852,14 @@ class Department extends IDataBasic implements IDataDynamic {
           return handler(single)!;
         });
         data._peoples = parser(value);
-      }
+      },
+      deepCopy: (newData, oldData) {
+        final copyer = MapHelper.wrapDeepCopy<User>((single) {
+          final handler = User.deepCopy;
+          return handler(single)!;
+        });
+        newData._peoples = copyer(oldData._peoples);
+      },
     ),
   };
 
@@ -761,6 +913,24 @@ class Department extends IDataBasic implements IDataDynamic {
   @override
   Map<String, dynamic> encodeDynamic() {
     return toDynamic(this)!;
+  }
+
+  static Department? deepCopy(Department? data) {
+    if (data == null) {
+      return null;
+    }
+    final newData = Department();
+    newData._externalFields.clear();
+    newData._externalFields.addAll(data._copyExternalFields());
+    _fields.forEach((key, fieldInfo) {
+      fieldInfo.deepCopy(newData, data);
+    });
+    return newData;
+  }
+
+  @override
+  Department copy() {
+    return deepCopy(this)!;
   }
 
   @override
@@ -857,6 +1027,38 @@ class Department extends IDataBasic implements IDataDynamic {
 
   void setPeoples(Map<String, User>? data) {
     _peoples = data;
+  }
+}
+
+T DeepCopy<T>(T info) {
+  if (info == null) {
+    return info;
+  } else if (info is IDataDynamic) {
+    return info.copy() as T;
+  } else if (info is bool) {
+    return BoolHelper.deepCopy(info) as T;
+  } else if (info is int) {
+    return IntHelper.deepCopy(info) as T;
+  } else if (info is double) {
+    return DoubleHelper.deepCopy(info) as T;
+  } else if (info is String) {
+    return StringHelper.deepCopy(info) as T;
+  } else if (info is List) {
+    return info.map((single) => DeepCopy(single)).toList() as T;
+  } else if (info is Map) {
+    final data = {};
+    info.forEach((key, value) {
+      data[DeepCopy(key)] = DeepCopy(value);
+    });
+    return data as T;
+  } else if (info is Set) {
+    final data = <dynamic>{};
+    for (final value in info) {
+      data.add(value);
+    }
+    return data as T;
+  } else {
+    throw FormatException('can not deepCopy dynamic: ${info.runtimeType}');
   }
 }
 

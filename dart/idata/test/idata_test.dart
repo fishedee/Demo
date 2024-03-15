@@ -106,6 +106,14 @@ void main() {
     testUtil.testToAndFromJson(User(id: 2, isVip: true, type: UserType.ADMIN));
   });
 
+  test('user copy', () {
+    final a = User(id: 1, name: 'cc');
+    final b = a.copy();
+    b.id = 4;
+    snapShopTest.matchDynamicSnapShot(DynamicEncode(a) as Map<String, dynamic>);
+    snapShopTest.matchDynamicSnapShot(DynamicEncode(b) as Map<String, dynamic>);
+  });
+
   test('country', () {
     final testUtil = TestUtil(
         fromDynamic: Country.fromDynamic, toDynamic: Country.toDynamic);
@@ -117,6 +125,18 @@ void main() {
       User(id: 1, name: 'cc'),
       User(isVip: true),
     ]));
+  });
+
+  test('country copy', () {
+    final a = Country(id: 2, users: [
+      User(id: 1, name: 'cc'),
+      User(isVip: true),
+    ]);
+    final b = a.copy();
+    b.users[0].name = 'kjk';
+    b.users.add(User(id: 3, type: UserType.ADMIN));
+    snapShopTest.matchDynamicSnapShot(DynamicEncode(a) as Map<String, dynamic>);
+    snapShopTest.matchDynamicSnapShot(DynamicEncode(b) as Map<String, dynamic>);
   });
 
   test('department', () {
@@ -142,6 +162,25 @@ void main() {
         'c2': User(isVip: false),
       },
     ));
+  });
+
+  test('department copy', () {
+    final a = Department(
+      id: 2,
+      colors: [
+        [1, 2, 3],
+        [3, 4, 5],
+      ],
+      peoples: {
+        'cc': User(id: 1, name: 'cc'),
+        'c2': User(isVip: false),
+      },
+    );
+    final b = a.copy();
+    b.peoples['c2']!.id = 4;
+    b.colors.removeAt(0);
+    snapShopTest.matchDynamicSnapShot(DynamicEncode(a) as Map<String, dynamic>);
+    snapShopTest.matchDynamicSnapShot(DynamicEncode(b) as Map<String, dynamic>);
   });
 
   test('apiInt', () {
