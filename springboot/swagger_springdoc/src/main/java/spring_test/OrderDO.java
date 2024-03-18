@@ -2,10 +2,11 @@ package spring_test;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -37,16 +38,36 @@ public class OrderDO {
 
     private Map<String,Item> addressMap;
 
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Schema(name="OrderDOItem")
-    public static class Item{
-        private String name;
-
+    @Getter
+    @Entity
+    @ToString
+    public static class ItemDetailInfo{
+        @Id
         private int id;
 
+        private String name;
+
+        private String unitName;
+    }
+
+    @Getter
+    @Entity
+    @ToString
+    public static class Item  {
+        @Id
+        private int id;
+
+        private String name;
+
         private BigDecimal count;
+
+        @Transient
+        private ItemDetailInfo itemInfo;
+
+        protected Item(){
+
+        }
+
     }
 
     @Data
