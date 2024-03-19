@@ -1,5 +1,6 @@
 package spring_test;
 
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -30,4 +31,8 @@ public class OrderDO2 {
     }
 
     private List<Item> itemList = new ArrayList<>();
+
+    @ApiModelProperty(dataType = "spring_test.OrderDO2$Item")
+    @JsonRawValue
+    String itemInfo;
 }

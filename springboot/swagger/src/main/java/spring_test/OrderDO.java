@@ -59,5 +59,6 @@ public class OrderDO {
     @JsonUnwrapped
     private Info info;
 
+
     private List<Item> itemList = new ArrayList<>();
 }
