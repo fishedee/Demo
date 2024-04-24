@@ -1,1 +1,0 @@
-insert into user(id,name) values(1,'fish'),(2,'cat');
