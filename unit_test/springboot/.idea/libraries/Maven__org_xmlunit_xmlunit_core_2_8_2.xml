@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Maven: org.xmlunit:xmlunit-core:2.8.2" type="java-imported" external-system-id="Maven">
+    <properties groupId="org.xmlunit" artifactId="xmlunit-core" version="2.8.2" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/xmlunit/xmlunit-core/2.8.2/xmlunit-core-2.8.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/xmlunit/xmlunit-core/2.8.2/xmlunit-core-2.8.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/xmlunit/xmlunit-core/2.8.2/xmlunit-core-2.8.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
