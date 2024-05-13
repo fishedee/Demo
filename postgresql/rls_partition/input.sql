@@ -4,7 +4,6 @@ drop  user t1;
 GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO public;
 
-
 set search_path to public;
 
 create table config(
@@ -22,16 +21,38 @@ create table operator(
 	id bigint not null,
 	tenant_id bigint not null,
 	name varchar(64) not null,
-	primary key(id)
-);
+	primary key(tenant_id,id)
+)partition by hash(tenant_id);
+
+CREATE OR REPLACE FUNCTION create_tenant_partitions(p_table_name TEXT,hashCount INTEGER)
+RETURNS VOID AS $$
+DECLARE
+    v_partition_name TEXT;
+    v_sql TEXT;
+BEGIN
+    FOR i IN 0..(hashCount-1) LOOP
+
+        v_partition_name := format('%s_%s', p_table_name,i);
+
+        v_sql := format('CREATE TABLE %s PARTITION OF %s FOR VALUES WITH(MODULUS %s, REMAINDER %s)', 
+        v_partition_name, p_table_name, hashCount, i);
+
+        EXECUTE v_sql;
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT create_tenant_partitions('operator',32);
 
 alter table operator add constraint name_unique unique(name,tenant_id) deferrable initially deferred ;
 
 insert into operator(id,tenant_id,name)values
 (1,10001,'fish'),
 (2,10001,'fish2'),
-(3,10002,'fish'),
-(4,10002,'fish2');
+(3,11002,'fish'),
+(4,11002,'fish2'),
+(55,20001,'fish55'),
+(56,20001,'fish56');
 
 /*user表启用row level*/
 alter table operator enable row level security;
@@ -51,3 +72,4 @@ create user t1 with password '123';
 GRANT ALL ON SCHEMA public TO t1; 
 GRANT ALL on TABLE operator to t1;
 GRANT ALL on TABLE config to t1;
+
