@@ -49,5 +49,4 @@ SELECT * FROM pg_policies;
 /* create user*/
 create user t1 with password '123';
 GRANT ALL ON SCHEMA public TO t1; 
-GRANT ALL on TABLE operator to t1;
-GRANT ALL on TABLE config to t1;
+GRANT ALL on ALL TABLES in SCHEMA public to t1;
