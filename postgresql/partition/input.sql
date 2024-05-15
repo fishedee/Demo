@@ -74,6 +74,10 @@ select * from student;
 
 \d+ student;
 
+/*https://zhuanlan.zhihu.com/p/117275290*/
+/*https://developer.aliyun.com/article/590356*/
+show enable_partition_pruning ;
+
 
 
 
