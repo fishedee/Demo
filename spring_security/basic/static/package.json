@@ -34,7 +34,7 @@
     "image-compressor.js": "^1.1.4",
     "load-script": "^1.0.0",
     "nzh": "^1.0.4",
-    "qs": "^6.6.0",
+    "qs": "^6.6.1",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "redva": "^1.1.3",
